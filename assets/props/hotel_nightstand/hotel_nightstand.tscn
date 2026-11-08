@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/assets/placeable_asset.gd" id="1_6d0fl"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_nightstand/hotel_nightstand_structure.res" id="2_iha5r"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_nightstand/hotel_nightstand_structure_lod1.res" id="3_ndysr"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_nightstand/hotel_nightstand_structure_lod2.res" id="4_hvtuc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rmivj"]
+size = Vector3(0.56, 0.66, 0.44)
+
+[node name="HotelNightstand" type="Node3D"]
+script = ExtResource("1_6d0fl")
+asset_id = "hotel_nightstand"
+display_name = "Table de nuit et lampe"
+footprint_cells = Vector3i(3, 5, 2)
+triangle_count = 1064
+vertex_count = 2128
+
+[node name="Structure" type="MeshInstance3D" parent="."]
+visibility_range_end = 12.0
+mesh = ExtResource("2_iha5r")
+
+[node name="Structure_LOD1" type="MeshInstance3D" parent="."]
+visibility_range_begin = 12.0
+visibility_range_end = 32.0
+mesh = ExtResource("3_ndysr")
+
+[node name="Structure_LOD2" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+visibility_range_begin = 32.0
+mesh = ExtResource("4_hvtuc")
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, 0.92, 0.21)
+light_color = Color(1, 0.760784, 0.478431, 1)
+light_energy = 1.5
+distance_fade_enabled = true
+distance_fade_begin = 28.0
+distance_fade_shadow = 14.0
+omni_range = 4.5
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Box1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.33, 0.22)
+shape = SubResource("BoxShape3D_rmivj")

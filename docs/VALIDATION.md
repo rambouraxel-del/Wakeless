@@ -1,0 +1,64 @@
+# Validation du prototype
+
+Environnement de contrôle : Linux sans carte graphique, **Godot 4.3-stable** (headless pour les tests ; rendu logiciel OpenGL
+sous Xvfb pour les captures). Tout est rejouable par `tools/check.sh` (tests) et `tools/shot.sh` (captures).
+
+## Tests effectivement exécutés (tous réussis)
+
+| Contrôle | Résultat |
+|---|---|
+| Import du projet (`godot --headless --import`) | aucune erreur |
+| Compilation des 50 scripts (`tools/check_scripts.gd`) | 50 / 50 |
+| `tests/run_checks.gd` (physique réelle, sans rendu) | **131 / 131** |
+| `tests/recette_transition.gd` (jeu complet avec l'autoload `App`) | **19 / 19** |
+
+**Ce que couvrent les 131 contrôles**
+- *Cœur voxel* : palette (clés uniques, matières ajoutées), mailleur (cube = 12 triangles, fusion), grilles, `VoxelBox`.
+- *Configuration* : échelle du joueur 1,50 m / yeux 1,41 m / rayon 0,25 m / FOV 76°, actions de saisie, préréglages d'éclairage
+  (ambiance lisible : ambiante ≥ 0,8 ; lune présente en forêt).
+- *Sauvegarde* : écriture, relecture, copie de secours `.bak` après corruption du fichier, effacement.
+- *Assets* : 38 assets cuits (scène + fiche), 17 instanciés, reconstruction conforme, `PropScatter`.
+- *Références* : tous les chemins `res://` de 137 fichiers (scripts, scènes, ressources, config) existent ; toutes les scènes se chargent ;
+  tous les scripts compilent.
+- *Indépendance et simplification* : aucun hasard ni bruit dans le code d'exécution ; aucune mention du dépôt Éclat ; dossiers de
+  génération (`world`, `map`, `profiles`, îles) absents.
+- *Niveaux (structure)* : racine `Level`, arrivées (`depart`, `retour_foret`), préréglage d'éclairage existant, fichiers cuits
+  présents **et à jour** (signature des boîtes / des images), portes → scène cible et arrivée existantes, budgets (architecture
+  < 40 000 triangles, ≤ 10 lumières à ombres au couloir, ≤ 4 en forêt, ≥ 60 arbres et ≥ 10 rochers posés à la main).
+- *Niveaux joués* : le joueur se pose au sol à l'arrivée, hauteur des yeux ; **caméra** (orientation, 3e personne par V, retour) ;
+  **marche** le long du couloir puis arrêt contre la porte du rêve ; murs nord et fond de chambre infranchissables ;
+  **interaction** (porte du rêve visée, invite lisible, porte fermée à clé → message, porte de la chambre s'ouvre) ; entrée dans la
+  chambre ; en forêt : altitude conforme au relief, **parcours complet du sentier** en courant (7 jalons, sans chute ni blocage),
+  mur invisible à l'est, porte de retour visée.
+
+**Recette jouée (19)** : le jeu démarre au Bureau des rêves ; E devant la porte → battant ouvert, commandes gelées, fondu,
+**forêt chargée comme scène distincte** (l'ancienne est déchargée), arrivée sur le point `depart`, joueur au sol, ambiance
+« Forêt · nuit » ; E devant la porte de retour → couloir rechargé, arrivée sur `retour_foret`, ambiance de l'hôtel ; pause et
+reprise ; la progression des deux niveaux est sauvegardée.
+
+## Rendu, éclairage, performances
+
+- **Captures** : `docs/captures/prototype/` (8 vues). Rendu logiciel en **mode de compatibilité OpenGL** : fidèle pour les
+  matières, la lune, les lumières ponctuelles et la brume, mais **sans** SSAO ni les réglages propres à Forward+ (le jeu vise
+  Forward+ sur Mac) : la mise au point finale de l'éclairage doit se juger sur Mac (voir limites).
+- **Budgets mesurés** : architecture du couloir et de la chambre 10 058 triangles (cuite : 270 Ko) ; relief de la forêt
+  176 000 triangles pour 80 × 80 m (cuit : 3 Mo, 169 blocs) ; arbres en 3 niveaux de détail (15 000 → 700 triangles).
+  Chargement : couloir ≈ 0,1 s, forêt ≈ 1 s (maillages cuits, aucune génération).
+- **Comptes de rendu par image** (rendu logiciel, ombres comprises) : couloir 235 000 – 500 000 primitives, 190 – 320 appels de dessin ;
+  forêt 0,7 – 3,3 M primitives, 80 – 780 appels de dessin selon la vue (le maximum quand de nombreux arbres complets sont dans le champ).
+  Ce sont des **ordres de grandeur** : les images par seconde réelles dépendent du GPU et doivent être mesurées sur Mac (F3).
+
+## Limites connues
+
+- **Pas de GPU ici** : ni images par seconde, ni rendu Forward+ (SSAO, glow, ombres de lune sur les arbres lointains) n'ont été
+  mesurés. À vérifier sur Mac : fluidité de la forêt (si besoin : `shadow_distance` du `Level`, nombre de lampadaires, `PropScatter`
+  pour les arbres lointains).
+- Le **ressenti** (échelle de 1,50 m, souris, vitesse de marche, confort du champ de vision) n'a pas pu être jugé à la main :
+  les déplacements sont vérifiés par pilote automatique (vraies collisions), pas à la souris.
+- De nuit, certaines **faces latérales du terrain** (contremarches d'herbe côté ombre) sont très sombres dans le rendu de
+  compatibilité ; à confirmer en Forward+ (sinon : relever `ambient_energy` de `foret_nuit`).
+- Les étoiles du ciel (héritées d'Éclat) sont de gros pixels carrés : voulu par le style, réglable dans `sky_clouds.gdshader`.
+- La **chambre** est volontairement simple (lit, tables de nuit, armoire, fauteuil) : un seul préréglage d'éclairage pour tout
+  l'étage ; la porte de chambre s'ouvre et reste ouverte (pas de refermeture, pour ne jamais enfermer le joueur).
+- Les six portes du couloir fermées à clé sont du décor (message « Fermée à clé. »), sans contenu derrière.
+- `main` n'existe pas encore sur Wakeless : tout est sur la branche `claude/bootstrap-wakeless`, rien n'est fusionné.

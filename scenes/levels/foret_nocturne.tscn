@@ -1,0 +1,1371 @@
+[gd_scene load_steps=51 format=3]
+
+[ext_resource type="Script" path="res://scripts/level/level.gd" id="1_42ggp"]
+[ext_resource type="Script" path="res://scripts/terrain/heightmap_terrain.gd" id="2_mc8wj"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_pine_1/tree_pine_1.tscn" id="3_68xsb"]
+[ext_resource type="Script" path="res://scripts/assets/placeable_asset.gd" id="4_ks7vq"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_pine_2/tree_pine_2.tscn" id="5_5ol4u"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_oak_1/tree_oak_1.tscn" id="6_hb6li"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_oak_2/tree_oak_2.tscn" id="7_aok7l"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_oak_3/tree_oak_3.tscn" id="8_0kmaw"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_birch_1/tree_birch_1.tscn" id="9_6842j"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_birch_2/tree_birch_2.tscn" id="10_myusu"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_weeping_1/tree_weeping_1.tscn" id="11_goe60"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_weeping_2/tree_weeping_2.tscn" id="12_24eis"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_parasol_1/tree_parasol_1.tscn" id="13_83wrh"]
+[ext_resource type="PackedScene" path="res://assets/props/tree_parasol_2/tree_parasol_2.tscn" id="14_g6dja"]
+[ext_resource type="PackedScene" path="res://assets/props/boulder_2/boulder_2.tscn" id="15_32sup"]
+[ext_resource type="PackedScene" path="res://assets/props/boulder_1/boulder_1.tscn" id="16_vxig7"]
+[ext_resource type="PackedScene" path="res://assets/props/boulder_3/boulder_3.tscn" id="17_v8eo3"]
+[ext_resource type="PackedScene" path="res://assets/props/boulder_4/boulder_4.tscn" id="18_ursec"]
+[ext_resource type="PackedScene" path="res://assets/props/crystal_lamp/crystal_lamp.tscn" id="19_xows0"]
+[ext_resource type="PackedScene" path="res://assets/props/crystal_cluster/crystal_cluster.tscn" id="20_f7bbg"]
+[ext_resource type="PackedScene" path="res://assets/props/ruin_arch/ruin_arch.tscn" id="21_3abmi"]
+[ext_resource type="PackedScene" path="res://assets/props/ruin_column/ruin_column.tscn" id="22_s48up"]
+[ext_resource type="PackedScene" path="res://assets/props/decorative_bench/decorative_bench.tscn" id="23_bqgo8"]
+[ext_resource type="PackedScene" path="res://assets/props/brazier/brazier.tscn" id="24_vlp1f"]
+[ext_resource type="PackedScene" path="res://assets/props/shrine_marker/shrine_marker.tscn" id="25_agcnb"]
+[ext_resource type="Script" path="res://scripts/level/scene_door.gd" id="26_03bj5"]
+
+[sub_resource type="Curve" id="Curve_gotx0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_esloh"]
+curve = SubResource("Curve_gotx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhswa"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 1.2, 7)
+direction = Vector3(0.3, 0.4, 0.1)
+spread = 180.0
+initial_velocity_min = 0.12
+initial_velocity_max = 0.45
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_esloh")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ek8j1"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.85, 1, 0.45, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_lnllb"]
+material = SubResource("StandardMaterial3D_ek8j1")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="Curve" id="Curve_mp24q"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ths3r"]
+curve = SubResource("Curve_mp24q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nsg6k"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 1.2, 7)
+direction = Vector3(0.3, 0.4, 0.1)
+spread = 180.0
+initial_velocity_min = 0.12
+initial_velocity_max = 0.45
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_ths3r")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djmnc"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.85, 1, 0.45, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_h05r1"]
+material = SubResource("StandardMaterial3D_djmnc")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="Curve" id="Curve_yi6fr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_410di"]
+curve = SubResource("Curve_yi6fr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p5sbu"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 1.2, 7)
+direction = Vector3(0.3, 0.4, 0.1)
+spread = 180.0
+initial_velocity_min = 0.12
+initial_velocity_max = 0.45
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_410di")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13eyv"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.85, 1, 0.45, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_mxqu5"]
+material = SubResource("StandardMaterial3D_13eyv")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="Curve" id="Curve_q2wj3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_820xq"]
+curve = SubResource("Curve_q2wj3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rsy2c"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 1.2, 7)
+direction = Vector3(0.3, 0.4, 0.1)
+spread = 180.0
+initial_velocity_min = 0.12
+initial_velocity_max = 0.45
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_820xq")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6gyw"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.85, 1, 0.45, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_867gd"]
+material = SubResource("StandardMaterial3D_j6gyw")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hsk7b"]
+size = Vector3(82, 40, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2aibs"]
+size = Vector3(82, 40, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkcyu"]
+size = Vector3(1, 40, 82)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0s48n"]
+size = Vector3(1, 40, 82)
+
+[node name="ForetNocturne" type="Node3D"]
+script = ExtResource("1_42ggp")
+level_id = "foret-nocturne"
+level_title = "La forêt de l'autre côté"
+level_subtitle = "Nuit"
+lighting_preset = "foret_nuit"
+default_spawn = "depart"
+interior = false
+first_person = true
+show_controls_hint = false
+kill_y = -8.0
+
+[node name="Relief" type="Node3D" parent="."]
+script = ExtResource("2_mc8wj")
+height_map = "res://maps/foret/relief.png"
+paint_map = "res://maps/foret/peinture.png"
+max_height_m = 10.2
+baked_path = "res://scenes/levels/data/foret_terrain.scn"
+baked_signature = "10ac1175"
+recuire = false
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="depart" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.45, 2.4)
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="Arbres" type="Node3D" parent="Decor"]
+
+[node name="TreePine1" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.03366, 0, 0.376222, 0, 1.1, 0, -0.376222, 0, 1.03366, -7.10174, 0.75, -10.9464)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="TreePine2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, -0.766044, 5.27116, 0.75, -7.40057)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.310583, 0, 1.15911, 0, 1.2, 0, -1.15911, 0, 0.310583, -13.2333, 1.35, -11.1332)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@3" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.03366, 0, -0.376222, 0, 1.1, 0, 0.376222, 0, -1.03366, 12.1017, 0.95, -14.5536)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@4" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, -15.7288, 1.95, -11.0994)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@5" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 10.3056, 1.35, -10.5556)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@6" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.410424, 0, -1.12763, 0, 1.2, 0, 1.12763, 0, -0.410424, -2.61628, 0.55, -20.5779)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@7" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.0958713, 0, 1.09581, 0, 1.1, 0, -1.09581, 0, -0.0958713, -0.199874, 1.35, -19.3783)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@8" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, -0.984808, -11.2154, 0.95, -20.4514)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@9" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(1.03923, 0, -0.6, 0, 1.2, 0, 0.6, 0, 1.03923, 7.03369, 2.55, -31.6063)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@10" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.55, 0, 0.952628, 0, 1.1, 0, -0.952628, 0, 0.55, -25.3058, 0.55, -17.1142)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@11" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, -0.766044, 1.09943, 4.15, -30.7288)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@12" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.55, 0, 0.952628, 0, 1.1, 0, -0.952628, 0, -0.55, -26.8858, 1.55, -5.69422)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@13" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 18.2, 2.75, -33.2)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@14" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.03923, 0, 0.6, 0, 1.2, 0, -0.6, 0, 1.03923, -21.6063, 3.95, -30.9663)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="TreeOak1" type="Node3D" parent="Decor/Arbres" instance=ExtResource("6_hb6li")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, -17.4944, 0.95, -17.4807)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_1"
+display_name = "Chêne 1"
+footprint_cells = Vector3i(39, 19, 39)
+triangle_count = 38718
+vertex_count = 77436
+
+[node name="TreeOak2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("7_aok7l")]
+transform = Transform3D(-0.996195, 0, -0.0871558, 0, 1, 0, 0.0871558, 0, -0.996195, 14.7917, 0.55, -17.8184)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_2"
+display_name = "Chêne 2"
+footprint_cells = Vector3i(35, 22, 35)
+triangle_count = 41866
+vertex_count = 83732
+
+[node name="TreeOak3" type="Node3D" parent="Decor/Arbres" instance=ExtResource("8_0kmaw")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.390897, 0.95, -19.6909)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_3"
+display_name = "Chêne 3"
+footprint_cells = Vector3i(38, 23, 38)
+triangle_count = 49084
+vertex_count = 98168
+
+[node name="TreeBirch1" type="Node3D" parent="Decor/Arbres" instance=ExtResource("9_6842j")]
+transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, -10.1278, 1.15, -28.1901)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_1"
+display_name = "Bouleau 1"
+footprint_cells = Vector3i(27, 32, 27)
+triangle_count = 17712
+vertex_count = 35424
+
+[node name="TreeBirch2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("10_myusu")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 4.73205, 0.75, -14.2679)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_2"
+display_name = "Bouleau 2"
+footprint_cells = Vector3i(20, 30, 20)
+triangle_count = 12842
+vertex_count = 25684
+
+[node name="@Node3D@15" type="Node3D" parent="Decor/Arbres" instance=ExtResource("9_6842j")]
+transform = Transform3D(-0.642788, 0, -0.766045, 0, 1, 0, 0.766045, 0, -0.642788, -16.1962, 0.95, -14.3328)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_1"
+display_name = "Bouleau 1"
+footprint_cells = Vector3i(27, 32, 27)
+triangle_count = 17712
+vertex_count = 35424
+
+[node name="@Node3D@16" type="Node3D" parent="Decor/Arbres" instance=ExtResource("10_myusu")]
+transform = Transform3D(0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, 0.173648, 11.6831, 1.35, -23.3777)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_2"
+display_name = "Bouleau 2"
+footprint_cells = Vector3i(20, 30, 20)
+triangle_count = 12842
+vertex_count = 25684
+
+[node name="@Node3D@17" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.191013, 0, 1.08329, 0, 1.1, 0, -1.08329, 0, -0.191013, -10.963, 0.75, 4.80346)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@18" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -14.9236, 0.55, 5.93588)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@19" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-1.18177, 0, -0.208378, 0, 1.2, 0, 0.208378, 0, -1.18177, -13.9417, 0.55, 3.14146)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@20" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(1.03366, 0, -0.376222, 0, 1.1, 0, 0.376222, 0, 1.03366, -25.4464, 0.55, 1.89825)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@21" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.34202, 0, 0.939693, 0, 1, 0, -0.939693, 0, 0.34202, -31.8198, 3.75, -0.685121)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@22" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.03366, 0, 0.376222, 0, 1.1, 0, -0.376222, 0, -1.03366, -19.5536, 0.75, -2.89825)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@23" type="Node3D" parent="Decor/Arbres" instance=ExtResource("6_hb6li")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -4.6725, 0.95, 12.4275)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_1"
+display_name = "Chêne 1"
+footprint_cells = Vector3i(39, 19, 39)
+triangle_count = 38718
+vertex_count = 77436
+
+[node name="@Node3D@24" type="Node3D" parent="Decor/Arbres" instance=ExtResource("7_aok7l")]
+transform = Transform3D(-4.80825e-08, 0, 1.1, 0, 1.1, 0, -1.1, 0, -4.80825e-08, -29.85, 1.15, 13.85)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_2"
+display_name = "Chêne 2"
+footprint_cells = Vector3i(35, 22, 35)
+triangle_count = 41866
+vertex_count = 83732
+
+[node name="@Node3D@25" type="Node3D" parent="Decor/Arbres" instance=ExtResource("9_6842j")]
+transform = Transform3D(0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, 0.642788, -18.8038, 0.95, 12.3328)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_1"
+display_name = "Bouleau 1"
+footprint_cells = Vector3i(27, 32, 27)
+triangle_count = 17712
+vertex_count = 35424
+
+[node name="@Node3D@26" type="Node3D" parent="Decor/Arbres" instance=ExtResource("10_myusu")]
+transform = Transform3D(0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, 0.173648, -17.3777, 0.75, 2.68309)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_2"
+display_name = "Bouleau 2"
+footprint_cells = Vector3i(20, 30, 20)
+triangle_count = 12842
+vertex_count = 25684
+
+[node name="@Node3D@27" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.707066, 0, 0.842649, 0, 1.1, 0, -0.842649, 0, -0.707066, -8.29828, 0.75, 17.4094)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@28" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -11.3056, 0.75, 17.4444)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@29" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.19543, 0, 0.104587, 0, 1.2, 0, -0.104587, 0, 1.19543, -8.86005, 1.55, 19.6001)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@30" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.09581, 0, 0.0958712, 0, 1.1, 0, -0.0958712, 0, -1.09581, -17.8001, 0.75, 24.6217)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@31" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -11, 1.75, 23.8887)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@32" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.848528, 0, 0.848528, 0, 1.2, 0, -0.848528, 0, 0.848528, -28.7335, 1.55, 18)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@33" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, -0.906308, -0.0763626, 2.55, 29.0641)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@34" type="Node3D" parent="Decor/Arbres" instance=ExtResource("8_0kmaw")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -18.3909, 1.95, 31.1909)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_3"
+display_name = "Chêne 3"
+footprint_cells = Vector3i(38, 23, 38)
+triangle_count = 49084
+vertex_count = 98168
+
+[node name="@Node3D@35" type="Node3D" parent="Decor/Arbres" instance=ExtResource("6_hb6li")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, -3.38639, 0.75, 13.8172)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_1"
+display_name = "Chêne 1"
+footprint_cells = Vector3i(39, 19, 39)
+triangle_count = 38718
+vertex_count = 77436
+
+[node name="@Node3D@36" type="Node3D" parent="Decor/Arbres" instance=ExtResource("9_6842j")]
+transform = Transform3D(0.422618, 0, 0.906308, 0, 1, 0, -0.906308, 0, 0.422618, -12.5881, 1.15, 21.306)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_1"
+display_name = "Bouleau 1"
+footprint_cells = Vector3i(27, 32, 27)
+triangle_count = 17712
+vertex_count = 35424
+
+[node name="@Node3D@37" type="Node3D" parent="Decor/Arbres" instance=ExtResource("10_myusu")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -19.268, 1.55, 13.2679)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_2"
+display_name = "Bouleau 2"
+footprint_cells = Vector3i(20, 30, 20)
+triangle_count = 12842
+vertex_count = 25684
+
+[node name="@Node3D@38" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.0958714, 0, 1.09581, 0, 1.1, 0, -1.09581, 0, 0.0958714, 1.37829, 1.15, 28.1999)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@39" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 12.6944, 1.95, 29.5556)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@40" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.12763, 0, 0.410424, 0, 1.2, 0, -0.410424, 0, 1.12763, -1.38372, 3.75, 29.4221)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@41" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.55, 0, -0.952628, 0, 1.1, 0, 0.952628, 0, 0.55, 15.8858, 3.75, 26.6942)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@42" type="Node3D" parent="Decor/Arbres" instance=ExtResource("7_aok7l")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 8.28109, 0.75, 29.7811)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_2"
+display_name = "Chêne 2"
+footprint_cells = Vector3i(35, 22, 35)
+triangle_count = 41866
+vertex_count = 83732
+
+[node name="@Node3D@43" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(-0.376222, 0, 1.03366, 0, 1.1, 0, -1.03366, 0, -0.376222, 17.5536, 2.35, 30.1017)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@44" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-0.573576, 0, -0.819152, 0, 1, 0, 0.819152, 0, -0.573576, 28.064, 3.55, 24.4597)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@45" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.19543, 0, -0.104587, 0, 1.2, 0, 0.104587, 0, 1.19543, 28.6001, 5.35, 18.14)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@46" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 8.99474, 1.55, 17.8053)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@47" type="Node3D" parent="Decor/Arbres" instance=ExtResource("9_6842j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.8, 2.15, 29.7)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_1"
+display_name = "Bouleau 1"
+footprint_cells = Vector3i(27, 32, 27)
+triangle_count = 17712
+vertex_count = 35424
+
+[node name="@Node3D@48" type="Node3D" parent="Decor/Arbres" instance=ExtResource("8_0kmaw")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 22.8, 0.75, 9.2)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_3"
+display_name = "Chêne 3"
+footprint_cells = Vector3i(38, 23, 38)
+triangle_count = 49084
+vertex_count = 98168
+
+[node name="@Node3D@49" type="Node3D" parent="Decor/Arbres" instance=ExtResource("6_hb6li")]
+transform = Transform3D(-0.842649, 0, 0.707066, 0, 1.1, 0, -0.707066, 0, -0.842649, 31.5288, 4.55, 21.0439)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_1"
+display_name = "Chêne 1"
+footprint_cells = Vector3i(39, 19, 39)
+triangle_count = 38718
+vertex_count = 77436
+
+[node name="@Node3D@50" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.03366, 0, -0.376222, 0, 1.1, 0, 0.376222, 0, -1.03366, 37.1017, 5.95, 11.4464)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@51" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 29.3056, 4.55, -3.55563)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@52" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(0.688292, 0, -0.982983, 0, 1.2, 0, 0.982983, 0, 0.688292, 35.6483, 5.55, -11.6768)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@53" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 26.3056, 2.55, -11.9444)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@54" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.06252, 0, 0.284701, 0, 1.1, 0, -0.284701, 0, -1.06252, 24.7112, 0.55, 0.463883)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@55" type="Node3D" parent="Decor/Arbres" instance=ExtResource("7_aok7l")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, 29.0691, 5.55, 0.568601)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_2"
+display_name = "Chêne 2"
+footprint_cells = Vector3i(35, 22, 35)
+triangle_count = 41866
+vertex_count = 83732
+
+[node name="@Node3D@56" type="Node3D" parent="Decor/Arbres" instance=ExtResource("8_0kmaw")]
+transform = Transform3D(-0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, -0.34202, 24.8705, 0.75, -10.7712)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_oak_3"
+display_name = "Chêne 3"
+footprint_cells = Vector3i(38, 23, 38)
+triangle_count = 49084
+vertex_count = 98168
+
+[node name="@Node3D@57" type="Node3D" parent="Decor/Arbres" instance=ExtResource("10_myusu")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 32.7679, 5.15, 8.73205)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_birch_2"
+display_name = "Bouleau 2"
+footprint_cells = Vector3i(20, 30, 20)
+triangle_count = 12842
+vertex_count = 25684
+
+[node name="@Node3D@58" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(1.08329, 0, 0.191013, 0, 1.1, 0, -0.191013, 0, 1.08329, 26.1965, 3.35, -21.963)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="@Node3D@59" type="Node3D" parent="Decor/Arbres" instance=ExtResource("5_5ol4u")]
+transform = Transform3D(-1.2, 0, -1.04907e-07, 0, 1.2, 0, 1.04907e-07, 0, -1.2, 33.64, 5.95, -25.36)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_2"
+display_name = "Pin 2"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 14616
+vertex_count = 29232
+
+[node name="@Node3D@60" type="Node3D" parent="Decor/Arbres" instance=ExtResource("3_68xsb")]
+transform = Transform3D(0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, 0.34202, 15.3149, 2.15, -14.8198)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_pine_1"
+display_name = "Pin 1"
+footprint_cells = Vector3i(22, 33, 22)
+triangle_count = 15482
+vertex_count = 30964
+
+[node name="TreeWeeping1" type="Node3D" parent="Decor/Arbres" instance=ExtResource("11_goe60")]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 12.0394, 1.55, -23.6137)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_weeping_1"
+display_name = "Saule pleureur 1"
+footprint_cells = Vector3i(27, 22, 27)
+triangle_count = 40088
+vertex_count = 80176
+
+[node name="TreeWeeping2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("12_24eis")]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, 30.0539, 1.95, -19.6675)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_weeping_2"
+display_name = "Saule pleureur 2"
+footprint_cells = Vector3i(26, 26, 26)
+triangle_count = 39584
+vertex_count = 79168
+
+[node name="@Node3D@61" type="Node3D" parent="Decor/Arbres" instance=ExtResource("11_goe60")]
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 18.3328, 2.15, -35.8038)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_weeping_1"
+display_name = "Saule pleureur 1"
+footprint_cells = Vector3i(27, 22, 27)
+triangle_count = 40088
+vertex_count = 80176
+
+[node name="@Node3D@62" type="Node3D" parent="Decor/Arbres" instance=ExtResource("12_24eis")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 24.4, 2.15, -28.4)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_weeping_2"
+display_name = "Saule pleureur 2"
+footprint_cells = Vector3i(26, 26, 26)
+triangle_count = 39584
+vertex_count = 79168
+
+[node name="TreeParasol1" type="Node3D" parent="Decor/Arbres" instance=ExtResource("13_83wrh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.95, 5.6)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_1"
+display_name = "Arbre parasol 1"
+footprint_cells = Vector3i(34, 27, 34)
+triangle_count = 28970
+vertex_count = 57940
+
+[node name="TreeParasol2" type="Node3D" parent="Decor/Arbres" instance=ExtResource("14_g6dja")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.3, 0.95, -9.8)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_2"
+display_name = "Arbre parasol 2"
+footprint_cells = Vector3i(37, 30, 37)
+triangle_count = 40578
+vertex_count = 81156
+
+[node name="@Node3D@63" type="Node3D" parent="Decor/Arbres" instance=ExtResource("13_83wrh")]
+transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, -19.6422, 1.15, -17.9679)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_1"
+display_name = "Arbre parasol 1"
+footprint_cells = Vector3i(34, 27, 34)
+triangle_count = 28970
+vertex_count = 57940
+
+[node name="@Node3D@64" type="Node3D" parent="Decor/Arbres" instance=ExtResource("14_g6dja")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16.7674, 4.75, 30)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_2"
+display_name = "Arbre parasol 2"
+footprint_cells = Vector3i(37, 30, 37)
+triangle_count = 40578
+vertex_count = 81156
+
+[node name="@Node3D@65" type="Node3D" parent="Decor/Arbres" instance=ExtResource("13_83wrh")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 37.4, 5.55, -19.4)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_1"
+display_name = "Arbre parasol 1"
+footprint_cells = Vector3i(34, 27, 34)
+triangle_count = 28970
+vertex_count = 57940
+
+[node name="@Node3D@66" type="Node3D" parent="Decor/Arbres" instance=ExtResource("14_g6dja")]
+transform = Transform3D(-0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, -0.642788, -31.4561, 3.95, 20.2127)
+script = ExtResource("4_ks7vq")
+asset_id = "tree_parasol_2"
+display_name = "Arbre parasol 2"
+footprint_cells = Vector3i(37, 30, 37)
+triangle_count = 40578
+vertex_count = 81156
+
+[node name="Rochers" type="Node3D" parent="Decor"]
+
+[node name="Boulder2" type="Node3D" parent="Decor/Rochers" instance=ExtResource("15_32sup")]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -17.8198, 2.1, -12.3149)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_2"
+display_name = "Rocher"
+footprint_cells = Vector3i(22, 14, 22)
+triangle_count = 13468
+vertex_count = 26936
+
+[node name="Boulder1" type="Node3D" parent="Decor/Rochers" instance=ExtResource("16_vxig7")]
+transform = Transform3D(-0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, -0.173648, -14.2979, 2.3, -7.14647)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_1"
+display_name = "Rocher"
+footprint_cells = Vector3i(16, 11, 16)
+triangle_count = 5392
+vertex_count = 10784
+
+[node name="Boulder3" type="Node3D" parent="Decor/Rochers" instance=ExtResource("17_v8eo3")]
+transform = Transform3D(-0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, -0.34202, -14.9619, 1.7, -9.21721)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_3"
+display_name = "Rocher"
+footprint_cells = Vector3i(12, 9, 12)
+triangle_count = 1378
+vertex_count = 2756
+
+[node name="@Node3D@67" type="Node3D" parent="Decor/Rochers" instance=ExtResource("17_v8eo3")]
+transform = Transform3D(0.34202, 0, 0.939693, 0, 1, 0, -0.939693, 0, 0.34202, -8.03806, 1.1, -1.28279)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_3"
+display_name = "Rocher"
+footprint_cells = Vector3i(12, 9, 12)
+triangle_count = 1378
+vertex_count = 2756
+
+[node name="@Node3D@68" type="Node3D" parent="Decor/Rochers" instance=ExtResource("16_vxig7")]
+transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, 8.85074, 0.9, -3.04372)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_1"
+display_name = "Rocher"
+footprint_cells = Vector3i(16, 11, 16)
+triangle_count = 5392
+vertex_count = 10784
+
+[node name="@Node3D@69" type="Node3D" parent="Decor/Rochers" instance=ExtResource("17_v8eo3")]
+transform = Transform3D(-0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, -0.642788, 4.85209, 0.5, 15.6906)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_3"
+display_name = "Rocher"
+footprint_cells = Vector3i(12, 9, 12)
+triangle_count = 1378
+vertex_count = 2756
+
+[node name="@Node3D@70" type="Node3D" parent="Decor/Rochers" instance=ExtResource("16_vxig7")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 9.91436, 0.7, 22.3144)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_1"
+display_name = "Rocher"
+footprint_cells = Vector3i(16, 11, 16)
+triangle_count = 5392
+vertex_count = 10784
+
+[node name="Boulder4" type="Node3D" parent="Decor/Rochers" instance=ExtResource("18_ursec")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, 15.0553, 1.7, -28.8451)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_4"
+display_name = "Rocher"
+footprint_cells = Vector3i(28, 17, 28)
+triangle_count = 17238
+vertex_count = 34476
+
+[node name="@Node3D@71" type="Node3D" parent="Decor/Rochers" instance=ExtResource("16_vxig7")]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, 27.4563, 1.7, -19.9493)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_1"
+display_name = "Rocher"
+footprint_cells = Vector3i(16, 11, 16)
+triangle_count = 5392
+vertex_count = 10784
+
+[node name="@Node3D@72" type="Node3D" parent="Decor/Rochers" instance=ExtResource("15_32sup")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 18.5556, 1.7, -30.1944)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_2"
+display_name = "Rocher"
+footprint_cells = Vector3i(22, 14, 22)
+triangle_count = 13468
+vertex_count = 26936
+
+[node name="@Node3D@73" type="Node3D" parent="Decor/Rochers" instance=ExtResource("18_ursec")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 28.2, 3.7, -1.2)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_4"
+display_name = "Rocher"
+footprint_cells = Vector3i(28, 17, 28)
+triangle_count = 17238
+vertex_count = 34476
+
+[node name="@Node3D@74" type="Node3D" parent="Decor/Rochers" instance=ExtResource("15_32sup")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 35.0053, 4.3, -5.69474)
+script = ExtResource("4_ks7vq")
+asset_id = "boulder_2"
+display_name = "Rocher"
+footprint_cells = Vector3i(22, 14, 22)
+triangle_count = 13468
+vertex_count = 26936
+
+[node name="Lampadaires" type="Node3D" parent="Decor"]
+
+[node name="CrystalLamp" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(0.316228, 0, -0.948683, 0, 1, 0, 0.948683, 0, 0.316228, 1.95811, 0.78, 9.52566)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@75" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6.42929, 0.58, 16.505)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@76" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(0.919145, 0, 0.393919, 0, 1, 0, -0.393919, 0, 0.919145, 13.5142, 0.98, 19.6818)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@77" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(-0.650791, 0, -0.759257, 0, 1, 0, 0.759257, 0, -0.650791, 23.9881, 0.78, 16.8915)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@78" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(-0.242536, 0, -0.970142, 0, 1, 0, 0.970142, 0, -0.242536, 28.8881, 2.38, 7.6847)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@79" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(-0.287348, 0, 0.957826, 0, 1, 0, -0.957826, 0, -0.287348, 24.3276, 0.78, -3.53066)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@80" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(-0.447214, 0, 0.894427, 0, 1, 0, -0.894427, 0, -0.447214, 20.9106, 1.58, -12.0081)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="@Node3D@81" type="Node3D" parent="Decor/Lampadaires" instance=ExtResource("19_xows0")]
+transform = Transform3D(-0.141421, 0, 0.98995, 0, 1, 0, -0.98995, 0, -0.141421, 19.1596, 1.78, -19.0616)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_lamp"
+display_name = "Lampadaire à éclat"
+footprint_cells = Vector3i(4, 14, 3)
+triangle_count = 4966
+vertex_count = 9932
+
+[node name="Cristaux" type="Node3D" parent="Decor"]
+
+[node name="CrystalCluster" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 23.0438, 1.75, -26.2562)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="@Node3D@82" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, 19.6972, 1.75, -23.0816)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="@Node3D@83" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, 0.173648, -18.3109, 1.15, -3.43219)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="@Node3D@84" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 11.5863, 0.75, -7.48618)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="@Node3D@85" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, -7.74378, 0.75, 8.45622)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="@Node3D@86" type="Node3D" parent="Decor/Cristaux" instance=ExtResource("20_f7bbg")]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 4.1028, 0.75, 22.5816)
+script = ExtResource("4_ks7vq")
+asset_id = "crystal_cluster"
+display_name = "Amas de cristaux"
+footprint_cells = Vector3i(7, 9, 7)
+triangle_count = 21422
+vertex_count = 42844
+
+[node name="Ruines" type="Node3D" parent="Decor"]
+
+[node name="RuinArch" type="Node3D" parent="Decor/Ruines" instance=ExtResource("21_3abmi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4, 1.75, -26.4)
+script = ExtResource("4_ks7vq")
+asset_id = "ruin_arch"
+display_name = "Arche en ruine"
+footprint_cells = Vector3i(16, 15, 4)
+triangle_count = 31064
+vertex_count = 62128
+
+[node name="RuinColumn" type="Node3D" parent="Decor/Ruines" instance=ExtResource("22_s48up")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1.75, -25.5)
+script = ExtResource("4_ks7vq")
+asset_id = "ruin_column"
+display_name = "Colonne en ruine"
+footprint_cells = Vector3i(5, 14, 5)
+triangle_count = 9898
+vertex_count = 19796
+
+[node name="@Node3D@87" type="Node3D" parent="Decor/Ruines" instance=ExtResource("22_s48up")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26, 1.75, -24.5)
+script = ExtResource("4_ks7vq")
+asset_id = "ruin_column"
+display_name = "Colonne en ruine"
+footprint_cells = Vector3i(5, 14, 5)
+triangle_count = 9898
+vertex_count = 19796
+
+[node name="@Node3D@88" type="Node3D" parent="Decor/Ruines" instance=ExtResource("22_s48up")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.5, 1.75, -29)
+script = ExtResource("4_ks7vq")
+asset_id = "ruin_column"
+display_name = "Colonne en ruine"
+footprint_cells = Vector3i(5, 14, 5)
+triangle_count = 9898
+vertex_count = 19796
+
+[node name="@Node3D@89" type="Node3D" parent="Decor/Ruines" instance=ExtResource("22_s48up")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 25, 1.75, -30.5)
+script = ExtResource("4_ks7vq")
+asset_id = "ruin_column"
+display_name = "Colonne en ruine"
+footprint_cells = Vector3i(5, 14, 5)
+triangle_count = 9898
+vertex_count = 19796
+
+[node name="DecorativeBench" type="Node3D" parent="Decor/Ruines" instance=ExtResource("23_bqgo8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 22.9, 1.75, -20.7)
+script = ExtResource("4_ks7vq")
+asset_id = "decorative_bench"
+display_name = "Banc décoratif"
+footprint_cells = Vector3i(9, 5, 3)
+triangle_count = 5872
+vertex_count = 11744
+
+[node name="Brazier" type="Node3D" parent="Decor/Ruines" instance=ExtResource("24_vlp1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1, 1.75, -21)
+script = ExtResource("4_ks7vq")
+asset_id = "brazier"
+display_name = "Brasero rituel"
+footprint_cells = Vector3i(4, 8, 4)
+triangle_count = 11184
+vertex_count = 22368
+
+[node name="@Node3D@90" type="Node3D" parent="Decor/Ruines" instance=ExtResource("24_vlp1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1, 1.75, -21)
+script = ExtResource("4_ks7vq")
+asset_id = "brazier"
+display_name = "Brasero rituel"
+footprint_cells = Vector3i(4, 8, 4)
+triangle_count = 11184
+vertex_count = 22368
+
+[node name="ShrineMarker" type="Node3D" parent="Decor/Ruines" instance=ExtResource("25_agcnb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, 1.75, -24.6)
+script = ExtResource("4_ks7vq")
+asset_id = "shrine_marker"
+display_name = "Sanctuaire"
+footprint_cells = Vector3i(6, 12, 6)
+triangle_count = 19194
+vertex_count = 38388
+
+[node name="Lucioles_sentier_sud" type="GPUParticles3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.6, 17)
+cast_shadow = 0
+amount = 36
+lifetime = 9.0
+preprocess = 9.0
+visibility_aabb = AABB(-9, -3, -9, 18, 6, 18)
+process_material = SubResource("ParticleProcessMaterial_bhswa")
+draw_pass_1 = SubResource("QuadMesh_lnllb")
+
+[node name="Lucioles_sentier_est" type="GPUParticles3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 2, 2)
+cast_shadow = 0
+amount = 36
+lifetime = 9.0
+preprocess = 9.0
+visibility_aabb = AABB(-9, -3, -9, 18, 6, 18)
+process_material = SubResource("ParticleProcessMaterial_nsg6k")
+draw_pass_1 = SubResource("QuadMesh_h05r1")
+
+[node name="Lucioles_clairiere" type="GPUParticles3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+cast_shadow = 0
+amount = 36
+lifetime = 9.0
+preprocess = 9.0
+visibility_aabb = AABB(-9, -3, -9, 18, 6, 18)
+process_material = SubResource("ParticleProcessMaterial_p5sbu")
+draw_pass_1 = SubResource("QuadMesh_mxqu5")
+
+[node name="Lucioles_ruines" type="GPUParticles3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.8, -24)
+cast_shadow = 0
+amount = 36
+lifetime = 9.0
+preprocess = 9.0
+visibility_aabb = AABB(-9, -3, -9, 18, 6, 18)
+process_material = SubResource("ParticleProcessMaterial_rsy2c")
+draw_pass_1 = SubResource("QuadMesh_867gd")
+
+[node name="Limites" type="Node3D" parent="."]
+
+[node name="MursInvisibles" type="StaticBody3D" parent="Limites"]
+
+[node name="nord" type="CollisionShape3D" parent="Limites/MursInvisibles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -40.5)
+shape = SubResource("BoxShape3D_hsk7b")
+
+[node name="sud" type="CollisionShape3D" parent="Limites/MursInvisibles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 40.5)
+shape = SubResource("BoxShape3D_2aibs")
+
+[node name="ouest" type="CollisionShape3D" parent="Limites/MursInvisibles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 10, 0)
+shape = SubResource("BoxShape3D_pkcyu")
+
+[node name="est" type="CollisionShape3D" parent="Limites/MursInvisibles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 10, 0)
+shape = SubResource("BoxShape3D_0s48n")
+
+[node name="Lumieres" type="Node3D" parent="."]
+
+[node name="porte_reve" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 1)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 2.4
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 9.0
+
+[node name="ruines_cristal" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3.4, -26)
+light_color = Color(0.45, 0.8, 1, 1)
+light_energy = 2.4
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 9.0
+
+[node name="brasero_g" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 2.8, -20.6)
+light_color = Color(1, 0.62, 0.3, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 7.0
+
+[node name="brasero_d" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 2.8, -20.6)
+light_color = Color(1, 0.62, 0.3, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 7.0
+
+[node name="lueur_24_-26" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.6, -26)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="lueur_19_-24" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8, 2.6, -23.5)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="lueur_-18_-4" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2, -4)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="lueur_12_-7" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1.6, -6.5)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="lueur_-8_8" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.6, 7.5)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="lueur_5_23" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.6, 23)
+light_color = Color(0.5, 0.85, 1, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+
+[node name="Portes" type="Node3D" parent="."]
+
+[node name="Porte_du_reve" type="Node3D" parent="Portes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, 0)
+script = ExtResource("26_03bj5")
+target_scene = "res://scenes/levels/bureau_couloir.tscn"
+target_spawn = "retour_foret"
+locked = false
+locked_message = "Fermée à clé."
+look = 1
+leaf_width = 1.2
+leaf_height = 2.4
+build_frame = true
+open_angle_deg = 100.0
+portal_glow = true
+prompt = "Retourner au Bureau des rêves"
+reach = 2.8
+enabled = true

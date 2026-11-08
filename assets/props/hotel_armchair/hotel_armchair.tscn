@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/assets/placeable_asset.gd" id="1_ek7hj"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_armchair/hotel_armchair_structure.res" id="2_nkdp8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l685f"]
+size = Vector3(0.82, 0.82, 0.82)
+
+[node name="HotelArmchair" type="Node3D"]
+script = ExtResource("1_ek7hj")
+asset_id = "hotel_armchair"
+display_name = "Fauteuil"
+footprint_cells = Vector3i(4, 5, 4)
+triangle_count = 464
+vertex_count = 928
+
+[node name="Structure" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_nkdp8")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Box1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41, 0.41, 0.41)
+shape = SubResource("BoxShape3D_l685f")

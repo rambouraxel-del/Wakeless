@@ -1,0 +1,2560 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/level/level.gd" id="1_7nmm8"]
+[ext_resource type="Script" path="res://scripts/level/voxel_structure.gd" id="2_h57u0"]
+[ext_resource type="Script" path="res://scripts/level/voxel_box.gd" id="3_4gs2a"]
+[ext_resource type="PackedScene" path="res://assets/props/decorative_bench/decorative_bench.tscn" id="4_7wuou"]
+[ext_resource type="Script" path="res://scripts/assets/placeable_asset.gd" id="5_dkgpt"]
+[ext_resource type="PackedScene" path="res://assets/props/hotel_floor_lamp/hotel_floor_lamp.tscn" id="6_kwm3d"]
+[ext_resource type="PackedScene" path="res://assets/props/hotel_bed/hotel_bed.tscn" id="7_1am6g"]
+[ext_resource type="PackedScene" path="res://assets/props/hotel_nightstand/hotel_nightstand.tscn" id="8_gip5h"]
+[ext_resource type="PackedScene" path="res://assets/props/hotel_wardrobe/hotel_wardrobe.tscn" id="9_n02tq"]
+[ext_resource type="PackedScene" path="res://assets/props/hotel_armchair/hotel_armchair.tscn" id="10_a60py"]
+[ext_resource type="Script" path="res://scripts/level/scene_door.gd" id="11_o0f8a"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_20pke"]
+emission_shape = 3
+emission_box_extents = Vector3(13, 1.4, 1.4)
+direction = Vector3(0.2, 1, 0)
+spread = 40.0
+initial_velocity_min = 0.02
+initial_velocity_max = 0.09
+gravity = Vector3(0, 0, 0)
+scale_min = 0.6
+scale_max = 1.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbkvi"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.6, 1, 0.9, 0.7)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_uo1p0"]
+material = SubResource("StandardMaterial3D_mbkvi")
+size = Vector2(0.025, 0.025)
+
+[node name="BureauCouloir" type="Node3D"]
+script = ExtResource("1_7nmm8")
+level_id = "bureau-couloir"
+level_title = "Le Bureau des rêves"
+level_subtitle = "Couloir du troisième étage"
+lighting_preset = "hotel_reve"
+default_spawn = "depart"
+interior = true
+first_person = true
+show_controls_hint = true
+kill_y = -25.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="depart" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.2, 0.05, 0)
+
+[node name="retour_foret" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 24.4, 0.05, 0)
+
+[node name="Architecture" type="Node3D" parent="."]
+script = ExtResource("2_h57u0")
+baked_path = "res://scenes/levels/data/bureau_couloir.scn"
+baked_signature = "a34a619a"
+collision = true
+recuire = false
+
+[node name="Coque" type="Node3D" parent="Architecture"]
+
+[node name="mur_nord" type="Node3D" parent="Architecture/Coque"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(26.6, 3.8, 0.3)
+material = "wallpaper_teal"
+mode = 0
+centered = false
+
+[node name="mur_sud" type="Node3D" parent="Architecture/Coque"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, 1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26.6, 3.8, 0.3)
+material = "wallpaper_teal"
+mode = 0
+centered = false
+
+[node name="mur_ouest" type="Node3D" parent="Architecture/Coque"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 3.8, 3.6)
+material = "wallpaper_teal"
+mode = 0
+centered = false
+
+[node name="mur_est" type="Node3D" parent="Architecture/Coque"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, -0.3, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 3.8, 3.6)
+material = "wallpaper_teal"
+mode = 0
+centered = false
+
+[node name="plafond" type="Node3D" parent="Architecture/Coque"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 3.2, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(26.6, 0.3, 3.6)
+material = "ceiling_dark"
+mode = 0
+centered = false
+
+[node name="Sols" type="Node3D" parent="Architecture"]
+
+[node name="dalle" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(26.6, 0.2, 3.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_0" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_0" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_1" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_1" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_2" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_2" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_3" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_3" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_4" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_4" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_5" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_5" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_6" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_6" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_7" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_7" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_8" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_8" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_9" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_9" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_10" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_10" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_11" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_11" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_12" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_12" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_13" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_13" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_14" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_14" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_15" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_15" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_16" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_16" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_17" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_17" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_18" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_18" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_19" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_19" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_20" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_20" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_21" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_21" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_22" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_22" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_23" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_23" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_nord_24" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="dalle_sud_24" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_nord_25" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_black"
+mode = 0
+centered = false
+
+[node name="dalle_sud_25" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.6)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="moquette_bord_nord" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.2)
+material = "carpet_gold"
+mode = 0
+centered = false
+
+[node name="moquette_bord_sud" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.2)
+material = "carpet_gold"
+mode = 0
+centered = false
+
+[node name="moquette" type="Node3D" parent="Architecture/Sols"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 1.4)
+material = "carpet_wine"
+mode = 0
+centered = false
+
+[node name="Moulures" type="Node3D" parent="Architecture"]
+
+[node name="soubassement_nord" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 1, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="plinthe_nord" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.2, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="lisse_nord" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="filet_nord" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.1)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="corniche_nord" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.2, 0.2)
+material = "plaster_cream"
+mode = 0
+centered = false
+
+[node name="soubassement_sud" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 1, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="plinthe_sud" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.2, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="lisse_sud" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="filet_sud" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.1, 0.1)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="corniche_sud" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(26, 0.2, 0.2)
+material = "plaster_cream"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_15" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_15" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_15" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_15" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_46" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_46" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_46" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_46" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_80" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_80" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_80" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_80" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_120" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_120" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_120" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_120" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_150" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_150" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_150" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_150" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_176" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_176" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_176" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_176" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="pilastre_nord_230" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="pilastre_sud_230" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_230" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 2.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.3, 3)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="poutre_filet_230" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 2.8, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 3)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="applique_n_46_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.8, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_46_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.9, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_n_46_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 2.2, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_46_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.8, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_46_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.9, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_s_46_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 2.2, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_80_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 1.8, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_80_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 1.9, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_n_80_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 2.2, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_80_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 1.8, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_80_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 1.9, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_s_80_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 2.2, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_120_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 1.8, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_120_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 1.9, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_n_120_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 2.2, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_120_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 1.8, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_120_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 1.9, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_s_120_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 2.2, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_176_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 1.8, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_176_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 1.9, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_n_176_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 2.2, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_176_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 1.8, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_176_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 1.9, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_s_176_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, 2.2, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_230_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 1.8, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_n_230_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 1.9, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_n_230_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 2.2, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_230_pied" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 1.8, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="applique_s_230_verre" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 1.9, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.3, 0.1)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="applique_s_230_cap" type="Node3D" parent="Architecture/Moulures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1, 2.2, 1.2)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="Tableaux" type="Node3D" parent="Architecture"]
+
+[node name="tn0_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="tn0_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "fabric_blue"
+mode = 0
+centered = false
+
+[node name="tn0_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "moss_dark"
+mode = 0
+centered = false
+
+[node name="tn0_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 1.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="tn0_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.5, -1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="tn1_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2, 1.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="tn1_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="tn1_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "iron_dark"
+mode = 0
+centered = false
+
+[node name="tn1_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9, 1.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="tn1_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 1.5, -1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="tn2_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.4, 1.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="tn2_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "fabric_teal"
+mode = 0
+centered = false
+
+[node name="tn2_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.5, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "leaf_dark"
+mode = 0
+centered = false
+
+[node name="tn2_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1, 1.9, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="tn2_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.5, -1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="ts3_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.4, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ts3_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "fabric_teal"
+mode = 0
+centered = false
+
+[node name="ts3_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "moss_dark"
+mode = 0
+centered = false
+
+[node name="ts3_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.9, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="ts3_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="ts4_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4, 1.4, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ts4_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "wallpaper_teal_dark"
+mode = 0
+centered = false
+
+[node name="ts4_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="ts4_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1, 1.9, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="ts4_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.5, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="ts5_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9, 1.4, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ts5_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "fabric_blue"
+mode = 0
+centered = false
+
+[node name="ts5_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "iron_dark"
+mode = 0
+centered = false
+
+[node name="ts5_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6, 1.9, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="ts5_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.5, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="ts6_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1.4, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ts6_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="ts6_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "leaf_dark"
+mode = 0
+centered = false
+
+[node name="ts6_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.7, 1.9, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="ts6_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1, 1.5, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="ts7_cadre" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6, 1.4, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.9, 0.2)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ts7_ciel" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "fabric_teal"
+mode = 0
+centered = false
+
+[node name="ts7_sol" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7, 1.5, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.3, 0.1)
+material = "iron_dark"
+mode = 0
+centered = false
+
+[node name="ts7_lune" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3, 1.9, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 0.1)
+material = "crystal_ice"
+mode = 0
+centered = false
+
+[node name="ts7_creux" type="Node3D" parent="Architecture/Tableaux"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7, 1.5, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.7, 0.1)
+material = "air"
+mode = 1
+centered = false
+
+[node name="Ouvertures" type="Node3D" parent="Architecture"]
+
+[node name="ouv_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 2.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 2.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_n100" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.5)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_n100" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_n100" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_n100" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8, 2.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_n100" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9, 2.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -1.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.8, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.8, 2.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9, 2.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -1.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8, 2.2, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9, 2.4, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, 2.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4, 2.4, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 2.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 2.4, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="ouv_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 2.2, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="cadre_g_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_d_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.4, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="cadre_h_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8, 2.2, 1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.4, 0.2, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="fronton_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9, 2.4, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(1.2, 0.1, 0.1)
+material = "gold"
+mode = 0
+centered = false
+
+[node name="seuil_n30" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_n160" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_n210" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1, -0.1, -1.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_s65" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, -0.1, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_s135" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, -0.1, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_s190" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1, -0.1, 1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_chambre" type="Node3D" parent="Architecture/Ouvertures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.1, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(1, 0.1, 0.4)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="Chambre" type="Node3D" parent="Architecture"]
+
+[node name="mur_o" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, -0.3, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 3.6, 6.3)
+material = "wallpaper_teal_dark"
+mode = 0
+centered = false
+
+[node name="mur_e" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, -0.3, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 3.6, 6.3)
+material = "wallpaper_teal_dark"
+mode = 0
+centered = false
+
+[node name="mur_n" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, -0.3, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(6.6, 3.6, 0.3)
+material = "wallpaper_teal_dark"
+mode = 0
+centered = false
+
+[node name="plafond" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 3, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(6.6, 0.3, 6.3)
+material = "ceiling_dark"
+mode = 0
+centered = false
+
+[node name="dalle" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, -0.3, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(6.6, 0.2, 6.3)
+material = "floor_planks"
+mode = 0
+centered = false
+
+[node name="plancher" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, -0.1, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(6, 0.1, 5.7)
+material = "floor_planks"
+mode = 0
+centered = false
+
+[node name="tapis_bord" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, -0.1, -6.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(3.8, 0.1, 3.8)
+material = "carpet_gold"
+mode = 0
+centered = false
+
+[node name="tapis" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, -0.1, -6.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(3.4, 0.1, 3.4)
+material = "carpet_wine"
+mode = 0
+centered = false
+
+[node name="soubassement_o" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 1, 5.7)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="soubassement_e" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 0, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 1, 5.7)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="soubassement_n" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(6, 1, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="lisse_o" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.1, 5.7)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="lisse_e" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 1, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.1, 5.7)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="lisse_n" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(6, 0.1, 0.2)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="corniche_o" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 5.7)
+material = "plaster_cream"
+mode = 0
+centered = false
+
+[node name="corniche_e" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 2.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 0.2, 5.7)
+material = "plaster_cream"
+mode = 0
+centered = false
+
+[node name="corniche_n" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(6, 0.2, 0.2)
+material = "plaster_cream"
+mode = 0
+centered = false
+
+[node name="filet_n" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2.4, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(6, 0.1, 0.1)
+material = "wallpaper_stripe"
+mode = 0
+centered = false
+
+[node name="fenetre" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.6, 0.9, -7.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(2, 1.7, 0.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="vitre_lune" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.6, 0.9, -7.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(2, 1.7, 0.1)
+material = "moon_glass"
+mode = 0
+centered = false
+
+[node name="meneau_v" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 1.9, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="meneau_h" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.6, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(2.2, 0.1, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="cadre_haut" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 2.6, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(2.2, 0.1, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="cadre_g" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 1.9, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="cadre_d" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6, 0.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 1.9, 0.1)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="appui" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4, 0.7, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(2.4, 0.1, 0.3)
+material = "stone_carved"
+mode = 0
+centered = false
+
+[node name="rideau_g" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 0.5, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.6, 2.3, 0.2)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="rideau_d" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7, 0.5, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.6, 2.3, 0.2)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="tringle" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 2.8, -7.5)
+script = ExtResource("3_4gs2a")
+size = Vector3(3.6, 0.1, 0.1)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="plafonnier_base" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.9, -4.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.8, 0.1, 0.8)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="plafonnier_verre" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1, 2.8, -4.6)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.6, 0.1, 0.6)
+material = "lamp_warm"
+mode = 0
+centered = false
+
+[node name="ebrasement_g" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8, 0, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.3, 0.1)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="ebrasement_d" type="Node3D" parent="Architecture/Chambre"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -1.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.3, 0.1)
+material = "wood_honey"
+mode = 0
+centered = false
+
+[node name="Porte_du_reve_niche" type="Node3D" parent="Architecture"]
+
+[node name="niche" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 2.8, 1.8)
+material = "air"
+mode = 1
+centered = false
+
+[node name="lueur_g" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9, 0, -1.1)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 2.9, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="lueur_d" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9, 0, 1)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 2.9, 0.1)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="lueur_h" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9, 2.9, -1.1)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 2.2)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="seuil_reve" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4, 0, -0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.6, 0.1, 1.8)
+material = "dream_glow"
+mode = 0
+centered = false
+
+[node name="marche_reve" type="Node3D" parent="Architecture/Porte_du_reve_niche"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -1)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.4, 0.1, 2)
+material = "marble_cream"
+mode = 0
+centered = false
+
+[node name="Fenetre_ouest" type="Node3D" parent="Architecture"]
+
+[node name="fenetre" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.9, -0.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 1.9, 1.4)
+material = "air"
+mode = 1
+centered = false
+
+[node name="vitre_lune" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.9, -0.7)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 1.9, 1.4)
+material = "moon_glass"
+mode = 0
+centered = false
+
+[node name="meneau_v" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.1)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 2.1, 0.2)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="meneau_h" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -0.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.2, 1.6)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="cadre_haut" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -0.8)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.1, 0.1, 1.6)
+material = "wood_dark"
+mode = 0
+centered = false
+
+[node name="appui" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.1, 1.8)
+material = "stone_carved"
+mode = 0
+centered = false
+
+[node name="rideau_g" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.3)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.5, 0.4)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="rideau_d" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.2, 2.5, 0.4)
+material = "velvet_plum"
+mode = 0
+centered = false
+
+[node name="tringle" type="Node3D" parent="Architecture/Fenetre_ouest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1.4)
+script = ExtResource("3_4gs2a")
+size = Vector3(0.3, 0.1, 2.8)
+material = "brass"
+mode = 0
+centered = false
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="DecorativeBench" type="Node3D" parent="Decor" instance=ExtResource("4_7wuou")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.15, 0, 0.9)
+script = ExtResource("5_dkgpt")
+asset_id = "decorative_bench"
+display_name = "Banc décoratif"
+footprint_cells = Vector3i(9, 5, 3)
+triangle_count = 5872
+vertex_count = 11744
+
+[node name="HotelFloorLamp" type="Node3D" parent="Decor" instance=ExtResource("6_kwm3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, -1.35)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_floor_lamp"
+display_name = "Lampadaire d'hôtel"
+footprint_cells = Vector3i(2, 9, 2)
+triangle_count = 2284
+vertex_count = 4568
+
+[node name="@Node3D@2" type="Node3D" parent="Decor" instance=ExtResource("6_kwm3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0.95)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_floor_lamp"
+display_name = "Lampadaire d'hôtel"
+footprint_cells = Vector3i(2, 9, 2)
+triangle_count = 2284
+vertex_count = 4568
+
+[node name="HotelBed" type="Node3D" parent="Decor" instance=ExtResource("7_1am6g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.45, 0, -5.4)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_bed"
+display_name = "Lit d'hôtel"
+footprint_cells = Vector3i(8, 6, 11)
+triangle_count = 944
+vertex_count = 1888
+
+[node name="HotelNightstand" type="Node3D" parent="Decor" instance=ExtResource("8_gip5h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.35, 0, -3.75)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_nightstand"
+display_name = "Table de nuit et lampe"
+footprint_cells = Vector3i(3, 5, 2)
+triangle_count = 1064
+vertex_count = 2128
+
+[node name="@Node3D@3" type="Node3D" parent="Decor" instance=ExtResource("8_gip5h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.35, 0, -6.05)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_nightstand"
+display_name = "Table de nuit et lampe"
+footprint_cells = Vector3i(3, 5, 2)
+triangle_count = 1064
+vertex_count = 2128
+
+[node name="HotelWardrobe" type="Node3D" parent="Decor" instance=ExtResource("9_n02tq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.6, 0, -5.8)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_wardrobe"
+display_name = "Armoire"
+footprint_cells = Vector3i(6, 11, 3)
+triangle_count = 354
+vertex_count = 708
+
+[node name="HotelArmchair" type="Node3D" parent="Decor" instance=ExtResource("10_a60py")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 8.36843, 0, -7.09348)
+script = ExtResource("5_dkgpt")
+asset_id = "hotel_armchair"
+display_name = "Fauteuil"
+footprint_cells = Vector3i(4, 5, 4)
+triangle_count = 464
+vertex_count = 928
+
+[node name="Poussieres_de_reve" type="GPUParticles3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.6, 0)
+cast_shadow = 0
+amount = 90
+lifetime = 14.0
+preprocess = 14.0
+visibility_aabb = AABB(-14, -2, -2, 28, 4, 4)
+process_material = SubResource("ParticleProcessMaterial_20pke")
+draw_pass_1 = SubResource("QuadMesh_uo1p0")
+
+[node name="Lumieres" type="Node3D" parent="."]
+
+[node name="applique_n_0" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 2, -1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_s_0" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 2, 1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_n_1" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15, 2, -1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_s_1" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15, 2, 1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_n_2" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.15, 2, -1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_s_2" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.15, 2, 1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_n_3" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.75, 2, -1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_s_3" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.75, 2, 1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_n_4" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.15, 2, -1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="applique_s_4" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.15, 2, 1.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="lune_couloir" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.9, 0)
+light_color = Color(0.55, 0.72, 1, 1)
+light_energy = 2.2
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 7.0
+
+[node name="reve_fond" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.2, 1.4, 0)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 8.0
+
+[node name="reve_seuil_n_35" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.15, -1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="reve_seuil_n_165" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0.15, -1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="reve_seuil_n_215" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 0.15, -1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="reve_seuil_s_70" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.15, 1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="reve_seuil_s_140" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.15, 1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="reve_seuil_s_195" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0.15, 1.2)
+light_color = Color(0.55, 1, 0.9, 1)
+light_energy = 0.55
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 2.6
+
+[node name="lune_chambre" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6, 1.8, -6.6)
+light_color = Color(0.55, 0.72, 1, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 6.5
+
+[node name="ambiance_chambre" type="OmniLight3D" parent="Lumieres"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 2.5, -4.2)
+light_color = Color(1, 0.76, 0.46, 1)
+light_energy = 1.1
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 16.0
+omni_range = 7.5
+
+[node name="Portes" type="Node3D" parent="."]
+
+[node name="Porte_n30" type="Node3D" parent="Portes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Fermée à clé."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_n160" type="Node3D" parent="Portes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Fermée à clé."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_n210" type="Node3D" parent="Portes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Personne ne répond."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_s65" type="Node3D" parent="Portes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.5, 0, 1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Fermée à clé."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_s135" type="Node3D" parent="Portes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 14.5, 0, 1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Fermée à clé."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_s190" type="Node3D" parent="Portes"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20, 0, 1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = true
+locked_message = "Une lumière filtre sous la porte… fermée."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+
+[node name="Porte_chambre" type="Node3D" parent="Portes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -1.6)
+script = ExtResource("11_o0f8a")
+target_scene = ""
+target_spawn = "depart"
+locked = false
+locked_message = "Fermée à clé."
+look = 0
+leaf_width = 1.0
+leaf_height = 2.1
+build_frame = false
+open_angle_deg = 100.0
+portal_glow = false
+prompt = "Entrer dans la chambre"
+reach = 2.8
+enabled = true
+
+[node name="Porte_du_reve" type="Node3D" parent="Portes"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 26.15, 0, -0.6)
+script = ExtResource("11_o0f8a")
+target_scene = "res://scenes/levels/foret_nocturne.tscn"
+target_spawn = "depart"
+locked = false
+locked_message = "Fermée à clé."
+look = 1
+leaf_width = 1.2
+leaf_height = 2.4
+build_frame = true
+open_angle_deg = 100.0
+portal_glow = true
+prompt = "Franchir la porte du rêve"
+reach = 2.8
+enabled = true

@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/assets/placeable_asset.gd" id="1_0q43i"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure.res" id="2_wx0a4"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure_lod1.res" id="3_eoirr"]
+[ext_resource type="ArrayMesh" path="res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure_lod2.res" id="4_mgjnf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0e2qs"]
+size = Vector3(0.32, 1.62, 0.32)
+
+[node name="HotelFloorLamp" type="Node3D"]
+script = ExtResource("1_0q43i")
+asset_id = "hotel_floor_lamp"
+display_name = "Lampadaire d'hôtel"
+footprint_cells = Vector3i(2, 9, 2)
+triangle_count = 2284
+vertex_count = 4568
+
+[node name="Structure" type="MeshInstance3D" parent="."]
+visibility_range_end = 12.0
+mesh = ExtResource("2_wx0a4")
+
+[node name="Structure_LOD1" type="MeshInstance3D" parent="."]
+visibility_range_begin = 12.0
+visibility_range_end = 32.0
+mesh = ExtResource("3_eoirr")
+
+[node name="Structure_LOD2" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+visibility_range_begin = 32.0
+mesh = ExtResource("4_mgjnf")
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19, 1.32, 0.19)
+light_color = Color(1, 0.760784, 0.478431, 1)
+light_energy = 1.7
+distance_fade_enabled = true
+distance_fade_begin = 28.0
+distance_fade_shadow = 14.0
+omni_range = 6.0
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Box1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.81, 0.2)
+shape = SubResource("BoxShape3D_0e2qs")

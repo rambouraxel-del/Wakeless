@@ -1,0 +1,83 @@
+{
+	"id": "hotel_nightstand",
+	"name": "Table de nuit et lampe",
+	"group": "prop",
+	"footprint_cells": [
+		3,
+		5,
+		2
+	],
+	"size_m": [
+		0.600000023841858,
+		1,
+		0.400000005960464
+	],
+	"lod_ranges": [
+		12,
+		32,
+		0
+	],
+	"instanceable": false,
+	"ground_y": 0,
+	"vertices": 2128,
+	"triangles": 1064,
+	"triangles_lod": [
+		1064,
+		536,
+		208
+	],
+	"solid_voxels": 11705,
+	"mesh_kb": 38,
+	"build_ms": 2,
+	"total_ms": 67,
+	"parts": [
+		{
+			"name": "structure",
+			"offset": [
+				0,
+				0,
+				0
+			],
+			"animation": "",
+			"material": "props",
+			"meshes": [
+				"res://assets/props/hotel_nightstand/hotel_nightstand_structure.res",
+				"res://assets/props/hotel_nightstand/hotel_nightstand_structure_lod1.res",
+				"res://assets/props/hotel_nightstand/hotel_nightstand_structure_lod2.res"
+			],
+			"triangles": [
+				1064,
+				536,
+				208
+			],
+			"grid": 0.02
+		}
+	],
+	"lights": [
+		{
+			"position": [
+				0.269999980926514,
+				0.919999957084656,
+				0.209999993443489
+			],
+			"color": "ffc27a",
+			"energy": 1.5,
+			"range": 4.5,
+			"shadow": false
+		}
+	],
+	"colliders": [
+		{
+			"position": [
+				0,
+				0,
+				0
+			],
+			"size": [
+				0.560000002384186,
+				0.659999966621399,
+				0.439999997615814
+			]
+		}
+	]
+}

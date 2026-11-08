@@ -1,0 +1,67 @@
+{
+	"id": "hotel_wardrobe",
+	"name": "Armoire",
+	"group": "prop",
+	"footprint_cells": [
+		6,
+		11,
+		3
+	],
+	"size_m": [
+		1.20000004768372,
+		2.20000004768372,
+		0.600000023841858
+	],
+	"lod_ranges": [
+		14,
+		36,
+		0
+	],
+	"instanceable": true,
+	"ground_y": 0,
+	"vertices": 708,
+	"triangles": 354,
+	"triangles_lod": [
+		354,
+		0,
+		0
+	],
+	"solid_voxels": 171072,
+	"mesh_kb": 7,
+	"build_ms": 24,
+	"total_ms": 572,
+	"parts": [
+		{
+			"name": "structure",
+			"offset": [
+				0,
+				0,
+				0
+			],
+			"animation": "",
+			"material": "props",
+			"meshes": [
+				"res://assets/props/hotel_wardrobe/hotel_wardrobe_structure.res"
+			],
+			"triangles": [
+				354
+			],
+			"grid": 0.02
+		}
+	],
+	"lights": [],
+	"colliders": [
+		{
+			"position": [
+				0,
+				0,
+				0
+			],
+			"size": [
+				1.19999992847443,
+				2.15999984741211,
+				0.560000002384186
+			]
+		}
+	]
+}

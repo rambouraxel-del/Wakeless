@@ -1,0 +1,83 @@
+{
+	"id": "hotel_floor_lamp",
+	"name": "Lampadaire d'hôtel",
+	"group": "prop",
+	"footprint_cells": [
+		2,
+		9,
+		2
+	],
+	"size_m": [
+		0.400000005960464,
+		1.80000007152557,
+		0.400000005960464
+	],
+	"lod_ranges": [
+		12,
+		32,
+		0
+	],
+	"instanceable": false,
+	"ground_y": 0,
+	"vertices": 4568,
+	"triangles": 2284,
+	"triangles_lod": [
+		2284,
+		954,
+		186
+	],
+	"solid_voxels": 4439,
+	"mesh_kb": 68,
+	"build_ms": 2,
+	"total_ms": 73,
+	"parts": [
+		{
+			"name": "structure",
+			"offset": [
+				0,
+				0,
+				0
+			],
+			"animation": "",
+			"material": "props",
+			"meshes": [
+				"res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure.res",
+				"res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure_lod1.res",
+				"res://assets/props/hotel_floor_lamp/hotel_floor_lamp_structure_lod2.res"
+			],
+			"triangles": [
+				2284,
+				954,
+				186
+			],
+			"grid": 0.02
+		}
+	],
+	"lights": [
+		{
+			"position": [
+				0.189999997615814,
+				1.3199999332428,
+				0.189999997615814
+			],
+			"color": "ffc27a",
+			"energy": 1.7,
+			"range": 6,
+			"shadow": false
+		}
+	],
+	"colliders": [
+		{
+			"position": [
+				0.0399999991059303,
+				0,
+				0.0399999991059303
+			],
+			"size": [
+				0.319999992847443,
+				1.62000000476837,
+				0.319999992847443
+			]
+		}
+	]
+}
