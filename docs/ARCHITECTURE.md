@@ -38,6 +38,7 @@ Les scripts d'édition (`tools/`, lancés avec `-s`) n'ont pas l'autoload `App` 
 | `scripts/rendering` | `LightingRig` (lune/soleil, ciel, brouillard, SSAO, glow, ambiance), `PropScatter` |
 | `scripts/assets` | kit de modélisation 2 cm, registre `AssetLibrary`, arbres, rochers, objets, `bake_assets` (outil) |
 | `scripts/game` | `Explorer` (physique, marches), `ThirdPersonCamera`, `PlayerConfig`, `GameInput`, `GameSave` |
+| `scripts/characters` | `GuardianModel` (contrat du modèle jouable), `GuardianDef` (config/guardians), `StarFacedOneModel` (AnimationTree, effets) |
 | `scripts/level` | `Level`, `Interactable`, `SceneDoor`, `VoxelBox`, `VoxelStructure` |
 | `scripts/terrain` | `HeightmapTerrain` |
 | `scripts/app` | `App` (autoload), `MenuStyle` |

@@ -9,6 +9,9 @@ signal used(by: Node3D)
 ## Distance maximale (m) entre les yeux et le point de focalisation.
 @export var reach := 2.8
 @export var enabled := true
+## Geste du personnage quand on utilise l'objet (« interact », « comfort »… ; vide = aucun). Joué seulement
+## si le modèle du joueur le prend en charge (voir GuardianModel).
+@export var gesture: StringName = &"interact"
 
 func _ready() -> void:
 	add_to_group("interactable")
@@ -23,6 +26,10 @@ func can_use(_player: Node3D) -> bool:
 ## Texte de l'invite (sans la touche).
 func prompt_text() -> String:
 	return prompt
+
+## Geste à jouer pour CET usage : vide quand l'action n'aboutit pas (ex. porte fermée à clé).
+func gesture_for(_player: Node3D) -> StringName:
+	return gesture
 
 func use(level: Level) -> void:
 	used.emit(level.player)

@@ -1,5 +1,5 @@
 class_name ExplorerModel
-extends Node3D
+extends GuardianModel
 ## Explorateur PROVISOIRE (Lot 5) : silhouette voxel de 1,72 m en cellules de 4 cm, cape bleu ardoise.
 ## Membres sur pivots (hanches, épaules, cape) : marche, course et chute animées par code, sans squelette.
 ## Repère : pieds en y = 0, regard vers -z.
@@ -16,6 +16,9 @@ var _arm_r: Node3D
 var _cape: Node3D
 var _phase := 0.0
 var _cape_angle := 0.12
+
+func _init() -> void:
+	native_height = PlayerConfig.REF_HEIGHT        # échelle d'origine : hauteur du joueur / 1,70 m
 
 func _ready() -> void:
 	_build()

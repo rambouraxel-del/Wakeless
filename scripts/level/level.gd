@@ -95,14 +95,16 @@ func _setup_player() -> void:
 	player.global_position = pos
 	player.cam_yaw = yaw
 	player.face(yaw)
-	player.fell.connect(func() -> void: player.teleport(pos, yaw))
+	player.fell.connect(func() -> void:
+		player.teleport(pos, yaw)
+		player.play_gesture(&"surprised"))            # tombé dans le vide, ramené au point d'arrivée : sursaut
 	camera = ThirdPersonCamera.new()
 	camera.name = "Camera"
 	camera.target = player
 	camera.yaw = yaw
 	camera.pitch = 0.0
 	camera.interior = interior
-	camera.first_person = first_person
+	camera.first_person = first_person and not PlayerConfig.third_person_start
 	add_child(camera)
 	camera.snap()
 
@@ -179,16 +181,20 @@ func _update_focus() -> void:
 		return
 	var eye := camera.cam.global_position
 	var forward := -camera.cam.global_transform.basis.z
+	# Portée mesurée depuis les yeux du PERSONNAGE (à la 3e personne la caméra est à plusieurs mètres derrière lui) ;
+	# le regard visé reste celui de la caméra.
+	var origin := eye if camera.first_person else player.global_position + Vector3(0.0, PlayerConfig.eye(), 0.0)
 	var best := INF
 	for n in get_tree().get_nodes_in_group("interactable"):
 		var it := n as Interactable
 		if it == null or not it.can_use(player):
 			continue
-		var d := it.focus_point() - eye
+		var to_it := it.focus_point() - eye
+		var d := it.focus_point() - origin
 		var dist := d.length()
-		if dist > it.reach or dist < 0.01:
+		if dist > it.reach or dist < 0.01 or to_it.length() < 0.01:
 			continue
-		if forward.dot(d / dist) < 0.55:
+		if forward.dot(to_it.normalized()) < 0.55:
 			continue
 		if dist < best:
 			best = dist
@@ -198,6 +204,9 @@ func _update_focus() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and focused != null and not bool(_app_get("paused_menu", false)):
 		get_viewport().set_input_as_handled()
+		var g := focused.gesture_for(player)
+		if g != &"":
+			player.play_gesture(g)             # geste contextuel : seulement quand l'action aboutit
 		focused.use(self)
 
 ## Téléporte le joueur sur un point d'arrivée de ce niveau (outils, tests).

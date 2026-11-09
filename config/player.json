@@ -1,6 +1,9 @@
 {
-	"_doc": "Échelle du personnage (essai du 8 nov.) : modifier hauteur_m puis relancer. La capsule de collision, la hauteur des yeux, la caméra 3e personne et le modèle suivent. Ancienne valeur : 1.70.",
-	"hauteur_m": 1.50,
+	"_doc": "Personnage jouable. gardien : id d'une définition de config/guardians/ (vide = explorateur provisoire ; --gardien=aucun en ligne de commande). hauteur_m : hauteur totale du personnage (halo compris pour Star-Faced One) ; la capsule de collision, la hauteur des yeux et l'échelle du modèle suivent. rayon_m : rayon de la capsule (négatif = proportionnel à la hauteur). vue_depart : troisieme ou premiere (la touche V bascule). Ancienne valeur de l'explorateur : hauteur 1.50.",
+	"gardien": "star_faced_one",
+	"hauteur_m": 1.10,
+	"rayon_m": 0.26,
+	"vue_depart": "troisieme",
 	"fov_depart": 76.0,
 	"fov_presets": [68.0, 76.0, 84.0]
 }

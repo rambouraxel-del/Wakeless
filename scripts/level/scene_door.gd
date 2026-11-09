@@ -54,6 +54,10 @@ func can_use(player: Node3D) -> bool:
 func prompt_text() -> String:
 	return "Essayer la porte" if locked else prompt
 
+## Porte fermée à clé : rien ne se passe, donc pas de geste. Sinon le personnage actionne la porte.
+func gesture_for(_player: Node3D) -> StringName:
+	return &"" if locked else gesture
+
 func use(level: Level) -> void:
 	if _busy or is_open:
 		return

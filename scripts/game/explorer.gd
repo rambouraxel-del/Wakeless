@@ -19,7 +19,10 @@ var height := PlayerConfig.height
 var cam_yaw := 0.0
 var control_enabled := true
 var kill_y := -30.0
-var model: ExplorerModel
+## Modèle visuel : gardien 3D (config/guardians) ou explorateur provisoire. Voir GuardianModel.
+var model: GuardianModel
+## Maintenu : le modèle reste orienté dans le sens de la caméra (déplacements latéraux / arrière joués en « strafe »).
+var strafe_lock := false
 ## Pilotage automatique (recette) : direction monde (x, z), course, saut.
 var auto_active := false
 var auto_dir := Vector2.ZERO
@@ -44,14 +47,28 @@ func _ready() -> void:
 	cs.shape = cap
 	cs.position = Vector3(0, height * 0.5, 0)
 	add_child(cs)
-	model = ExplorerModel.new()
+	model = _make_model()
 	model.name = "Model"
-	model.scale = Vector3.ONE * PlayerConfig.k()
 	add_child(model)
+	model.apply_height(height)
+
+## Gardien configuré (PlayerConfig.guardian_id) si sa scène existe, sinon explorateur provisoire.
+func _make_model() -> GuardianModel:
+	var g := PlayerConfig.guardian()
+	if g != null and ResourceLoader.exists(g.scene_path):
+		var inst := (load(g.scene_path) as PackedScene).instantiate() as GuardianModel
+		if inst != null:
+			return inst
+		push_warning("Explorer : la scène « %s » n'est pas un GuardianModel, repli sur l'explorateur provisoire." % g.scene_path)
+	return ExplorerModel.new()
 
 func face(yaw_rad: float) -> void:
 	if model:
 		model.rotation.y = yaw_rad
+
+## Geste contextuel (« interact », « surprised », « comfort », « sleep », « wake ») ; faux si indisponible.
+func play_gesture(action: StringName) -> bool:
+	return model != null and model.play_action(action)
 
 func _physics_process(delta: float) -> void:
 	var inp := Vector2.ZERO
@@ -64,10 +81,13 @@ func _physics_process(delta: float) -> void:
 		_move(delta, wish.limit_length(1.0), auto_sprint, auto_jump)
 		auto_jump = false
 		return
-	if control_enabled:
+	if control_enabled and (model == null or model.accepts_movement()):
 		inp = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		sprint = Input.is_action_pressed("sprint")
 		jump = Input.is_action_just_pressed("jump")
+		strafe_lock = InputMap.has_action("strafe_lock") and Input.is_action_pressed("strafe_lock")
+	else:
+		strafe_lock = false
 	var dir := Basis(Vector3.UP, cam_yaw) * Vector3(inp.x, 0.0, inp.y)
 	_move(delta, dir.limit_length(1.0), sprint, jump)
 
@@ -84,8 +104,9 @@ func _move(delta: float, dir: Vector3, sprint: bool, jump: bool) -> void:
 			velocity.y = jump_speed
 	else:
 		velocity.y -= gravity * delta
-	if dir.length() > 0.05 and model:
-		model.rotation.y = lerp_angle(model.rotation.y, atan2(-dir.x, -dir.z), clampf(12.0 * delta, 0.0, 1.0))
+	if model and (dir.length() > 0.05 or strafe_lock):
+		var want_yaw := cam_yaw if strafe_lock else atan2(-dir.x, -dir.z)
+		model.rotation.y = lerp_angle(model.rotation.y, want_yaw, clampf(model.turn_rate * delta, 0.0, 1.0))
 	if is_on_floor() and hv.length() > 0.05:
 		_try_step(hv * delta)
 	move_and_slide()
@@ -94,7 +115,7 @@ func _move(delta: float, dir: Vector3, sprint: bool, jump: bool) -> void:
 	if global_position.y < kill_y:
 		fell.emit()
 	if model:
-		model.animate(Vector2(velocity.x, velocity.z).length() / walk_speed, is_on_floor(), delta)
+		model.drive(velocity, walk_speed, is_on_floor(), delta)
 
 ## Marche : bloqué droit devant mais libre STEP_H plus haut → on hisse le corps sur la marche (le déplacement
 ## horizontal continue normalement) ; le modèle est lissé pour ne pas « sauter ».

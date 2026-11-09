@@ -12,6 +12,7 @@ const ACTIONS := {
 	"jump": [KEY_SPACE],
 	"sprint": [KEY_SHIFT],
 	"interact": [KEY_E],
+	"strafe_lock": [KEY_ALT],          # maintenu : le personnage garde le regard de la caméra (strafe)
 }
 
 static func ensure() -> void:

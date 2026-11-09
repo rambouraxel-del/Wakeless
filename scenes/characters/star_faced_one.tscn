@@ -1,0 +1,98 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/star_faced_one_model.gd" id="1_x53oe"]
+[ext_resource type="PackedScene" path="res://assets/characters/star_faced_one/star_faced_one.glb" id="2_acspn"]
+
+[sub_resource type="Gradient" id="Gradient_xxgrb"]
+offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
+colors = PackedColorArray(1, 0.82, 0.45, 0, 1, 0.88, 0.55, 0.8, 1, 0.8, 0.45, 0.44, 1, 0.75, 0.4, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2fnom"]
+gradient = SubResource("Gradient_xxgrb")
+
+[sub_resource type="Curve" id="Curve_qke0k"]
+_data = [Vector2(0, 0.6), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fcb8j"]
+curve = SubResource("Curve_qke0k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p34m6"]
+emission_shape = 2
+emission_sphere_radius = 0.62
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 0.06
+gravity = Vector3(0, 0.035, 0)
+damping_min = 0.1
+damping_max = 0.2
+scale_min = 0.02
+scale_max = 0.042
+scale_curve = SubResource("CurveTexture_fcb8j")
+color_ramp = SubResource("GradientTexture1D_2fnom")
+
+[sub_resource type="Gradient" id="Gradient_1cubq"]
+offsets = PackedFloat32Array(0, 0.12, 0.7, 1)
+colors = PackedColorArray(1, 0.82, 0.45, 0, 1, 0.88, 0.55, 0.75, 1, 0.8, 0.45, 0.4125, 1, 0.75, 0.4, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s5gf0"]
+gradient = SubResource("Gradient_1cubq")
+
+[sub_resource type="Curve" id="Curve_wtsaj"]
+_data = [Vector2(0, 0.6), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tgtjm"]
+curve = SubResource("Curve_wtsaj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ak7hn"]
+emission_shape = 1
+emission_sphere_radius = 0.26
+direction = Vector3(0, 1, 0)
+spread = 60.0
+initial_velocity_min = 0.02
+initial_velocity_max = 0.12
+gravity = Vector3(0, 0.08, 0)
+damping_min = 0.8
+damping_max = 1.4
+scale_min = 0.016
+scale_max = 0.034
+scale_curve = SubResource("CurveTexture_tgtjm")
+color_ramp = SubResource("GradientTexture1D_s5gf0")
+
+[node name="StarFacedOne" type="Node3D" unique_id=1656007781]
+script = ExtResource("1_x53oe")
+
+[node name="Tilt" type="Node3D" parent="." unique_id=237382961]
+
+[node name="Visual" type="Node3D" parent="Tilt" unique_id=690358088]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Model" type="Node3D" parent="Tilt/Visual" unique_id=949171810 instance=ExtResource("2_acspn")]
+
+[node name="FaceGlow" type="OmniLight3D" parent="." unique_id=466061927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.2)
+light_color = Color(1, 0.8, 0.45, 1)
+light_energy = 0.5
+omni_range = 3.0
+omni_attenuation = 1.6
+
+[node name="Fx" type="Node3D" parent="." unique_id=1358597745]
+
+[node name="Motes" type="GPUParticles3D" parent="Fx" unique_id=1017689826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+cast_shadow = 0
+amount = 14
+lifetime = 4.5
+preprocess = 4.5
+visibility_aabb = AABB(-2, -0.5, -2, 4, 3, 4)
+process_material = SubResource("ParticleProcessMaterial_p34m6")
+
+[node name="Trail" type="GPUParticles3D" parent="Fx" unique_id=1731116330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0.18)
+cast_shadow = 0
+emitting = false
+amount = 26
+lifetime = 0.9
+visibility_aabb = AABB(-3, -0.5, -3, 6, 3, 6)
+process_material = SubResource("ParticleProcessMaterial_ak7hn")

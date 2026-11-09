@@ -10,8 +10,8 @@ var yaw := 0.0
 var pitch := -0.32
 var interior := false
 var sensitivity := 0.0032
-var dist_out := 4.6
-var dist_in := 1.8
+var dist_out := PlayerConfig.cam_distance(false)       # propre au gardien (config/guardians), sinon 4,6 m
+var dist_in := PlayerConfig.cam_distance(true)         # idem en intérieur (sinon 1,8 m)
 var arm: SpringArm3D
 var cam: Camera3D
 var first_person := false : set = set_first_person

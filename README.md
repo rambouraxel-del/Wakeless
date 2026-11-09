@@ -40,7 +40,8 @@ Il sert à valider l'identité visuelle, les déplacements, l'ambiance et les pe
 | Souris | Regarder (clic : recapturer la souris) |
 | Maj / Espace | Courir / sauter |
 | **E** | Interagir (portes) |
-| V | Vue à la 1re ou 3e personne |
+| V | Vue à la 1re ou 3e personne (3e personne au lancement) |
+| Alt (maintenu) | Strafe : le gardien garde le regard de la caméra |
 | F | Champ de vision 68° → 76° → 84° |
 | L | Ambiance d'éclairage suivante (essai) |
 | F3 | Informations techniques (FPS, triangles, appels de dessin) |
@@ -48,7 +49,7 @@ Il sert à valider l'identité visuelle, les déplacements, l'ambiance et les pe
 | F11 | Plein écran |
 | Échap | Pause |
 
-Échelle du joueur : **1,50 m** (`config/player.json`, `hauteur_m`), hérité du réglage « échelle et immersion » d'Éclat.
+Personnage : **Star-Faced One**, gardien des rêves flottant de **1,10 m** (`config/player.json`) : voir [docs/GARDIENS.md](docs/GARDIENS.md). L'explorateur provisoire reste disponible (`--gardien=aucun`).
 
 ## Vérifier (sans carte graphique)
 
@@ -56,7 +57,7 @@ Il sert à valider l'identité visuelle, les déplacements, l'ambiance et les pe
 GODOT=/Applications/Godot.app/Contents/MacOS/Godot tools/check.sh
 ```
 
-Importe le projet, compile les 50 scripts, lance 131 contrôles (voxel, assets, références, niveaux, collisions, déplacements,
+Importe le projet, compile les 57 scripts, lance 181 contrôles (voxel, assets, références, niveaux, collisions, déplacements, gardien,
 interactions) puis une recette jouée du jeu complet (couloir → forêt → couloir). Détails : [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## Documentation

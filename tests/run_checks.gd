@@ -23,6 +23,7 @@ func _initialize() -> void:
 	_no_procedural_runtime()
 	_levels_static()
 	await _physics_levels()
+	await _guardian()
 	print("== %d vérifications réussies, %d échec(s)" % [_ok, _fail])
 	quit(1 if _fail > 0 else 0)
 
@@ -66,10 +67,12 @@ func _core() -> void:
 func _config() -> void:
 	print("-- configuration")
 	PlayerConfig.ensure()
-	check("joueur : hauteur 1,50 m (échelle d'Éclat conservée)", is_equal_approx(PlayerConfig.height, 1.5))
-	check("joueur : yeux 1,41 m", absf(PlayerConfig.eye() - 1.41) < 0.01, str(PlayerConfig.eye()))
-	check("joueur : rayon 0,25 m", absf(PlayerConfig.radius() - 0.25) < 0.01)
-	check("joueur : champ de vision de départ 76°", is_equal_approx(PlayerConfig.fov_fp, 76.0))
+	var pcfg: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player.json"))
+	check("joueur : hauteur = hauteur_m de config/player.json", is_equal_approx(PlayerConfig.height, float(pcfg["hauteur_m"])), str(PlayerConfig.height))
+	check("joueur : yeux proportionnels à la hauteur (1,60 m pour 1,70 m)", absf(PlayerConfig.eye() - 1.6 * PlayerConfig.height / 1.7) < 0.01, str(PlayerConfig.eye()))
+	var want_r := float(pcfg["rayon_m"]) if float(pcfg.get("rayon_m", -1.0)) > 0.0 else 0.28 * PlayerConfig.height / 1.7
+	check("joueur : rayon de la capsule (rayon_m, sinon proportionnel)", absf(PlayerConfig.radius() - want_r) < 0.005, str(PlayerConfig.radius()))
+	check("joueur : champ de vision de départ = fov_depart", is_equal_approx(PlayerConfig.fov_fp, float(pcfg["fov_depart"])), str(PlayerConfig.fov_fp))
 	GameInput.ensure()
 	for act in ["move_forward", "move_back", "move_left", "move_right", "jump", "sprint", "interact"]:
 		check("saisie : action %s" % act, InputMap.has_action(act))
@@ -287,8 +290,10 @@ func _physics_levels() -> void:
 		await physics_frame
 	var p := lv.player
 	check("couloir : joueur posé au sol à l'arrivée", p.is_on_floor() and absf(p.global_position.y) < 0.15, str(p.global_position))
-	check("couloir : caméra à la première personne", lv.camera.first_person and lv.camera.cam.current)
-	check("couloir : hauteur des yeux 1,41 m", absf(lv.camera.cam.global_position.y - p.global_position.y - PlayerConfig.eye()) < 0.05)
+	check("couloir : vue au lancement selon config/player.json (vue_depart)", lv.camera.first_person != PlayerConfig.third_person_start and lv.camera.cam.current)
+	lv.camera.first_person = true          # la suite des contrôles est écrite pour la 1re personne
+	lv.camera.snap()
+	check("couloir : hauteur des yeux (1re personne)", absf(lv.camera.cam.global_position.y - p.global_position.y - PlayerConfig.eye()) < 0.05)
 	# caméra : orientation, vue à la troisième personne (V), retour à la première
 	lv.camera.yaw = 0.0
 	lv.camera.pitch = 0.3
@@ -339,6 +344,7 @@ func _physics_levels() -> void:
 	await physics_frame
 	lv._update_focus()
 	check("interaction : porte verrouillée visée", lv.focused != null and (lv.focused as SceneDoor).locked)
+	check("geste : porte verrouillée = aucun geste", lv.focused.gesture_for(p) == &"")
 	lv.focused.use(lv)
 	check("interaction : message « fermée »", lv._toast.text != "")
 	# la chambre : la porte s'ouvre, le joueur entre sans obstacle
@@ -349,10 +355,14 @@ func _physics_levels() -> void:
 	await physics_frame
 	lv._update_focus()
 	check("chambre : porte visée avant ouverture", lv.focused == chambre)
-	chambre.use(lv)
+	var press := InputEventAction.new()
+	press.action = "interact"
+	press.pressed = true
+	lv._unhandled_input(press)                       # même chemin que la touche E : geste puis ouverture
 	await physics_frame
 	await physics_frame
 	check("chambre : porte ouverte", chambre.is_open)
+	check("geste : l'ouverture de la porte déclenche « interact »", not p.model.supports(&"interact") or p.model.is_busy())
 	p.auto_active = true
 	p.auto_dir = Vector2(0, -1)
 	for i in 240:
@@ -417,4 +427,88 @@ func _physics_levels() -> void:
 	fo._update_focus()
 	check("forêt : porte de retour visée", fo.focused == door, str(fo.focused))
 	fo.queue_free()
+	await process_frame
+
+# ------------------------------------------------------------------ gardien jouable (Star-Faced One)
+
+func _guardian() -> void:
+	print("-- gardien : Star-Faced One")
+	var g := GuardianDef.load_def("star_faced_one")
+	check("gardien : définition chargée", g != null)
+	if g == null:
+		return
+	check("gardien : scène présente", ResourceLoader.exists(g.scene_path), g.scene_path)
+	check("gardien : 11 animations déclarées", g.anims.size() == 11, str(g.anims.size()))
+	var m := (load(g.scene_path) as PackedScene).instantiate() as GuardianModel
+	check("gardien : la scène est un GuardianModel", m != null)
+	if m == null:
+		return
+	root.add_child(m)
+	await process_frame
+	var ap := m.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	check("gardien : AnimationPlayer du GLB", ap != null)
+	for role in g.anims:
+		check("gardien : animation « %s »" % g.anims[role], ap != null and ap.has_animation(g.anims[role]))
+	for role in g.loops:
+		var a := ap.get_animation(g.anims[role])
+		check("gardien : « %s » boucle" % g.anims[role], a != null and a.loop_mode == Animation.LOOP_LINEAR)
+	for role in ["interact", "surprised", "comfort", "sleep", "wake"]:
+		var a2 := ap.get_animation(g.anims[role])
+		check("gardien : « %s » ne boucle pas" % g.anims[role], a2 != null and a2.loop_mode == Animation.LOOP_NONE)
+	var sk := m.find_child("Skeleton3D", true, false) as Skeleton3D
+	check("gardien : squelette de 23 os", sk != null and sk.get_bone_count() == 23)
+	var tris := 0
+	var meshes := m.find_children("*", "MeshInstance3D", true, false)
+	for mi in meshes:
+		var mesh := (mi as MeshInstance3D).mesh
+		for s in mesh.get_surface_count():
+			tris += (mesh.surface_get_arrays(s)[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3
+	check("gardien : 28 maillages", meshes.size() == 28, str(meshes.size()))
+	check("gardien : budget triangles (≤ 52 000, %d)" % tris, tris <= 52000)
+	for gesture in [&"interact", &"surprised", &"comfort", &"sleep", &"wake"]:
+		check("gardien : geste « %s » pris en charge" % gesture, m.supports(gesture))
+	check("gardien : « wake » refusé quand il ne dort pas", not m.play_action(&"wake"))
+	m.free()
+	# porte verrouillée = aucun geste ; porte ouvrable = « interact »
+	var d := SceneDoor.new()
+	d.locked = true
+	check("geste : porte verrouillée → aucun", d.gesture_for(null) == &"")
+	d.locked = false
+	check("geste : porte ouvrable → interact", d.gesture_for(null) == &"interact")
+	d.free()
+	# joueur : le gardien remplace l'explorateur, capsule et échelle suivent la config
+	var lv := (load("res://scenes/levels/bureau_couloir.tscn") as PackedScene).instantiate() as Level
+	root.add_child(lv)
+	for i in 30:
+		await physics_frame
+	var p := lv.player
+	check("joueur : modèle = StarFacedOneModel", p.model is StarFacedOneModel, str(p.model))
+	var cap := p.find_children("*", "CollisionShape3D", false, false)[0] as CollisionShape3D
+	check("joueur : capsule = hauteur et rayon de la config", is_equal_approx((cap.shape as CapsuleShape3D).height, PlayerConfig.height) and is_equal_approx((cap.shape as CapsuleShape3D).radius, PlayerConfig.radius()))
+	check("joueur : le modèle flotte au-dessus du sol sans quitter la physique", p.is_on_floor() and p.model.global_position.y - p.global_position.y < 0.01)
+	# marche : la vitesse physique pilote l'animation (BlendSpace avant) et le modèle regarde sa direction
+	p.auto_active = true
+	p.auto_dir = Vector2(1, 0)
+	for i in 90:
+		await physics_frame
+	var bp: Vector2 = (p.model as StarFacedOneModel)._tree.get("parameters/locomotion/blend_position")
+	check("joueur : marche → animation d'avancée (y ≈ 1, x ≈ 0)", bp.y > 0.8 and bp.y < 1.3 and absf(bp.x) < 0.25, str(bp))
+	p.auto_sprint = true
+	for i in 90:
+		await physics_frame
+	bp = (p.model as StarFacedOneModel)._tree.get("parameters/locomotion/blend_position")
+	check("joueur : course → animation rapide (y ≈ 2)", bp.y > 1.6, str(bp))
+	p.auto_active = false
+	p.auto_sprint = false
+	# gestes de contexte : sommeil verrouille le déplacement, réveil le rend
+	check("geste : endormissement accepté", p.play_gesture(&"sleep"))
+	check("geste : pas de déplacement pendant le sommeil", not p.model.accepts_movement())
+	for i in 400:
+		await physics_frame
+	check("geste : endormi", p.model.is_sleeping())
+	check("geste : réveil accepté", p.play_gesture(&"wake"))
+	for i in 300:
+		await physics_frame
+	check("geste : réveillé, déplacement rendu", not p.model.is_sleeping() and p.model.accepts_movement())
+	lv.queue_free()
 	await process_frame

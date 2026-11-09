@@ -1,0 +1,48 @@
+{
+	"_doc": "Définition de gardien (Star-Faced One). Un nouveau gardien = un GLB + une scène + un JSON de ce type ; aucun script à écrire tant que les noms d'animations suivent la table « animations ». Voir docs/GARDIENS.md.",
+	"id": "star_faced_one",
+	"nom": "Star-Faced One",
+	"scene": "res://scenes/characters/star_faced_one.tscn",
+	"hauteur_modele_m": 1.17,
+	"animations": {
+		"idle": "idle_float",
+		"forward": "float_forward",
+		"fast": "float_fast",
+		"backward": "float_backward",
+		"strafe_left": "float_strafe_left",
+		"strafe_right": "float_strafe_right",
+		"interact": "interact",
+		"surprised": "surprised",
+		"comfort": "comfort",
+		"sleep": "sleep",
+		"wake": "wake"
+	},
+	"boucles": ["idle", "forward", "fast", "backward", "strafe_left", "strafe_right"],
+	"gestes_annulables": ["interact", "surprised", "comfort"],
+	"geste_delai_annulation_s": 0.9,
+	"locomotion": {
+		"vitesse_course_relative": 2.0,
+		"lissage": 9.0,
+		"rotation_rad_s": 8.0,
+		"inclinaison_acceleration_deg": 4.0
+	},
+	"camera": {
+		"distance": 3.3,
+		"distance_interieur": 2.3,
+		"cible_m": 0.82,
+		"cible_interieur_m": 0.88
+	},
+	"effets": {
+		"visage_emission": 0.65,
+		"visage_pulsation": 0.07,
+		"halo_emission": 1.0,
+		"halo_pulsation": 0.12,
+		"lumiere_visage_energie": 0.5,
+		"lumiere_visage_decalage_m": 0.45,
+		"lumiere_visage_portee_m": 3.0,
+		"lumiere_visage_ombres": false,
+		"particules_repos": true,
+		"particules_trainee": true,
+		"renfort_acceleration": 0.6
+	}
+}
