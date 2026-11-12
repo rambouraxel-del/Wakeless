@@ -228,9 +228,9 @@ func _door(g: Node3D, door_y: float) -> void:
 	d.leaf_height = 2.4
 	d.build_frame = true
 	d.portal_glow = true
-	d.target_scene = "res://scenes/levels/bureau_couloir.tscn"
-	d.target_spawn = "retour_foret"
-	d.prompt = "Retourner au Bureau des rêves"
+	d.target_scene = "res://scenes/levels/bureau_des_reves.tscn"
+	d.target_spawn = "reveil"           # sortir du rêve = se réveiller sur le lit du rêveur
+	d.prompt = "Se réveiller"
 	g.add_child(d)
 
 # ------------------------------------------------------------------ aides

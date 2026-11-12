@@ -131,6 +131,7 @@ func apply_preset_dict(p: Dictionary) -> void:
 		return
 	sun.light_color = Color.html(p["sun_color"])
 	sun.light_energy = float(p["sun_energy"])
+	sun.visible = float(p["sun_energy"]) > 0.001          # intérieur clos : pas de soleil ni d'ombres directionnelles inutiles
 	sun.rotation_degrees = Vector3(-float(p["sun_angle"]), float(p["sun_heading"]), 0.0)
 	sky_material.set_shader_parameter("sky_top", Color.html(p["sky_top"]))
 	sky_material.set_shader_parameter("sky_horizon", Color.html(p["sky_horizon"]))
@@ -166,6 +167,11 @@ func apply_preset_dict(p: Dictionary) -> void:
 	env.fog_density = float(p["fog_density"])
 	env.fog_enabled = env.fog_density > 0.0
 	env.glow_intensity = float(p["glow"])
+	env.ssr_enabled = bool(p.get("ssr", false))           # reflets en espace écran (Forward+ seulement) : sols polis
+	if env.ssr_enabled:
+		env.ssr_max_steps = 48
+		env.ssr_fade_in = 0.2
+		env.ssr_fade_out = 2.5
 	refresh_lamps()
 
 ## Ajuste l'intensité des lumières d'objets (groupe « asset_lamps ») selon l'ambiance.

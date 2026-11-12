@@ -16,7 +16,7 @@ signal player_ready(player: Explorer)
 @export var level_id := ""
 @export var level_title := ""
 @export var level_subtitle := ""
-@export_enum("day", "dusk", "presentation", "foret_nuit", "hotel_reve") var lighting_preset := "hotel_reve"
+@export_enum("day", "dusk", "presentation", "foret_nuit", "hotel_reve", "bureau_nuit") var lighting_preset := "hotel_reve"
 @export var default_spawn := "depart"
 ## Intérieur : la caméra à la 3e personne se rapproche (comme dans les maisons d'Éclat).
 @export var interior := false
@@ -61,6 +61,8 @@ func _ready() -> void:
 		if a != null:
 			a.capture_on_resume = true
 	player_ready.emit(player)
+	if bool((_app_get("launch", {}) as Dictionary).get("reveil", false)) or spawn_id.begins_with("reveil"):
+		_wake_up.call_deferred()                    # retour d'un rêve : le personnage se réveille sur son lit
 	_intro()
 
 func _setup_lighting() -> void:
@@ -157,6 +159,10 @@ func _intro() -> void:
 	await a.fade_in(1.0)
 	if show_controls_hint:
 		toast("%s : marcher · souris : regarder · Maj : courir · Espace : sauter · E : interagir · Échap : pause" % GameInput.move_keys_label(), 7.0)
+
+func _wake_up() -> void:
+	if player != null:
+		player.play_gesture(&"wake")
 
 ## Message bref au centre haut de l'écran.
 func toast(text: String, seconds := 2.2) -> void:

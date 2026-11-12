@@ -8,6 +8,10 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	var out := args[1]
 	var inst := (load(args[0]) as PackedScene).instantiate()
+	for a in args:
+		if a.begins_with("spawn=") and inst is Level:
+			(inst as Level).default_spawn = a.substr(6)
+	args = PackedStringArray(Array(args).filter(func(a): return not String(a).begins_with("spawn=")))
 	root.add_child(inst)
 	await process_frame
 	var level := inst as Level

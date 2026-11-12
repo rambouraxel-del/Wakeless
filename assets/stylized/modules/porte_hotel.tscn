@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/level/hotel_door.gd" id="1_e5mm5"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel.res" id="2_ig4pe"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel_maillage_battant.res" id="3_3j8pv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mq73"]
+size = Vector3(0.3, 3.3, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hnuri"]
+size = Vector3(0.3, 3.3, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8kln"]
+size = Vector3(1.46, 3, 0.14)
+
+[node name="PorteHotel" type="Node3D"]
+script = ExtResource("1_e5mm5")
+locked = true
+locked_message = "Fermée à clé."
+number = ""
+open_angle_deg = 95.0
+leaf_width = 1.5
+leaf_height = 3.0
+prompt = "Interagir"
+reach = 2.8
+enabled = true
+gesture = &"interact"
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_ig4pe")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.65, 0.15)
+shape = SubResource("BoxShape3D_7mq73")
+
+[node name="Boite2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 1.65, 0.15)
+shape = SubResource("BoxShape3D_hnuri")
+
+[node name="Numero" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53, 0.285)
+pixel_size = 0.004
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+font_size = 72
+outline_size = 0
+
+[node name="Battant" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0.06)
+
+[node name="MaillageBattant" type="MeshInstance3D" parent="Battant"]
+mesh = ExtResource("3_3j8pv")
+
+[node name="Collision" type="StaticBody3D" parent="Battant"]
+
+[node name="Boite" type="CollisionShape3D" parent="Battant/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.73, 1.5, 0)
+shape = SubResource("BoxShape3D_c8kln")

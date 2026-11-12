@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/bureau_reception.res" id="1_phitk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bxa17"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tr8oh"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_huana"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ca0xj"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0o084"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bxs5f"]
+size = Vector3(0.9, 1.25, 0.7)
+
+[node name="BureauReception" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_phitk")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 2.09578, 0.62, 1.21)
+shape = SubResource("BoxShape3D_bxa17")
+
+[node name="Boite2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 1.38805, 0.62, 1.98235)
+shape = SubResource("BoxShape3D_tr8oh")
+
+[node name="Boite3" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, 0.420229, 0.62, 2.38323)
+shape = SubResource("BoxShape3D_huana")
+
+[node name="Boite4" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.420229, 0.62, 2.38323)
+shape = SubResource("BoxShape3D_ca0xj")
+
+[node name="Boite5" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, -1.38805, 0.62, 1.98235)
+shape = SubResource("BoxShape3D_0o084")
+
+[node name="Boite6" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -2.09578, 0.62, 1.21)
+shape = SubResource("BoxShape3D_bxs5f")
+
+[node name="Lumiere1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85383, 1.67, 1.55555)
+light_color = Color(1, 0.74902, 0.478431, 1)
+light_energy = 1.3
+distance_fade_enabled = true
+distance_fade_begin = 32.0
+distance_fade_shadow = 18.0
+omni_attenuation = 1.4
+
+[node name="Lumiere2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85383, 1.67, 1.55555)
+light_color = Color(1, 0.74902, 0.478431, 1)
+light_energy = 1.3
+distance_fade_enabled = true
+distance_fade_begin = 32.0
+distance_fade_shadow = 18.0
+omni_attenuation = 1.4

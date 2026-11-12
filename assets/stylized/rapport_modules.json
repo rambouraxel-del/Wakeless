@@ -1,0 +1,177 @@
+{
+	"applique": {
+		"collisions": 0,
+		"lumieres": 1,
+		"triangles": 740
+	},
+	"arbre_de_lune": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 3652
+	},
+	"arcade": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 2024
+	},
+	"armoire": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1844
+	},
+	"balustrade_3m": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1884
+	},
+	"balustrade_4_5m": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2484
+	},
+	"banc_velours": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1236
+	},
+	"banniere": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 972
+	},
+	"bureau_ecriture": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 2164
+	},
+	"bureau_reception": {
+		"collisions": 6,
+		"lumieres": 2,
+		"triangles": 7042
+	},
+	"chariot_bagages": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 3920
+	},
+	"colonne": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2828
+	},
+	"colonne_courte": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2828
+	},
+	"escalier_grand": {
+		"collisions": 3,
+		"lumieres": 0,
+		"triangles": 14388
+	},
+	"etagere_livres": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 8160
+	},
+	"fauteuil": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2448
+	},
+	"fenetre_chambre": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 2549
+	},
+	"fenetre_haute": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 3081
+	},
+	"glycine": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 4356
+	},
+	"horloge_celeste": {
+		"collisions": 0,
+		"lumieres": 1,
+		"triangles": 4004
+	},
+	"jardiniere": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1292
+	},
+	"lanterne": {
+		"collisions": 0,
+		"lumieres": 1,
+		"triangles": 980
+	},
+	"lit_reveur": {
+		"collisions": 6,
+		"lumieres": 0,
+		"triangles": 9772
+	},
+	"lustre_astronomique": {
+		"collisions": 0,
+		"lumieres": 2,
+		"triangles": 9716
+	},
+	"mobile_etoiles": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 976
+	},
+	"panneau_directions": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 608
+	},
+	"pilastre": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1776
+	},
+	"porte_chambre": {
+		"collisions": 2,
+		"lumieres": 0,
+		"triangles": 3624
+	},
+	"porte_double_entree": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 3192
+	},
+	"porte_hotel": {
+		"collisions": 2,
+		"lumieres": 0,
+		"triangles": 3696
+	},
+	"table_chevet": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 988
+	},
+	"table_globe": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 1274
+	},
+	"tapis_rond": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 924
+	},
+	"travee_couloir": {
+		"collisions": 4,
+		"lumieres": 0,
+		"triangles": 7340
+	},
+	"travee_couloir_ouverte": {
+		"collisions": 6,
+		"lumieres": 0,
+		"triangles": 7248
+	}
+}

@@ -1,4 +1,43 @@
-# Validation du prototype
+# Validation
+
+## Bureau des rêves en 3D stylisée (branche `claude/bureau-des-reves-3d`)
+
+Environnement : Claude Code Cloud, Linux **sans carte graphique**, Godot **4.3-stable** (headless pour les tests ; rendu
+logiciel OpenGL « Compatibilité » sous Xvfb pour les captures). Commande : `tools/check.sh`.
+
+| Contrôle | Résultat |
+|---|---|
+| Import du projet | aucune erreur |
+| Compilation des scripts (`tools/check_scripts.gd`) | 68 / 68 |
+| Socle (`tests/run_checks.gd` : voxel, assets, références, niveaux dont le nouveau, gardien Star-Faced One) | **189 / 189** |
+| Bureau des rêves (`tests/run_checks_bureau.gd`) | **325 / 325** |
+| Recette du jeu complet (`tests/recette_transition.gd`, autoload `App`) | **22 / 22** |
+
+**`run_checks_bureau.gd`** : 35 modules (scène, maillage, chaque surface sur un matériau partagé, ≤ 16 000 triangles), ≤ 40
+matériaux, orientation des faces du kit ; niveau (scène de démarrage, arrivées, aucune structure voxel, pièces maîtresses,
+23 portes numérotées uniques dont une seule ouvrable, lit → forêt, forêt → réveil) ; budgets (577 662 triangles pour tout le
+secteur, 66 lumières, 1 seule à ombres). **Parcours joué avec la vraie physique** et Star-Faced One : arrivée au sol dans
+l'atrium, le comptoir bloque, **montée de l'escalier ouest jusqu'à la galerie (6 m)**, traversée de la galerie nord puis est
+jusqu'au fond, la balustrade retient le joueur, descente de l'escalier est, passage de l'arche, **couloir de 36 m en entier**,
+mur du fond et murs latéraux, porte 101 (verrouillée : message, aucun geste), **porte 107 ouverte (geste interact)**, entrée dans
+la chambre, **lit visé « Se coucher et rêver » : couché sur le lit, commandes gelées, geste sleep**.
+
+**Recette** : démarrage dans l'atrium → E sur la porte 107 → E sur le lit → la forêt se charge (scène distincte, l'hôtel est
+déchargé) → E sur « Se réveiller » → retour **sur le lit** (arrivée `reveil`), ambiance de l'hôtel → pause/reprise → sauvegarde
+des deux niveaux → l'ancien couloir voxel se charge encore (F4).
+
+**Captures** : `docs/captures/bureau_des_reves/` (10 vues, dont 3 en vue de jeu avec Star-Faced One). Rendu logiciel en mode
+Compatibilité : **pas** de SSR (reflets du marbre), pas de SSAO, limite de 8 lumières par objet ; le jeu vise Forward+ sur Mac,
+qui sera plus lumineux et plus riche. L'aspect final (lumière, reflets, fluidité) reste à juger sur une vraie carte graphique.
+
+**Limites** : aucune mesure d'images par seconde (pas de GPU) ; le ressenti de la caméra à la 3e personne dans les espaces
+étroits (lit à baldaquin, balcons) n'a été vu qu'en captures ; les tests utilisent Godot 4.3 alors que le personnage a été
+importé avec une version plus récente sur le PC (le fichier `.import` du GLB n'a pas été modifié) ; les portes autres que la 107
+sont décoratives ; les galeries ne mènent encore nulle part.
+
+---
+
+## Prototype voxel (initialisation depuis Éclat)
 
 Environnement de contrôle : Linux sans carte graphique, **Godot 4.3-stable** (headless pour les tests ; rendu logiciel OpenGL
 sous Xvfb pour les captures). Tout est rejouable par `tools/check.sh` (tests) et `tools/shot.sh` (captures).

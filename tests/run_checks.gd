@@ -192,7 +192,7 @@ func _no_procedural_runtime() -> void:
 	print("-- pas de génération procédurale au runtime")
 	var banned := ["RandomNumberGenerator", "randf(", "randi(", "randomize(", "FastNoiseLite", "randf_range", "randi_range", "pick_random", "shuffle("]
 	var hits := []
-	for dir in ["res://scripts/app", "res://scripts/game", "res://scripts/level", "res://scripts/terrain", "res://scripts/camera", "res://scripts/rendering"]:
+	for dir in ["res://scripts/app", "res://scripts/game", "res://scripts/level", "res://scripts/terrain", "res://scripts/camera", "res://scripts/rendering", "res://scripts/stylized", "res://scripts/characters"]:
 		for f in _files(dir, ["gd"]):
 			var txt := FileAccess.get_file_as_string(f)
 			for b in banned:
@@ -220,6 +220,7 @@ func _no_procedural_runtime() -> void:
 const LEVELS := {
 	"res://scenes/levels/bureau_couloir.tscn": ["depart", "retour_foret"],
 	"res://scenes/levels/foret_nocturne.tscn": ["depart"],
+	"res://scenes/levels/bureau_des_reves.tscn": ["depart", "couloir", "reveil"],
 }
 
 func _levels_static() -> void:

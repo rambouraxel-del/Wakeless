@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/mobile_etoiles.res" id="1_jxsa0"]
+[ext_resource type="Script" path="res://scripts/stylized/rotator.gd" id="2_lssfi"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/mobile_etoiles_maillage_mobile.res" id="3_qt418"]
+
+[node name="MobileEtoiles" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_jxsa0")
+
+[node name="Rotation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+script = ExtResource("2_lssfi")
+axis = Vector3(0, 1, 0)
+degrees_per_second = 9.0
+
+[node name="MaillageMobile" type="MeshInstance3D" parent="Rotation"]
+cast_shadow = 0
+mesh = ExtResource("3_qt418")

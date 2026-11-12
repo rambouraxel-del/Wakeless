@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/ciel_vue.gdshader" id="1_aqjrj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_aqjrj")
+shader_parameter/sky_top = null
+shader_parameter/sky_horizon = null
+shader_parameter/mist = null
+shader_parameter/silhouette = null
+shader_parameter/window_light = null
+shader_parameter/moon_pos = Vector2(2, 2)
+shader_parameter/moon_size = null
+shader_parameter/seed = 2.0
+shader_parameter/brightness = null
+shader_parameter/plane_size = Vector2(4, 9)

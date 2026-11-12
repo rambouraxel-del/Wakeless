@@ -1,5 +1,9 @@
 # Direction artistique de Wakeless (héritée d'Éclat)
 
+> **Mise à jour (Bureau des rêves 3D)** : les NOUVEAUX environnements abandonnent le voxel pour une **3D stylisée, douce et
+> légèrement arrondie**, cohérente avec Star-Faced One (violet, indigo, bleu nuit, dorures, lune et étoiles). Voir
+> [BUREAU_DES_REVES.md](BUREAU_DES_REVES.md). Ce document reste la référence des niveaux voxel conservés (ancien couloir, forêt).
+
 > **Wakeless reprend la direction artistique d'Éclat à l'identique** : voxel artisanal, pixels de 2 cm, matières de
 > `config/palette.json`, shader unique. Ce document est le texte d'Éclat (lot 11), conservé pour ses règles de rendu.
 > Ce qui change pour Wakeless est résumé ci-dessous ; **§5 bis, §6 et §10 (rendu et matières) et §4 (échelles)

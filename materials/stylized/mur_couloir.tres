@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_7lxdi"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7lxdi")
+shader_parameter/base_color = Color(0.309804, 0.239216, 0.52549, 1)
+shader_parameter/top_color = Color(0.2, 0.156863, 0.372549, 1)
+shader_parameter/gradient_bottom = null
+shader_parameter/gradient_top = 9.0
+shader_parameter/variation = 0.06
+shader_parameter/variation_scale = null
+shader_parameter/roughness = 0.85
+shader_parameter/metallic = null
+shader_parameter/specular = null
+shader_parameter/rim_color = null
+shader_parameter/rim_strength = 0.08
+shader_parameter/emission_color = null
+shader_parameter/emission_energy = null
+shader_parameter/star_density = null
+shader_parameter/star_scale = null
+shader_parameter/star_color = null
+shader_parameter/star_glow = null

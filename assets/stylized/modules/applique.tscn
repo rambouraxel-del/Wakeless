@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/applique.res" id="1_m2xf0"]
+
+[node name="Applique" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = ExtResource("1_m2xf0")
+
+[node name="Lumiere" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.42)
+light_color = Color(1, 0.705882, 0.415686, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 32.0
+distance_fade_shadow = 18.0
+omni_range = 7.0
+omni_attenuation = 1.4

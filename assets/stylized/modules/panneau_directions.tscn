@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/panneau_directions.res" id="1_4naik"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ih6x"]
+size = Vector3(0.6, 3, 0.6)
+
+[node name="PanneauDirections" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_4naik")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_5ih6x")
+
+[node name="Texte_0" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62, 2.5, 0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Chambres  ›"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_1" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.62, 2.5, -0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Chambres  ›"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_2" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62, 2.05, 0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Bibliothèque"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_3" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.62, 2.05, -0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Bibliothèque"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_4" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62, 1.6, 0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Archives"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_5" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.62, 1.6, -0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Archives"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_6" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62, 1.15, 0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Ascenseurs"
+font_size = 56
+outline_size = 6
+
+[node name="Texte_7" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.62, 1.15, -0.036)
+pixel_size = 0.0035
+double_sided = false
+modulate = Color(1, 0.85098, 0.541176, 1)
+outline_modulate = Color(0.101961, 0.0627451, 0.188235, 1)
+text = "Ascenseurs"
+font_size = 56
+outline_size = 6

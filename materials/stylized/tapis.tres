@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_mni3c"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_mni3c")
+shader_parameter/base_color = Color(0.290196, 0.164706, 0.431373, 1)
+shader_parameter/top_color = Color(0.290196, 0.164706, 0.431373, 1)
+shader_parameter/gradient_bottom = null
+shader_parameter/gradient_top = null
+shader_parameter/variation = 0.04
+shader_parameter/variation_scale = null
+shader_parameter/roughness = 0.95
+shader_parameter/metallic = null
+shader_parameter/specular = null
+shader_parameter/rim_color = null
+shader_parameter/rim_strength = 0.05
+shader_parameter/emission_color = null
+shader_parameter/emission_energy = null
+shader_parameter/star_density = null
+shader_parameter/star_scale = null
+shader_parameter/star_color = null
+shader_parameter/star_glow = null

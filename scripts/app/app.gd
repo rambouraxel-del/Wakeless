@@ -5,17 +5,18 @@ extends Node
 ##   App.open(chemin_de_scène, {"spawn": "id_du_point_d_arrivée"})   fondu → chargement → fondu
 ##   App.launch                                                         paramètres reçus par la scène qui s'ouvre
 ##
-## Raccourcis de développement : F1 couloir · F2 forêt · L ambiance suivante · F3 infos · F11 plein écran.
+## Raccourcis de développement : F1 Bureau des rêves · F2 forêt · F4 ancien couloir voxel · L ambiance suivante · F3 infos · F11 plein écran.
 ## Recette automatique : godot … -- --recette=<chemin du script> (un script Node est ajouté au-dessus du jeu, voir tests/recette_transition.gd).
 
-const SCENE_COULOIR := "res://scenes/levels/bureau_couloir.tscn"
+const SCENE_BUREAU := "res://scenes/levels/bureau_des_reves.tscn"            # Bureau des rêves (3D stylisée)
+const SCENE_COULOIR := "res://scenes/levels/bureau_couloir.tscn"           # ancien couloir voxel (prototype, conservé)
 const SCENE_FORET := "res://scenes/levels/foret_nocturne.tscn"
-const DEV_SCENES := {KEY_F1: SCENE_COULOIR, KEY_F2: SCENE_FORET}
+const DEV_SCENES := {KEY_F1: SCENE_BUREAU, KEY_F2: SCENE_FORET, KEY_F4: SCENE_COULOIR}
 const FADE_TIME := 0.45
 
 signal scene_opened(path: String)
 
-## Paramètres transmis à la scène qui s'ouvre (ex. {"spawn": "retour_foret"}).
+## Paramètres transmis à la scène qui s'ouvre (ex. {"spawn": "reveil"}).
 var launch := {}
 var current_path := ""
 var paused_menu := false
@@ -179,7 +180,7 @@ func _build_pause() -> void:
 	b1.pressed.connect(resume)
 	box.add_child(b1)
 	var b2 := MenuStyle.button("Retour au Bureau des rêves")
-	b2.pressed.connect(func() -> void: open(SCENE_COULOIR))
+	b2.pressed.connect(func() -> void: open(SCENE_BUREAU))
 	box.add_child(b2)
 	var b3 := MenuStyle.button("Quitter")
 	b3.pressed.connect(quit_game)
@@ -233,5 +234,5 @@ func _process(_delta: float) -> void:
 		lines.append("ZQSD/WASD bouger · souris regarder · Maj courir · Espace sauter · E interagir")
 	else:
 		lines.append_array(_controls_help)
-	lines.append("V vue 1re/3e personne · F champ de vision · L ambiance · F1 couloir · F2 forêt · F3 infos · F11 plein écran · Échap pause")
+	lines.append("V vue 1re/3e personne · F champ de vision · L ambiance · F1 Bureau des rêves · F2 forêt · F4 ancien couloir · F3 infos · F11 plein écran · Échap pause")
 	_hud.text = "\n".join(lines)
