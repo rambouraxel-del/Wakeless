@@ -10,7 +10,7 @@ func _initialize() -> void:
 	print("matériaux : %d" % n)
 	var ids: Array = Array(OS.get_cmdline_user_args())
 	if ids.is_empty():
-		ids = Array(StyleAssets.all_ids())
+		ids = Array(StyleAssets.all_ids()) + Array(StyleAssetsForet.ids())
 	var report := {}
 	var path := "res://assets/stylized/rapport_modules.json"
 	if FileAccess.file_exists(path):

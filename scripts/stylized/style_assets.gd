@@ -57,6 +57,8 @@ static func make(id: String) -> ModuleBuilder:
 	var b := StyleAssetsAtrium.make(id)
 	if b == null:
 		b = StyleAssetsChambre.make(id)
+	if b == null:
+		b = StyleAssetsForet.make(id)
 	return b
 
 static func M(n: String) -> Material:

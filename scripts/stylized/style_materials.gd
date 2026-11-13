@@ -130,6 +130,8 @@ static func definitions() -> Dictionary:
 	d["vue_nuit_c"] = _vista(Vector2(0.3, 0.7), 3.0, Vector2(3.0, 3.6))           # fenêtre de chambre
 	StyleMaterialsAtrium.add(d)       # matériaux propres à l'atrium
 	StyleMaterialsChambre.add(d)      # matériaux propres à la chambre et au couloir
+	StyleMaterialsForet.add(d)        # kit organique provisoire de la forêt (Sonnet B)
+	StyleMaterialsForetFx.add(d)      # sol, eau, brume, lueurs de la forêt (Sonnet C)
 	# retouches de finition sur des matériaux ajoutés ci-dessus : moulures de pierre plus chaudes et moins claires (couloir)
 	var mp = d.get("moulure_pierre")
 	if mp != null:

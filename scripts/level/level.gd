@@ -16,7 +16,7 @@ signal player_ready(player: Explorer)
 @export var level_id := ""
 @export var level_title := ""
 @export var level_subtitle := ""
-@export_enum("day", "dusk", "presentation", "foret_nuit", "hotel_reve", "bureau_nuit") var lighting_preset := "hotel_reve"
+@export_enum("day", "dusk", "presentation", "foret_nuit", "hotel_reve", "bureau_nuit", "foret_peur") var lighting_preset := "hotel_reve"
 @export var default_spawn := "depart"
 ## Intérieur : la caméra à la 3e personne se rapproche (comme dans les maisons d'Éclat).
 @export var interior := false
