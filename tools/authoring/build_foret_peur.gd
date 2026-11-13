@@ -77,9 +77,9 @@ const B_ := ["arbre_tordu_b", "arbre_tordu_c", "arbre_tordu_a", "arbre_mort"]
 const MASSES := [
 	[-7.4, 7.0, 4, 1.5, 20.0, A_], [7.6, 5.5, 5, 1.6, 80.0, B_], [-7.4, -4.0, 3, 1.4, 140.0, A_], [6.4, -8.5, 5, 1.6, 200.0, B_],
 	[-9.0, -9.5, 4, 1.4, 10.0, B_], [5.0, -18.0, 4, 1.5, 60.0, A_], [-9.5, -22.5, 5, 1.7, 100.0, B_], [4.5, -28.5, 3, 1.5, 300.0, A_],
-	[-9.5, -30.5, 4, 1.5, 250.0, A_], [7.8, -64.0, 5, 1.6, 340.0, B_], [-7.2, -66.0, 4, 1.5, 30.0, B_],
-	[7.6, -72.0, 3, 1.4, 90.0, B_], [-7.0, -79.5, 5, 1.6, 170.0, B_], [7.6, -83.5, 5, 1.6, 220.0, B_],
-	[-7.0, -91.0, 4, 1.5, 120.0, B_], [7.4, -90.5, 3, 1.4, 50.0, B_], [-7.2, -97.5, 5, 1.6, 270.0, B_], [7.2, -102.0, 4, 1.5, 310.0, B_],
+	[-10.5, -29.0, 4, 1.5, 250.0, A_], [7.8, -64.0, 5, 1.6, 340.0, B_], [-7.2, -66.0, 4, 1.5, 30.0, B_],
+	[6.5, -68.5, 3, 1.4, 90.0, B_], [-8.6, -77.0, 5, 1.6, 170.0, B_], [7.6, -83.5, 5, 1.6, 220.0, B_],
+	[-7.0, -91.0, 4, 1.5, 120.0, B_], [8.4, -87.5, 3, 1.4, 50.0, B_], [-7.2, -97.5, 5, 1.6, 270.0, B_], [6.0, -104.5, 4, 1.5, 310.0, B_],
 	[-7.0, -103.5, 3, 1.4, 15.0, B_],
 	[-12.5, -120.0, 5, 1.8, 40.0, A_], [12.0, -118.0, 4, 1.6, 160.0, A_], [11.5, -136.0, 5, 1.8, 250.0, A_], [-13.0, -134.0, 4, 1.6, 330.0, A_]]
 # arbres à racines-échasses dans l'eau et sur les rives : [x, z, rotation, échelle]
@@ -322,7 +322,7 @@ func ground(x: float, z: float) -> float:
 	var i := clampi(int(floor(fi)), 0, NX - 2)
 	var j := clampi(int(floor(fj)), 0, NZ - 2)
 	var u := clampf(fi - i, 0.0, 1.0)
-	var v := clampf(1.0 - (fj - j), 0.0, 1.0)             # 0 au sud de la case, 1 au nord
+	var v := clampf(fj - j, 0.0, 1.0)                   # 0 au sud de la case, 1 au nord
 	var h00 := terrain_h[j * NX + i]
 	var h10 := terrain_h[j * NX + i + 1]
 	var h01 := terrain_h[(j + 1) * NX + i]
@@ -374,7 +374,7 @@ func _terrain_nodes(arch: Node3D) -> void:
 			if dmin > 14.0:
 				continue                                              # loin derrière les talus : jamais vu, jamais touché
 			idx.append_array(PackedInt32Array([v00, v01, v11, v00, v11, v10]))
-			if dmin < 7.0:
+			if dmin < 12.0:
 				faces.append_array(PackedVector3Array([verts[v00], verts[v01], verts[v11], verts[v00], verts[v11], verts[v10]]))
 	var arrays := []
 	arrays.resize(Mesh.ARRAY_MAX)
@@ -865,6 +865,9 @@ func _trees(g: Node3D) -> void:
 			var z: float = m[1] + oz
 			var ids: Array = m[5]
 			var id: String = ids[(t + mi) % ids.size()]
+			if _dplay(x, z) > 12.0:
+				print("arbre %s (%.1f, %.1f) trop loin du sol praticable : ignoré" % [id, x, z])
+				continue
 			_clear_check(id, x, z)
 			_prop(masses, id, _at(x, z, -0.05), float((mi * 53 + t * 91) % 360), 0.95 + 0.1 * float((mi + t) % 3), "Arbre_%d_%d" % [mi, t])
 		mi += 1
@@ -904,7 +907,7 @@ func _ruins(g: Node3D) -> void:
 	_prop_g(pd, "ruine_mur", 3.4, -108.0, 0.0, 0.6, "Mur_D")
 	_prop_g(g, "ruine_colonne", -2.8, -104.4, 0.0, 0.9, "Porte_colonne_G")
 	_prop_g(g, "ruine_colonne", 2.9, -104.0, 0.0, 0.8, "Porte_colonne_D")
-	_prop_g(g, "racines_arche", 0.0, -62.4, 0.0, 1.0, "Racines_arche_nord")
+	_prop_g(g, "racines_arche", 0.0, -62.4, 0.0, 1.15, "Racines_arche_nord")
 
 func _clearing(g: Node3D) -> void:
 	_prop_g(g, "arbre_ancien", 0.0, -141.0, 0.0, 1.0, "Arbre_ancien")
@@ -930,11 +933,15 @@ func _small_props(g: Node3D) -> void:
 	_prop_g(g, "rocher_c", 11.8, -101.2, 200.0, 1.0, "Impasse_2_rocher")
 	_prop_g(g, "tronc_couche", -13.8, -17.6 + 3.2, 90.0, 1.0, "Lisiere_tronc")
 	_prop_g(g, "racines_basses", -9.5, -17.8, 40.0, 1.0, "Lisiere_racines")
-	_prop_g(g, "racines_arche", _px(-4.0), -4.0, 90.0, 1.0, "Lisiere_arche_racines")
+	_prop_g(g, "racines_arche", _px(-4.0), -4.0, 0.0, 1.15, "Lisiere_arche_racines")
 	_prop_g(g, "rocher_a", -3.4, -6.0, 40.0, 1.0, "Lisiere_rocher_1")
 	_prop_g(g, "rocher_b", 3.8, -14.4, 10.0, 1.0, "Lisiere_rocher_2")
 	for r in [[0.0, -20.0], [-3.0, -33.0], [0.4, -64.0], [1.2, -69.0]]:
 		_prop_g(g, "pierres_plates", r[0], r[1], 20.0, 1.0, "Pierres_%d" % int(-r[1]))
+	# le cadre de porte d'arrivée, envahi de racines
+	_prop_g(g, "racines_basses", -1.5, 5.4, 20.0, 1.2, "Cadre_racines_1")
+	_prop_g(g, "racines_basses", 1.6, 5.6, 200.0, 1.2, "Cadre_racines_2")
+	_prop_g(g, "racines_basses", 0.4, 6.4, 100.0, 1.0, "Cadre_racines_3")
 	# autour de la jeune fille : souche, lanterne éteinte, fougères
 	_prop_g(g, "lanterne_eteinte", -7.4, -22.4, 0.0, 1.0, "Lanterne_eteinte")
 	for r in [[-8.0, -24.6], [-7.0, -26.2], [-5.8, -21.8], [-9.0, -22.8]]:
@@ -1075,6 +1082,7 @@ func _gameplay(g: Node3D) -> void:
 	var ped := PiedestalLune.new()
 	ped.name = "Piedestal"
 	ped.position = _at(-18.5, -88.5)
+	ped.reach = 3.4
 	g.add_child(ped)
 	_prop(ped, "piedestal_lune", Vector3.ZERO, 0.0, 1.0, "Module")
 	# porte de lune : le module (vantaux VantailG / VantailD) et l'interaction partagent le même parent
@@ -1082,9 +1090,9 @@ func _gameplay(g: Node3D) -> void:
 	_prop_g(door_root, "ruine_porte_lune", 0.0, -108.0, 0.0, 1.0, "Ruine")
 	var pl := PorteLune.new()
 	pl.name = "PorteLune"
-	pl.position = _at(0.0, -108.0) + Vector3(0, 1.3, 0.7)
+	pl.position = _at(0.0, -108.0) + Vector3(0, 1.3, 0.0)
 	door_root.add_child(pl)
-	_body_box(pl, Vector3(3.6, 3.8, 0.6), Vector3(0, 0.6, -0.7), "Blocage")
+	_body_box(pl, Vector3(3.6, 3.8, 0.6), Vector3(0, 0.6, 0.0), "Blocage")
 
 	_jeune_fille(g)
 	_ombres_et_feux(g)

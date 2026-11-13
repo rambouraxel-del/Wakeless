@@ -4,7 +4,7 @@ extends Interactable
 ## Le joueur s'installe sur le lit (marqueur « Coucher »), joue le geste « sleep » s'il le sait, puis fondu vers la scène
 ## du rêve. Au retour, le niveau reçoit {"spawn": wake_spawn, "reveil": true} et le joueur joue « wake ».
 
-@export var dream_scene := "res://scenes/levels/foret_nocturne.tscn"
+@export var dream_scene := "res://scenes/levels/foret_de_la_peur.tscn"
 @export var dream_spawn := "depart"
 @export var sleep_seconds := 3.2
 
