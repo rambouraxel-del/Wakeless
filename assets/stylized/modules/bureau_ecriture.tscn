@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/bureau_ecriture.res" id="1_4i3el"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/bureau_ecriture.res" id="1_b03l8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xi24g"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mnoaj"]
 size = Vector3(1.5, 0.85, 0.75)
 
 [node name="BureauEcriture" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_4i3el")
+mesh = ExtResource("1_b03l8")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
-shape = SubResource("BoxShape3D_xi24g")
+shape = SubResource("BoxShape3D_mnoaj")
 
 [node name="Lumiere1" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 1.2, 0.2)

@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banc_velours.res" id="1_xwidf"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banc_velours.res" id="1_f3813"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qxpxm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4uvb8"]
 size = Vector3(2, 0.65, 0.7)
 
 [node name="BancVelours" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_xwidf")
+mesh = ExtResource("1_f3813")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0)
-shape = SubResource("BoxShape3D_qxpxm")
+shape = SubResource("BoxShape3D_4uvb8")

@@ -193,7 +193,7 @@ static func applique() -> ModuleBuilder:
 	b.add(StyleKit.lathe(P([[0.0, -0.25], [0.03, -0.24], [0.085, -0.2], [0.1, -0.12], [0.1, 0.06], [0.085, 0.1]]), 14, M("verre_chaud"), false, true), ModuleBuilder.at(Vector3(0, 0.0, 0.3)))
 	b.add(StyleKit.lathe(P([[0.12, 0.08], [0.13, 0.11], [0.06, 0.2], [0.02, 0.25], [0.0, 0.27]]), 14, M(GOLD), true, false), ModuleBuilder.at(Vector3(0, 0.0, 0.3)))
 	b.add(StyleKit.torus(0.105, 0.012, M(GOLD), 16, 4), ModuleBuilder.at(Vector3(0, -0.08, 0.3)))
-	b.omni(Vector3(0, -0.05, 0.42), Color("#ffb46a"), 2.0, 7.0, false, "Lumiere")
+	b.omni(Vector3(0, -0.05, 0.42), Color("#ffb066"), 1.8, 6.0, false, "Lumiere")
 	b.cast_shadows = false
 	return b
 
@@ -210,7 +210,7 @@ static func lanterne() -> ModuleBuilder:
 		var a := deg_to_rad(45.0 + 90.0 * i)
 		b.add(StyleKit.rounded_box(Vector3(0.025, 0.4, 0.025), 0.01, M(GOLD), 1), ModuleBuilder.at(Vector3(cos(a) * 0.185, y, sin(a) * 0.185)))
 	b.add(StyleKit.extrude(StyleKit.star_outline(0.08, 0.035, 4), 0.02, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(0, y - 0.45, 0)))
-	b.omni(Vector3(0, y, 0), Color("#ffb06a"), 2.6, 9.5, false, "Lumiere")
+	b.omni(Vector3(0, y, 0), Color("#ffb066"), 2.0, 7.5, false, "Lumiere")
 	b.cast_shadows = false
 	return b
 

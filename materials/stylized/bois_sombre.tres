@@ -1,24 +1,39 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_yglsr"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_nk0cl"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_yglsr")
-shader_parameter/base_color = Color(0.239216, 0.145098, 0.286275, 1)
-shader_parameter/top_color = Color(0.2, 0.12549, 0.247059, 1)
+shader = ExtResource("1_nk0cl")
+shader_parameter/base_color = Color(0.207843, 0.133333, 0.247059, 1)
+shader_parameter/top_color = Color(0.164706, 0.105882, 0.207843, 1)
 shader_parameter/gradient_bottom = null
 shader_parameter/gradient_top = null
 shader_parameter/variation = 0.1
 shader_parameter/variation_scale = 1.2
-shader_parameter/roughness = 0.6
+shader_parameter/roughness = 0.55
 shader_parameter/metallic = null
-shader_parameter/specular = null
+shader_parameter/specular = 0.5
 shader_parameter/rim_color = null
-shader_parameter/rim_strength = 0.1
+shader_parameter/rim_strength = 0.06
 shader_parameter/emission_color = null
 shader_parameter/emission_energy = null
 shader_parameter/star_density = null
 shader_parameter/star_scale = null
 shader_parameter/star_color = null
 shader_parameter/star_glow = null
+shader_parameter/rim_power = 4.5
+shader_parameter/foot_dark = null
+shader_parameter/foot_height = null
+shader_parameter/dirt = 0.2
+shader_parameter/grain = null
+shader_parameter/wood = 0.8
+shader_parameter/wood_dir = null
+shader_parameter/wood_freq = 11.0
+shader_parameter/core_boost = null
+shader_parameter/fake_reflect = 0.25
+shader_parameter/reflect_color = Color(0.784314, 0.627451, 0.627451, 1)
+shader_parameter/pool = null
+shader_parameter/pool_rot = null
+shader_parameter/pool_strength = null
+shader_parameter/moon_color = null

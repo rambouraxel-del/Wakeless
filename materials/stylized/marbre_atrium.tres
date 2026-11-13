@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/marbre_etoile.gdshader" id="1_elh62"]
+[ext_resource type="Shader" path="res://materials/stylized/marbre_etoile.gdshader" id="1_usbms"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_elh62")
+shader = ExtResource("1_usbms")
 shader_parameter/marble_dark = null
 shader_parameter/marble_light = null
 shader_parameter/vein_color = null
@@ -16,3 +16,9 @@ shader_parameter/repeat_x = null
 shader_parameter/ring_radius = 3.2
 shader_parameter/tile = null
 shader_parameter/pattern = null
+shader_parameter/pool_x = Vector4(-6.2, 6.2, -6.2, 6.2)
+shader_parameter/pool_z = Vector4(-6, -6, 6.5, 6.5)
+shader_parameter/pool_rot = Vector4(0.35, -0.35, -0.35, 0.35)
+shader_parameter/pool_hs = Vector2(1.5, 2.6)
+shader_parameter/pool_strength = 0.45
+shader_parameter/moon_color = null
