@@ -9,9 +9,13 @@ en est un jeu **entièrement indépendant** : aucune génération procédurale, 
 **Nouveau : le Bureau des rêves en 3D stylisée** (douce, arrondie, cohérente avec Star-Faced One) — scène de démarrage.
 Détails : [docs/BUREAU_DES_REVES.md](docs/BUREAU_DES_REVES.md).
 
-![Grand atrium](docs/captures/bureau_des_reves/01_atrium_entree.jpg)
-![Couloir des rêveurs](docs/captures/bureau_des_reves/05_couloir_vue_de_jeu.jpg)
-![Chambre du rêveur](docs/captures/bureau_des_reves/08_chambre_du_reveur.jpg)
+**Finition esthétique** (branche `claude/bureau-des-reves-finition`) : palette nuit désaturée, lumière chaude contre
+clair de lune, architecture moulurée, chambre 107 habitée. Galerie avant / après :
+[docs/captures/finition/INDEX.md](docs/captures/finition/INDEX.md) · direction : [docs/FINITION_DIRECTION.md](docs/FINITION_DIRECTION.md).
+
+![Grand atrium](docs/captures/finition/comparaisons/A01_atrium_entree.jpg)
+![Couloir des rêveurs](docs/captures/finition/comparaisons/B02_couloir_perspective.jpg)
+![Chambre 107](docs/captures/finition/comparaisons/C02_chambre_vue_large.jpg)
 
 ## Le prototype
 
@@ -30,7 +34,7 @@ Personnage : **Star-Faced One** (`assets/characters/star_faced_one/`, 11 animati
 1. Télécharger **Godot 4.3 (ou plus récent 4.x) — version standard, pas « .NET »** : <https://godotengine.org/download/macos/>
    puis glisser `Godot.app` dans Applications (au premier lancement : clic droit → Ouvrir).
 2. Récupérer le projet : `git clone https://github.com/rambouraxel-del/Wakeless`, puis
-   `git checkout claude/bureau-des-reves-3d` (ou bouton **Code → Download ZIP** sur la branche).
+   `git checkout claude/bureau-des-reves-finition` (ou bouton **Code → Download ZIP** sur la branche).
 3. Dans Godot : **Importer** → choisir le fichier `project.godot` → **Importer et éditer** (la première ouverture importe les
    ressources, quelques secondes).
 4. **F5** (ou ▶ en haut à droite) : le jeu démarre dans l'atrium du Bureau des rêves. Pour lancer un niveau précis : ouvrir la scène puis **F6**.

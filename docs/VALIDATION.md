@@ -1,5 +1,29 @@
 # Validation
 
+## Finition esthétique du Bureau des rêves (branche `claude/bureau-des-reves-finition`)
+
+Même environnement (Claude Code Cloud, **sans carte graphique**, Godot 4.3-stable). Commande : `tools/check.sh`.
+
+| Contrôle | Résultat |
+|---|---|
+| Compilation des scripts | 74 / 74 |
+| Socle (`tests/run_checks.gd`, dont Star-Faced One) | **189 / 189** |
+| Bureau des rêves (`tests/run_checks_bureau.gd` : modules, matériaux partagés, structure, budgets, parcours joué : escaliers, galeries, balustrades, couloir, portes, porte 107, lit) | **547 / 547** |
+| Finition chambre 107 et couloir (`tests/run_checks_finition_b.gd` : objets, lit, portes, matériaux) | **36 / 36** |
+| Recette jouée (chambre 107 → lit → forêt → réveil sur le lit → pause → sauvegarde → F4) | **22 / 22** |
+
+| Mesure (secteur entier) | Avant (9cd3f4a) | Après |
+|---|---|---|
+| Triangles | 577 662 | 855 918 (plafond du test : 900 000) |
+| Lumières | 66 | 76 (1 seule avec ombres) |
+| Matériaux partagés des modules | 32 | 40 (plafond : 40) |
+| Rendu A01 atrium (objets / primitives / appels de dessin, rendu logiciel) | 653 / 481 837 / 653 (vue de jeu) | 983 / 1 078 345 / 983 |
+| Rendu B02 couloir · C02 chambre · D01 joueur | — | 1066 / 864 990 / 1066 · 406 / 222 608 / 406 · 738 / 908 218 / 738 |
+
+**Non vérifié** : images par seconde et rendu GPU Forward+ (SSR du marbre, clustered lighting) — aucune carte graphique
+dans le cloud. Les captures (`docs/captures/finition/INDEX.md`) sont en rendu logiciel « Compatibilité » (8 lumières max par
+objet, sans SSR/SSAO). Le nombre d'appels de dessin (~1 000 dans l'atrium) est à surveiller sur Mac (touche F3).
+
 ## Bureau des rêves en 3D stylisée (branche `claude/bureau-des-reves-3d`)
 
 Environnement : Claude Code Cloud, Linux **sans carte graphique**, Godot **4.3-stable** (headless pour les tests ; rendu
