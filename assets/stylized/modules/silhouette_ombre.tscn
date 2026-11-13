@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/silhouette_ombre.res" id="1_llevp"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/silhouette_ombre.res" id="1_75xp1"]
 
 [node name="SilhouetteOmbre" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_llevp")
+mesh = ExtResource("1_75xp1")

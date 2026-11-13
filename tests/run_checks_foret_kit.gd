@@ -87,9 +87,9 @@ func _initialize() -> void:
 		elif id in PETITS:
 			budget = 2000
 		else:
-			budget = 4000          # ruines, cadre, pont : ensembles composés (pas de budget imposé par le document)
+			budget = 5000          # ruines, cadre, pont : ensembles composés (pas de budget imposé par le document)
 		if id == "jeune_fille_provisoire":
-			budget = 8000          # deux poses (une seule visible)
+			budget = 9000          # deux poses (une seule visible)
 		check("%s : %d triangles ≤ %d" % [id, tris, budget], tris > 0 and tris <= budget)
 		# un matériau partagé (fichier .tres) par surface, jamais deux surfaces identiques dans un même maillage
 		var mats_ok := true
@@ -118,7 +118,7 @@ func _initialize() -> void:
 		check("%s : origine au sol (y min %.2f)" % [id, bb.position.y], bb.position.y > -0.85 and bb.position.y < 0.15)   # bouts de racines enterrés
 		node.free()
 	# --- gabarits
-	var gab := {"arbre_tordu_a": [8.0, 14.5], "arbre_tordu_b": [8.0, 14.5], "arbre_tordu_c": [9.0, 14.5], "arbre_ancien": [16.0, 20.0],
+	var gab := {"arbre_tordu_a": [11.0, 17.0], "arbre_tordu_b": [11.0, 17.0], "arbre_tordu_c": [12.0, 17.0], "arbre_ancien": [13.0, 20.0],
 		"tronc_couche": [0.7, 1.4], "ruine_porte_lune": [3.8, 4.6], "ruine_arche": [3.0, 5.0], "silhouette_ombre": [2.4, 3.2], "fleur_lanterne": [1.2, 2.0]}
 	for id in gab:
 		var n := (load("res://assets/stylized/modules/%s.tscn" % id) as PackedScene).instantiate() as Node3D

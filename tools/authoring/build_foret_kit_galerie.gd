@@ -31,7 +31,7 @@ func _initialize() -> void:
 	var root := Level.new()
 	root.name = "ForetKitGalerie"
 	root.level_id = "foret-kit-galerie"
-	root.lighting_preset = "foret_nuit"
+	root.lighting_preset = "foret_peur"
 	root.default_spawn = "depart"
 	root.kill_y = -50.0
 	var spawns := AuthorKit.group(root, "Spawns")
@@ -70,6 +70,15 @@ func _initialize() -> void:
 		n.position = Vector3(e[1], 0.0, e[2])
 		n.rotation_degrees = Vector3(0, e[3], 0)
 		decor.add_child(n)
+	# la jeune fille en pose assise (pour la contrôler de près) : copie à plat du maillage de la pose « Assise »
+	var as_packed := load("res://assets/stylized/modules/jeune_fille_provisoire.tscn") as PackedScene
+	if as_packed != null:
+		var src := as_packed.instantiate()
+		var mi := (src.get_node("Assise/MaillageAssise") as MeshInstance3D).duplicate() as MeshInstance3D
+		mi.name = "JeuneFilleAssise"
+		mi.position = Vector3(3.0, 0.0, 14.0)
+		decor.add_child(mi)
+		src.free()
 	AuthorKit.save_scene(root, "res://scenes/tests/foret_kit_galerie.tscn")
 	root.free()
 	quit(1 if missing > 0 else 0)

@@ -9,8 +9,8 @@ extends RefCounted
 ## « lin_creme » (peau), « lin_lavande » (cape), « bois_sombre » (cheveux), « verre_chaud », « bois_porte ».
 
 const IDS := [
-	"ecorce_foret", "ecorce_morte", "mousse", "feuillage_sombre", "feuillage_bleu", "pierre_mousse", "pierre_ruine",
-	"plante_sombre", "champi_lueur", "nenuphar_lueur", "fleur_blanche", "chaud_fille", "ombre_foret", "creme_cadre",
+	"ecorce_foret", "ecorce_morte", "mousse", "feuillage_sombre", "pierre_mousse", "pierre_ruine",
+	"champi_lueur", "nenuphar_lueur", "fleur_blanche", "chaud_fille", "ombre_foret", "creme_cadre", "robe_fille", "cape_nuit",
 ]
 
 ## Ombre : opaque au cœur, de plus en plus transparente vers les bords (fresnel inversé) → silhouette floue.
@@ -37,10 +37,10 @@ static func add(d: Dictionary) -> void:
 	d["ecorce_foret"] = _s("#5e4a58", "#4a3a50", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 2.2, "wood": 0.5, "wood_freq": 13.0, "rim_strength": 0.22, "rim_power": 3.0, "rim_color": "#7088cc", "specular": 0.15})
 	d["ecorce_morte"] = _s("#a39ca4", "#8e8896", 0.95, {"gradient_top": 8.0, "variation": 0.18, "variation_scale": 2.0, "wood": 0.7, "wood_freq": 9.0, "rim_strength": 0.2, "rim_power": 3.0, "rim_color": "#b8c4f0", "specular": 0.1})
 	# --- végétal
-	d["mousse"] = _s("#547c4c", "#6a9458", 0.95, {"gradient_top": 6.0, "variation": 0.2, "variation_scale": 3.0, "rim_strength": 0.26, "rim_power": 2.6, "rim_color": "#a0e8d0", "specular": 0.05})
-	d["feuillage_sombre"] = _s("#3a6a4c", "#4e8660", 0.92, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.9, "rim_strength": 0.2, "rim_power": 2.6, "rim_color": "#78c4cc", "specular": 0.05})
-	d["feuillage_bleu"] = _s("#4a8a7c", "#6cb09c", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.8, "emission_color": "#3a8cb4", "emission_energy": 0.07, "rim_strength": 0.28, "rim_power": 2.4, "rim_color": "#a4eaf4", "specular": 0.05})
-	d["plante_sombre"] = _s("#24433f", "#3a6c5c", 0.9, {"gradient_top": 2.0, "variation": 0.14, "variation_scale": 2.0, "rim_strength": 0.24, "rim_power": 2.6, "rim_color": "#84d8bc", "specular": 0.08})
+	d["mousse"] = _s("#3a4a3c", "#46594a", 0.95, {"gradient_top": 6.0, "variation": 0.2, "variation_scale": 3.0, "rim_strength": 0.26, "rim_power": 2.6, "rim_color": "#a0e8d0", "specular": 0.05})
+	d["feuillage_sombre"] = _s("#24363a", "#31474a", 0.92, {"gradient_top": 14.0, "variation": 0.14, "variation_scale": 0.9, "rim_strength": 0.14, "rim_power": 2.8, "rim_color": "#6f8f90", "specular": 0.05})
+	d["robe_fille"] = _s("#7d7898", "#8a85a4", 0.9, {"gradient_top": 1.4, "variation": 0.05, "rim_strength": 0.2, "rim_power": 2.6, "rim_color": "#c4c0e0", "specular": 0.05})
+	d["cape_nuit"] = _s("#27305a", "#323c68", 0.92, {"gradient_top": 1.4, "variation": 0.06, "rim_strength": 0.22, "rim_power": 2.6, "rim_color": "#8a96d8", "specular": 0.05})
 	# --- pierre
 	d["pierre_mousse"] = _s("#5e5c68", "#524f60", 0.88, {"gradient_top": 5.0, "variation": 0.14, "variation_scale": 1.5, "dirt": 0.25, "rim_strength": 0.16, "rim_power": 3.0, "rim_color": "#90a4d8", "specular": 0.2})
 	d["pierre_ruine"] = _s("#74707e", "#656270", 0.85, {"gradient_top": 6.0, "variation": 0.12, "variation_scale": 1.2, "dirt": 0.3, "rim_strength": 0.18, "rim_power": 3.0, "rim_color": "#b4bcec", "specular": 0.25})

@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_tordu_c.res" id="1_1mou5"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_tordu_c.res" id="1_yfjsg"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_6t1qd"]
-height = 6.6
-radius = 0.779
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ecrsb"]
+height = 7.92
+radius = 0.9975
 
 [node name="ArbreTorduC" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_1mou5")
+mesh = ExtResource("1_yfjsg")
 
 [node name="CollisionTronc" type="StaticBody3D" parent="."]
 
 [node name="Cylindre" type="CollisionShape3D" parent="CollisionTronc"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0)
-shape = SubResource("CylinderShape3D_6t1qd")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96, 0)
+shape = SubResource("CylinderShape3D_ecrsb")

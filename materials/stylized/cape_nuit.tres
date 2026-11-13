@@ -1,21 +1,21 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=4]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_3m1r8"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_qfkda"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_3m1r8")
-shader_parameter/base_color = Color(0.141176, 0.262745, 0.247059, 1)
-shader_parameter/top_color = Color(0.227451, 0.423529, 0.360784, 1)
+shader = ExtResource("1_qfkda")
+shader_parameter/base_color = Color(0.152941, 0.188235, 0.352941, 1)
+shader_parameter/top_color = Color(0.196078, 0.235294, 0.407843, 1)
 shader_parameter/gradient_bottom = null
-shader_parameter/gradient_top = 2.0
-shader_parameter/variation = 0.14
-shader_parameter/variation_scale = 2.0
-shader_parameter/roughness = 0.9
+shader_parameter/gradient_top = 1.4
+shader_parameter/variation = 0.06
+shader_parameter/variation_scale = null
+shader_parameter/roughness = 0.92
 shader_parameter/metallic = null
-shader_parameter/specular = 0.08
-shader_parameter/rim_color = Color(0.517647, 0.847059, 0.737255, 1)
-shader_parameter/rim_strength = 0.24
+shader_parameter/specular = 0.05
+shader_parameter/rim_color = Color(0.541176, 0.588235, 0.847059, 1)
+shader_parameter/rim_strength = 0.22
 shader_parameter/emission_color = null
 shader_parameter/emission_energy = null
 shader_parameter/star_density = null

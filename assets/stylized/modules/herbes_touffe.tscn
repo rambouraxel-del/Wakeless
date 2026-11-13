@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/herbes_touffe.res" id="1_55n0e"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/herbes_touffe.res" id="1_ibay6"]
 
 [node name="HerbesTouffe" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_55n0e")
+mesh = ExtResource("1_ibay6")
