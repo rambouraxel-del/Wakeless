@@ -9,7 +9,7 @@ extends SceneTree
 const LAYOUT := [
 	# arbres (rangée du fond)
 	["arbre_tordu_a", -22.0, -30.0, 0], ["arbre_tordu_b", -8.0, -30.0, 40], ["arbre_tordu_c", 8.0, -30.0, 90],
-	["arbre_echasses", 24.0, -30.0, 0], ["arbre_mort", 38.0, -30.0, 120], ["arbre_ancien", 62.0, -34.0, 0],
+	["arbre_echasses", 24.0, -30.0, 0], ["arbre_mort", 38.0, -30.0, 120], ["arbre_ancien", 62.0, -34.0, 0], ["arbre_lointain_a", -34.0, -30.0, 0], ["arbre_lointain_b", -44.0, -30.0, 0],
 	# bois au sol et racines
 	["tronc_couche", -22.0, -14.0, 0], ["souche", -14.0, -14.0, 0], ["racines_arche", -6.0, -14.0, 0], ["racines_basses", 4.0, -14.0, 0],
 	# pierre

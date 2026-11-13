@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[sub_resource type="Shader" id="Shader_8m6mw"]
+[sub_resource type="Shader" id="Shader_6enmv"]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_never, cull_back, unshaded;
 uniform vec4 couleur : source_color = vec4(0.02, 0.02, 0.06, 1.0);
@@ -15,7 +15,7 @@ void fragment() {
 
 [resource]
 render_priority = 1
-shader = SubResource("Shader_8m6mw")
+shader = SubResource("Shader_6enmv")
 shader_parameter/couleur = null
 shader_parameter/opacite = null
 shader_parameter/douceur = null

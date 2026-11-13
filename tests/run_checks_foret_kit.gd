@@ -12,7 +12,7 @@ const PLANTES := ["herbes_touffe", "fougere", "champignons_lumineux", "fleurs_bl
 const PETITS := ["souche", "rocher_a", "rocher_b", "rocher_c", "pierres_plates", "cercle_pierres", "arbuste_a", "arbuste_b",
 	"tronc_couche", "racines_arche", "racines_basses", "ruine_colonne", "piedestal_lune", "fleur_lanterne", "silhouette_ombre"]
 # Avec collision : troncs, rochers, ruines, souches, troncs couchés (+ mise en scène solide).
-const SOLIDES := ["arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c", "arbre_echasses", "arbre_mort", "arbre_ancien", "tronc_couche",
+const SOLIDES := ["arbre_lointain_a", "arbre_lointain_b", "arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c", "arbre_echasses", "arbre_mort", "arbre_ancien", "tronc_couche",
 	"souche", "racines_arche", "rocher_a", "rocher_b", "rocher_c", "cercle_pierres", "ruine_arche", "ruine_colonne", "ruine_mur",
 	"ruine_porte_lune", "piedestal_lune", "cadre_porte_reve", "pont_racines"]
 
@@ -63,7 +63,7 @@ func _shapes(n: Node) -> int:
 
 func _initialize() -> void:
 	var ids := StyleAssetsForet.ids()
-	check("33 modules déclarés (%d)" % ids.size(), ids.size() == 33)
+	check("35 modules déclarés (%d)" % ids.size(), ids.size() == 35)
 	# matériaux de la forêt : ≤ 14, tous enregistrés
 	check("≤ 14 matériaux de forêt (%d)" % StyleMaterialsForet.IDS.size(), StyleMaterialsForet.IDS.size() <= 14)
 	for m in StyleMaterialsForet.IDS:
@@ -80,6 +80,8 @@ func _initialize() -> void:
 		var budget := 2000
 		if id == "arbre_ancien":
 			budget = 12000
+		elif id.begins_with("arbre_lointain"):
+			budget = 450
 		elif id in ARBRES:
 			budget = 6000
 		elif id in PLANTES:
@@ -118,7 +120,7 @@ func _initialize() -> void:
 		check("%s : origine au sol (y min %.2f)" % [id, bb.position.y], bb.position.y > -0.85 and bb.position.y < 0.15)   # bouts de racines enterrés
 		node.free()
 	# --- gabarits
-	var gab := {"arbre_tordu_a": [11.0, 17.0], "arbre_tordu_b": [11.0, 17.0], "arbre_tordu_c": [12.0, 17.0], "arbre_ancien": [13.0, 20.0],
+	var gab := {"arbre_tordu_a": [11.0, 17.0], "arbre_tordu_b": [11.0, 17.0], "arbre_tordu_c": [12.0, 17.0], "arbre_ancien": [13.0, 20.0], "arbre_lointain_a": [12.0, 15.5], "arbre_lointain_b": [12.0, 15.5],
 		"tronc_couche": [0.7, 1.4], "ruine_porte_lune": [3.8, 4.6], "ruine_arche": [3.0, 5.0], "silhouette_ombre": [2.4, 3.2], "fleur_lanterne": [1.2, 2.0]}
 	for id in gab:
 		var n := (load("res://assets/stylized/modules/%s.tscn" % id) as PackedScene).instantiate() as Node3D
