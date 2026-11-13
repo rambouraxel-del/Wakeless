@@ -121,7 +121,7 @@ static func _marais(g: Node3D, gy: Callable) -> void:
 		var lx: float = x_at(lz) + [-4.0, 4.5, -3.5, 3.0][i]
 		_grappe(z, gy, "LuciolesMarais_%d" % i, lx, lz, 1.0, Vector3(2.4, 0.7, 2.8), 25, LUCIOLE_CYAN, 0.1)
 	for i in 6:
-		FX.plan_brume(z, "BrumeMarais_%d" % i, Vector3(0, gy.call(0.0, -46.0) + 0.3 + 0.42 * i, -46.0), Vector2(44, 40), "foret_brume_marais", 20.0 * i, 0.20 - 0.025 * i)
+		FX.plan_brume(z, "BrumeMarais_%d" % i, Vector3(0, gy.call(0.0, -46.0) + 0.25 + 0.2 * i, -46.0), Vector2(44, 40), "foret_brume_marais", 20.0 * i, 0.20 - 0.025 * i)
 
 static func _bois_noir(g: Node3D, gy: Callable) -> void:
 	var z := Node3D.new()
@@ -135,7 +135,7 @@ static func _bois_noir(g: Node3D, gy: Callable) -> void:
 		var lz: float = [-74.0, -96.0][i]
 		_grappe(z, gy, "LuciolesBois_%d" % i, x_at(lz) + [2.2, -2.0][i], lz, 1.3, Vector3(1.5, 0.8, 2.0), 10, Color(0.9, 1.1, 0.4))
 	for i in 8:
-		FX.plan_brume(z, "BrumeBois_%d" % i, Vector3(0, gy.call(0.0, -88.0) + 0.3 + 0.55 * i, -88.0), Vector2(46, 52), "foret_brume_dense", 17.0 * i, 0.30 - 0.03 * i)
+		FX.plan_brume(z, "BrumeBois_%d" % i, Vector3(0, gy.call(0.0, -88.0) + 0.25 + 0.3 * i, -88.0), Vector2(46, 52), "foret_brume_dense", 17.0 * i, 0.30 - 0.03 * i)
 
 static func _clairiere(g: Node3D, gy: Callable, moon: Vector3) -> void:
 	var z := Node3D.new()

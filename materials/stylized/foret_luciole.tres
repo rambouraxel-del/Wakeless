@@ -1,11 +1,11 @@
 [gd_resource type="StandardMaterial3D" load_steps=3 format=3]
 
-[sub_resource type="Gradient" id="Gradient_1ecc0"]
+[sub_resource type="Gradient" id="Gradient_njiyn"]
 offsets = PackedFloat32Array(0, 0.4, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.3, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ib77r"]
-gradient = SubResource("Gradient_1ecc0")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5upfn"]
+gradient = SubResource("Gradient_njiyn")
 width = 32
 height = 32
 fill = 1
@@ -18,7 +18,7 @@ blend_mode = 1
 shading_mode = 0
 disable_fog = true
 vertex_color_use_as_albedo = true
-albedo_texture = SubResource("GradientTexture2D_ib77r")
+albedo_texture = SubResource("GradientTexture2D_5upfn")
 disable_receive_shadows = true
 billboard_mode = 1
 billboard_keep_scale = true

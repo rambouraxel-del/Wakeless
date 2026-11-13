@@ -14,14 +14,14 @@ extends Node
 const PRESET := "foret_peur"
 # [z, nom, réglages]
 const KEYS := [
-	[10.0, "lisiere", {"fog_density": 0.013, "fog_color": "#1c2a5a", "ambient_energy": 1.3, "ambient_color": "#5a68a4", "sun_energy": 0.62, "sun_color": "#a9b5f8", "exposure": 1.3, "glow": 0.85}],
-	[-20.0, "lisiere", {"fog_density": 0.015, "fog_color": "#1c2a5a", "ambient_energy": 1.3, "ambient_color": "#5a68a4", "sun_energy": 0.62, "sun_color": "#a9b5f8", "exposure": 1.3, "glow": 0.85}],
-	[-32.0, "marais", {"fog_density": 0.019, "fog_color": "#16344e", "ambient_energy": 1.15, "ambient_color": "#4a64a0", "sun_energy": 0.48, "sun_color": "#8cbcec", "exposure": 1.28, "glow": 0.95}],
-	[-60.0, "marais", {"fog_density": 0.020, "fog_color": "#16324a", "ambient_energy": 1.12, "ambient_color": "#44609c", "sun_energy": 0.45, "sun_color": "#8cbcec", "exposure": 1.28, "glow": 0.95}],
-	[-70.0, "bois_noir", {"fog_density": 0.029, "fog_color": "#130f2e", "ambient_energy": 1.0, "ambient_color": "#44468c", "sun_energy": 0.26, "sun_color": "#8280d8", "exposure": 1.18, "glow": 0.8}],
-	[-104.0, "bois_noir", {"fog_density": 0.031, "fog_color": "#0f0c26", "ambient_energy": 0.98, "ambient_color": "#42448a", "sun_energy": 0.22, "sun_color": "#8280d8", "exposure": 1.15, "glow": 0.8}],
-	[-116.0, "clairiere", {"fog_density": 0.0075, "fog_color": "#2a3470", "ambient_energy": 1.4, "ambient_color": "#5a67ac", "sun_energy": 0.95, "sun_color": "#cfc6f6", "exposure": 1.35, "glow": 1.0}],
-	[-145.0, "clairiere", {"fog_density": 0.0075, "fog_color": "#2e3874", "ambient_energy": 1.4, "ambient_color": "#5a67ac", "sun_energy": 0.95, "sun_color": "#d2c8f6", "exposure": 1.35, "glow": 1.0}],
+	[10.0, "lisiere", {"fog_density": 0.013, "fog_color": "#232c4a", "ambient_energy": 1.3, "ambient_color": "#5c6894", "sun_energy": 0.62, "sun_color": "#aab4e0", "exposure": 1.3, "glow": 0.85, "sky_lift": 0.0}],
+	[-20.0, "lisiere", {"fog_density": 0.015, "fog_color": "#232c4a", "ambient_energy": 1.3, "ambient_color": "#5c6894", "sun_energy": 0.62, "sun_color": "#aab4e0", "exposure": 1.3, "glow": 0.85, "sky_lift": 0.0}],
+	[-32.0, "marais", {"fog_density": 0.019, "fog_color": "#1c3640", "ambient_energy": 1.15, "ambient_color": "#4c6290", "sun_energy": 0.48, "sun_color": "#94b4d0", "exposure": 1.28, "glow": 0.95, "sky_lift": 0.0}],
+	[-60.0, "marais", {"fog_density": 0.020, "fog_color": "#1a3340", "ambient_energy": 1.12, "ambient_color": "#485e8a", "sun_energy": 0.45, "sun_color": "#94b4d0", "exposure": 1.28, "glow": 0.95, "sky_lift": 0.0}],
+	[-70.0, "bois_noir", {"fog_density": 0.029, "fog_color": "#17122a", "ambient_energy": 1.0, "ambient_color": "#464a7c", "sun_energy": 0.26, "sun_color": "#8a88c4", "exposure": 1.18, "glow": 0.8, "sky_lift": 0.0}],
+	[-104.0, "bois_noir", {"fog_density": 0.031, "fog_color": "#130f24", "ambient_energy": 0.98, "ambient_color": "#44487a", "sun_energy": 0.22, "sun_color": "#8a88c4", "exposure": 1.15, "glow": 0.8, "sky_lift": 0.0}],
+	[-116.0, "clairiere", {"fog_density": 0.0075, "fog_color": "#3a4268", "ambient_energy": 1.4, "ambient_color": "#6670a0", "sun_energy": 0.8, "sun_color": "#f0e2c8", "exposure": 1.35, "glow": 1.0, "sky_lift": 0.12}],
+	[-145.0, "clairiere", {"fog_density": 0.0075, "fog_color": "#3e466c", "ambient_energy": 1.4, "ambient_color": "#6670a0", "sun_energy": 0.8, "sun_color": "#f2e4c8", "exposure": 1.35, "glow": 1.0, "sky_lift": 0.12}],
 ]
 
 var _rig: LightingRig
@@ -36,8 +36,8 @@ func _sync_materials() -> void:
 		return
 	var p: Dictionary = _rig.presets[_rig.current_index]
 	eau.set_shader_parameter("moon_dir", _rig.sun.global_transform.basis.z)
-	eau.set_shader_parameter("sky_top", Color.html(p["sky_top"]).lightened(0.12))
-	eau.set_shader_parameter("sky_horizon", Color.html(p["sky_horizon"]).lightened(0.08))
+	eau.set_shader_parameter("sky_top", Color.html(p["sky_top"]))
+	eau.set_shader_parameter("sky_horizon", Color.html(p["sky_horizon"]))
 
 static func _lerp_val(a, b, k: float):
 	if typeof(a) == TYPE_STRING:
@@ -116,5 +116,10 @@ static func apply(rig: LightingRig, s: Dictionary) -> void:
 	env.ambient_light_color = s["ambient_color"]
 	env.tonemap_exposure = s["exposure"]
 	env.glow_intensity = s["glow"]
+	# ciel plus ouvert dans la clairière
+	var lift: float = s.get("sky_lift", 0.0)
+	var pr: Dictionary = rig.presets[rig.current_index]
+	rig.sky_material.set_shader_parameter("sky_top", Color.html(pr["sky_top"]).lightened(lift))
+	rig.sky_material.set_shader_parameter("sky_horizon", Color.html(pr["sky_horizon"]).lightened(lift * 0.6))
 	rig.sun.light_energy = s["sun_energy"]
 	rig.sun.light_color = s["sun_color"]

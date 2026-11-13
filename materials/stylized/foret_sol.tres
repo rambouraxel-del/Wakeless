@@ -1,24 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_sol.gdshader" id="1_y601o"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_sol.gdshader" id="1_s5j41"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_y601o")
-shader_parameter/earth_dark = null
-shader_parameter/earth_mid = null
-shader_parameter/moss_dark = null
-shader_parameter/moss_light = null
-shader_parameter/leaf_tint = null
-shader_parameter/large_scale = null
-shader_parameter/mid_scale = null
-shader_parameter/fine_scale = null
-shader_parameter/moss_amount = null
-shader_parameter/roughness = null
-shader_parameter/path_color = null
-shader_parameter/path_wear = null
-shader_parameter/path_pts = null
-shader_parameter/path_count = null
-shader_parameter/path_width = null
-shader_parameter/path_soft = null
-shader_parameter/path_glow = null
+shader = ExtResource("1_s5j41")

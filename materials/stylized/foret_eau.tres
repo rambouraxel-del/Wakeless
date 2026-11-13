@@ -1,26 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_eau.gdshader" id="1_b7o3q"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_eau.gdshader" id="1_mknlm"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_b7o3q")
-shader_parameter/deep_color = null
-shader_parameter/shallow_color = null
-shader_parameter/sky_top = null
-shader_parameter/sky_horizon = null
-shader_parameter/moon_color = null
-shader_parameter/edge_color = null
-shader_parameter/moon_dir = null
-shader_parameter/moon_size = null
-shader_parameter/moon_strength = null
-shader_parameter/reflect_strength = null
-shader_parameter/fresnel_power = null
-shader_parameter/ripple_scale = null
-shader_parameter/ripple_speed = null
-shader_parameter/ripple_height = null
-shader_parameter/opacity = null
-shader_parameter/edge_width = null
-shader_parameter/edge_strength = null
-shader_parameter/use_depth = null
-shader_parameter/glint = null
+shader = ExtResource("1_mknlm")

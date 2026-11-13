@@ -3,24 +3,24 @@ shader_type spatial;
 // aucune UV). Un chemin optionnel (polyligne en x,z) y est tassé, plus clair, légèrement chaud-gris, au bord adouci.
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
 
-uniform vec4 earth_dark : source_color = vec4(0.075, 0.068, 0.090, 1.0);
-uniform vec4 earth_mid : source_color = vec4(0.150, 0.130, 0.150, 1.0);
-uniform vec4 moss_dark : source_color = vec4(0.090, 0.150, 0.115, 1.0);
-uniform vec4 moss_light : source_color = vec4(0.200, 0.300, 0.220, 1.0);
-uniform vec4 leaf_tint : source_color = vec4(0.130, 0.090, 0.150, 1.0);
+uniform vec4 earth_dark : source_color = vec4(0.060, 0.062, 0.085, 1.0);
+uniform vec4 earth_mid : source_color = vec4(0.105, 0.120, 0.120, 1.0);
+uniform vec4 moss_dark : source_color = vec4(0.085, 0.130, 0.110, 1.0);
+uniform vec4 moss_light : source_color = vec4(0.165, 0.227, 0.204, 1.0);
+uniform vec4 leaf_tint : source_color = vec4(0.100, 0.075, 0.130, 1.0);
 uniform float large_scale = 0.045;
 uniform float mid_scale = 0.22;
 uniform float fine_scale = 1.9;
-uniform float moss_amount : hint_range(0.0, 1.0) = 0.55;
+uniform float moss_amount : hint_range(0.0, 1.0) = 0.62;
 uniform float roughness : hint_range(0.0, 1.0) = 0.95;
 // chemin (0 segment = aucun) : points (x, z) successifs
-uniform vec4 path_color : source_color = vec4(0.470, 0.415, 0.370, 1.0);
-uniform vec4 path_wear : source_color = vec4(0.580, 0.520, 0.450, 1.0);
+uniform vec4 path_color : source_color = vec4(0.270, 0.255, 0.250, 1.0);
+uniform vec4 path_wear : source_color = vec4(0.340, 0.320, 0.300, 1.0);
 uniform vec4 path_pts[32];
 uniform int path_count = 0;
 uniform float path_width = 1.5;
 uniform float path_soft = 0.9;
-uniform float path_glow = 0.12;      // léger auto-éclairage : le chemin se lit même dans le bois noir
+uniform float path_glow = 0.05;      // léger auto-éclairage : le chemin se lit même dans le bois noir
 
 varying vec3 wpos;
 varying vec3 wnrm;

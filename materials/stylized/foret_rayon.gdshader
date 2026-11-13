@@ -4,7 +4,7 @@ shader_type spatial;
 render_mode unshaded, blend_add, depth_draw_never, cull_disabled, fog_disabled;
 
 uniform vec4 ray_color : source_color = vec4(0.45, 0.58, 0.95, 1.0);
-uniform float strength = 0.12;
+uniform float strength = 0.06;
 uniform float near_fade_end = 6.0;
 
 varying vec3 wpos;
@@ -24,8 +24,8 @@ void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
 void fragment() {
-	float side = 1.0 - pow(abs(UV.x - 0.5) * 2.0, 1.6);
-	float along = smoothstep(0.0, 0.25, UV.y) * (1.0 - smoothstep(0.55, 1.0, UV.y));
+	float side = 1.0 - pow(abs(UV.x - 0.5) * 2.0, 1.0);
+	float along = smoothstep(0.0, 0.5, UV.y) * (1.0 - smoothstep(0.55, 1.0, UV.y));
 	float n = 0.75 + 0.25 * vn(vec2(wpos.x * 0.8 + wpos.z * 0.8, wpos.y * 0.3 - TIME * 0.05));
 	float near = smoothstep(1.5, near_fade_end, length(VERTEX));
 	ALBEDO = ray_color.rgb * strength * side * along * n * near;

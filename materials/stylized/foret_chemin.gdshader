@@ -3,8 +3,8 @@ shader_type spatial;
 // bords fondus par un alpha bruité. Sert quand le chemin est un ruban plutôt que peint dans le sol.
 render_mode blend_mix, depth_draw_never, cull_disabled, diffuse_burley, specular_schlick_ggx;
 
-uniform vec4 base_color : source_color = vec4(0.470, 0.415, 0.370, 1.0);
-uniform vec4 wear_color : source_color = vec4(0.580, 0.520, 0.450, 1.0);
+uniform vec4 base_color : source_color = vec4(0.270, 0.255, 0.250, 1.0);
+uniform vec4 wear_color : source_color = vec4(0.340, 0.320, 0.300, 1.0);
 uniform vec4 edge_color : source_color = vec4(0.150, 0.150, 0.170, 1.0);
 uniform float edge_soft : hint_range(0.02, 0.5) = 0.28;
 uniform float opacity : hint_range(0.0, 1.0) = 0.96;
@@ -41,7 +41,7 @@ void fragment() {
 	vec2 pj = vec2(h21(pcell + 3.0), h21(pcell + 8.0));
 	c += step(0.55, h21(pcell)) * (1.0 - smoothstep(0.10, 0.22, length(fract(pc2) - (0.25 + 0.5 * pj)))) * 0.04;
 	ALBEDO = c;
-	EMISSION = c * e * 0.07;
+	EMISSION = c * e * 0.03;
 	ALPHA = e * opacity;
 	ROUGHNESS = 0.88;
 	SPECULAR = 0.15;

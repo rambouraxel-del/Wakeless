@@ -4,8 +4,8 @@ shader_type spatial;
 render_mode unshaded, blend_mix, depth_draw_never, cull_disabled;
 
 uniform sampler2D depth_tex : hint_depth_texture, repeat_disable, filter_nearest;
-uniform vec4 fog_color : source_color = vec4(0.20, 0.30, 0.52, 1.0);
-uniform vec4 fog_color_hi : source_color = vec4(0.34, 0.48, 0.70, 1.0);
+uniform vec4 fog_color : source_color = vec4(0.17, 0.22, 0.34, 1.0);
+uniform vec4 fog_color_hi : source_color = vec4(0.28, 0.35, 0.48, 1.0);
 uniform float density : hint_range(0.0, 1.0) = 0.35;
 uniform vec2 scroll = vec2(0.012, 0.006);
 uniform float noise_scale = 0.07;
@@ -39,8 +39,9 @@ void fragment() {
 	vec2 sc = scroll * TIME;
 	float n = vn(q * noise_scale + sc) * 0.5 + vn(q * noise_scale * 2.1 - sc * 1.7 + 4.0) * 0.32 + vn(q * noise_scale * 4.3 + sc * 0.6 + 9.0) * 0.18;
 	float mask = mix(1.0, smoothstep(0.28, 0.72, n), patchy);
-	vec2 e2 = min(UV, 1.0 - UV);
-	float edge = smoothstep(0.0, edge_fade, min(e2.x, e2.y));
+	float rr = length((UV - 0.5) * 2.0);
+	float edge = 1.0 - smoothstep(0.25, 1.0, rr);
+	edge *= edge;
 	float a = density * mask * edge;
 	if (use_depth) {
 		float d = texture(depth_tex, SCREEN_UV).r;

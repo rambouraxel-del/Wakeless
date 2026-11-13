@@ -57,8 +57,8 @@ static func add(d: Dictionary) -> void:
 	dense.set_shader_parameter("noise_scale", 0.05)
 	d["foret_brume_dense"] = dense
 	var marais := _shader("foret_brume")
-	marais.set_shader_parameter("fog_color", Color("#15405a"))
-	marais.set_shader_parameter("fog_color_hi", Color("#2c7f90"))
+	marais.set_shader_parameter("fog_color", Color("#1d3b44"))
+	marais.set_shader_parameter("fog_color_hi", Color("#3a6670"))
 	marais.set_shader_parameter("density", 0.42)
 	marais.set_shader_parameter("scroll", Vector2(0.02, -0.01))
 	d["foret_brume_marais"] = marais

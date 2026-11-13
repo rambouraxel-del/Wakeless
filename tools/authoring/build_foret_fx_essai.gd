@@ -19,6 +19,20 @@ static func hsol(x: float, z: float) -> float:
 	h *= lerpf(0.35, 1.0, smoothstep(1.5, 6.0, d))
 	return h
 
+## Godot écrit « = null » pour les uniforms laissés à leur défaut : on retire ces lignes (le shader garde ses défauts).
+func _strip_nulls(res_path: String) -> void:
+	var f := FileAccess.open(res_path, FileAccess.READ)
+	if f == null:
+		return
+	var out := PackedStringArray()
+	for line in f.get_as_text().split("\n"):
+		if not line.ends_with(" = null"):
+			out.append(line)
+	f.close()
+	var w := FileAccess.open(res_path, FileAccess.WRITE)
+	w.store_string("\n".join(out))
+	w.close()
+
 func _hash(i: int, k: float) -> float:
 	return fposmod(sin(float(i) * 12.9898 + k * 78.233) * 43758.5453, 1.0)
 
@@ -27,6 +41,7 @@ func _initialize() -> void:
 	var defs := StyleMaterials.definitions()
 	for id in StyleMaterialsForetFx.ids():
 		ResourceSaver.save(defs[id], StyleMaterials.path_of(id))
+		_strip_nulls(StyleMaterials.path_of(id))
 	StyleMaterials._cache.clear()
 
 	var root := Level.new()

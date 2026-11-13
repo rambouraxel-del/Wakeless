@@ -2,14 +2,14 @@ shader_type sky;
 // Ciel de la Forêt de la peur : nuit profonde dégradée vers un horizon indigo-violet, étoiles fines et rondes (pas de blocs),
 // grande lune froide avec halo, voile de nuages argentés par la lune. Mêmes noms de paramètres que materials/sky_clouds.gdshader
 // (le LightingRig les renseigne) : activé par la clé « sky_shader » d'un préréglage.
-uniform vec3 sky_top : source_color = vec3(0.03, 0.05, 0.18);
-uniform vec3 sky_horizon : source_color = vec3(0.12, 0.18, 0.40);
-uniform vec3 ground_horizon : source_color = vec3(0.12, 0.18, 0.40);
+uniform vec3 sky_top : source_color = vec3(0.016, 0.024, 0.10);
+uniform vec3 sky_horizon : source_color = vec3(0.12, 0.15, 0.31);
+uniform vec3 ground_horizon : source_color = vec3(0.12, 0.15, 0.31);
 uniform vec3 ground_bottom : source_color = vec3(0.05, 0.07, 0.18);
 uniform vec3 moon_dir = vec3(-0.4, 0.6, -0.5);
 uniform float moon_amount : hint_range(0.0, 1.0) = 1.0;
 uniform float moon_size = 0.055;
-uniform vec3 moon_tint : source_color = vec3(0.86, 0.90, 1.0);
+uniform vec3 moon_tint : source_color = vec3(0.95, 0.85, 0.66);
 uniform vec3 cloud_light : source_color = vec3(0.35, 0.42, 0.70);
 uniform vec3 cloud_shadow : source_color = vec3(0.08, 0.10, 0.25);
 uniform float cloud_cover : hint_range(0.0, 1.0) = 0.25;
@@ -66,9 +66,9 @@ void sky() {
 		float disc = 1.0 - smoothstep(moon_size * 0.92, moon_size, ang);
 		vec3 tex = moon_tint * (0.85 + 0.15 * vn((dir.xz - md.xz) * 90.0)) * (1.0 - 0.18 * smoothstep(0.55, 0.0, abs(ang / moon_size - 0.35)) * vn((dir.xy + md.zy) * 55.0));
 		float limb = 1.0 - 0.25 * smoothstep(0.5, 1.0, ang / moon_size);
-		col = mix(col, tex * limb * 1.05, disc * moon_amount);
-		col += moon_tint * pow(max(md_d, 0.0), 160.0) * 0.5 * moon_amount;
-		col += vec3(0.30, 0.38, 0.75) * pow(max(md_d, 0.0), 22.0) * 0.38 * moon_amount;
+		col = mix(col, tex * limb * 0.55, disc * moon_amount);
+		col += moon_tint * pow(max(md_d, 0.0), 160.0) * 0.18 * moon_amount;
+		col += vec3(0.34, 0.36, 0.55) * pow(max(md_d, 0.0), 22.0) * 0.34 * moon_amount;
 		col += vec3(0.20, 0.22, 0.55) * pow(max(md_d, 0.0), 4.0) * 0.12 * moon_amount;
 	} else {
 		float t = clamp(-up, 0.0, 1.0);
