@@ -35,7 +35,7 @@ const NZ := 333                      # z +14 … −152
 const WATER_Y := -0.05               # plan d'eau, hauteur FIXE
 const LAND := 0.25                   # niveau des rives du marais
 const DECK_Y := 0.32                 # dessus de la passerelle et du pont
-const CORR_X := 1.5                  # demi-largeur du couloir de la passerelle / du pont
+const CORR_X := 1.0                  # demi-largeur du couloir de la passerelle / du pont
 const BED_Y := -1.65
 
 # profil d'altitude du chemin selon z : [z, y]
@@ -75,7 +75,13 @@ const NEAR_R := [7.0, 2.0, -3.5, -8.0, -13.0, -18.5, -23.0, -28.0, -32.0, -37.0,
 	-69.0, -73.5, -79.0, -84.0, -89.0, -93.0, -98.0, -103.5, -108.5, -113.0, -118.0, -124.0, -129.0, -135.0, -140.0, -145.0]
 const FAR_L := [6.0, -4.0, -14.0, -23.0, -33.0, -44.0, -55.0, -65.0, -75.0, -85.0, -95.0, -105.0, -118.0, -130.0, -142.0]
 const FAR_R := [3.0, -9.0, -19.0, -29.0, -40.0, -50.0, -61.0, -71.0, -81.0, -91.0, -101.0, -112.0, -125.0, -137.0, -147.0]
-const WALL_IDS := ["arbre_tordu_c", "arbre_tordu_a", "arbre_tordu_c", "arbre_tordu_b", "arbre_mort", "arbre_tordu_c", "arbre_tordu_b"]
+const WALL_IDS := ["arbre_lointain_a", "arbre_lointain_b", "arbre_lointain_a", "arbre_lointain_b", "arbre_lointain_b", "arbre_lointain_a", "arbre_lointain_b"]
+const FADE_IDS := ["arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c", "arbre_mort", "arbre_echasses", "arbre_lointain_a", "arbre_lointain_b", "rocher_a", "rocher_b", "rocher_c",
+	"tronc_couche", "racines_arche", "racines_basses", "ruine_mur", "ruine_colonne", "ruine_arche", "souche"]
+# pieds de talus : rochers, racines et troncs couchés au bord du sol praticable, par côté (z choisis à la main)
+const LIP_L := [8.0, 1.0, -9.0, -17.0, -27.5, -66.5, -69.5, -73.0, -76.0, -80.0, -87.0, -90.0, -93.5, -96.5, -100.0, -103.0, -106.5, -114.0, -121.0, -131.0, -140.0]
+const LIP_R := [6.0, -2.0, -11.0, -21.0, -26.0, -65.5, -68.5, -71.0, -77.5, -79.0, -82.0, -86.5, -89.5, -91.5, -97.5, -101.5, -104.5, -108.0, -115.0, -124.0, -134.0]
+const LIP_IDS := ["racines_basses", "rocher_a", "tronc_couche", "rocher_b", "racines_basses", "rocher_a", "racines_basses", "tronc_couche"]
 const OFFS := [[0.0, 0.0], [2.1, 1.3], [-1.8, 2.2], [1.2, -2.4], [-2.6, -1.1], [3.4, -1.0], [-0.4, 3.6]]
 # masses sur le sol praticable : [x, z, nombre (3–7), écartement, rotation °, [espèces]]
 const A_ := ["arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_a"]
@@ -124,6 +130,7 @@ func _initialize() -> void:
 	_terrain_nodes(_group(lvl, "Architecture"))
 	var decor := _group(lvl, "Decor")
 	_trees(_group(decor, "Arbres"))
+	_lip_props(_group(decor, "Pieds_de_talus"))
 	_marsh_props(_group(decor, "Marais"))
 	_ruins(_group(decor, "Ruines"))
 	_clearing(_group(decor, "Clairiere"))
@@ -295,11 +302,13 @@ func _water_sd(x: float, z: float) -> float:
 func _talus(d: float, x: float, z: float) -> float:
 	if d <= 0.0:
 		return 0.0
-	var t := 1.7 * d if d <= 3.5 else 5.95 + 1.15 * (d - 3.5)
-	t = minf(t, 17.0)
-	if d > 2.0:
-		t += 0.55 * sin(x * 0.8 + z * 0.6) * smoothstep(2.0, 6.0, d) + 0.4 * sin(x * 0.37 - z * 0.83) * smoothstep(2.0, 8.0, d)
-	return t
+	# pied raide (≥ 54° : infranchissable, masqué par racines, rochers et troncs), puis pente adoucie et irrégulière
+	var s1 := 1.65 + 0.25 * sin(x * 0.7 + z * 0.5)
+	var t := s1 * d
+	if d > 1.5:
+		t = s1 * 1.5 + 0.85 * (d - 1.5) + 0.7 * sin(x * 0.9 + z * 0.6) * smoothstep(1.5, 5.0, d) + 0.5 * sin(x * 0.37 - z * 0.83) * smoothstep(1.5, 7.0, d) \
+			+ 0.45 * sin(x * 1.7 - z * 1.3) * smoothstep(1.5, 4.0, d)
+	return minf(t, 15.0)
 
 func _h(x: float, z: float, d: float) -> float:
 	var base := _elev(z) + _undul(x, z)
@@ -377,7 +386,7 @@ func _terrain_nodes(arch: Node3D) -> void:
 			var v01 := (j + 1) * NX + i
 			var v11 := v01 + 1
 			var dmin := minf(minf(terrain_d[v00], terrain_d[v10]), minf(terrain_d[v01], terrain_d[v11]))
-			if dmin > 14.0:
+			if dmin > 11.0:
 				continue                                              # loin derrière les talus : jamais vu, jamais touché
 			idx.append_array(PackedInt32Array([v00, v01, v11, v00, v11, v10]))
 			if dmin < 12.0:
@@ -508,7 +517,7 @@ func _water_fallback() -> Material:
 	return m
 
 func _exempt(cx: float, cz: float) -> bool:
-	return absf(cx) <= CORR_X and ((cz <= -34.0 and cz >= -43.0) or (cz <= -47.5 and cz >= -61.0))
+	return absf(cx) <= CORR_X and ((cz <= -34.0 and cz >= -43.0) or (cz <= -47.5 and cz >= -63.0))
 
 ## Murs invisibles sur les contours de l'eau : infranchissable, sauf le couloir de la passerelle et du pont
 ## (dont les rives sont elles-mêmes ces murs).
@@ -640,6 +649,11 @@ func _substitute(id: String) -> Node3D:
 		"arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c":
 			var h := {"arbre_tordu_a": 9.0, "arbre_tordu_b": 11.0, "arbre_tordu_c": 13.5}[id] as float
 			_mi(n, "Maillage", _tree_mesh(id, h, 0.5, h * 0.2, 4))
+			_body_cyl(n, 0.55, 6.0)
+		"arbre_lointain_a", "arbre_lointain_b":
+			var hh := 11.0 if id == "arbre_lointain_a" else 13.0
+			_mi(n, "Maillage", _cached(id, func() -> Mesh:
+				return StyleKit.merge([[_cyl(0.5, 0.25, hh * 0.85, bark, 6), _xf(Vector3.ZERO)], [_blob(hh * 0.2, _sm("feuillage", Color(0.09, 0.2, 0.24))), _xf(Vector3(0, hh * 0.9, 0))]])))
 			_body_cyl(n, 0.55, 6.0)
 		"arbre_echasses":
 			_mi(n, "Maillage", _cached(id, func() -> Mesh:
@@ -825,6 +839,12 @@ func _prop(parent: Node, id: String, p: Vector3, yaw := 0.0, scale := 1.0, nm :=
 		n.scale = Vector3.ONE * scale
 	parent.add_child(n)
 	n.set_meta("kit_id", id)
+	if FADE_IDS.has(id):
+		for mi in n.find_children("*", "MeshInstance3D", true, false):
+			var gi := mi as GeometryInstance3D
+			gi.visibility_range_end = 70.0
+			gi.visibility_range_end_margin = 10.0
+			gi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
 	return n
 
 func _prop_g(parent: Node, id: String, x: float, z: float, yaw := 0.0, scale := 1.0, nm := "") -> Node3D:
@@ -871,17 +891,38 @@ func _trees(g: Node3D) -> void:
 			var z: float = m[1] + oz
 			var ids: Array = m[5]
 			var id: String = ids[(t + mi) % ids.size()]
-			if _dplay(x, z) > 12.0:
+			if t >= (2 if mi % 2 == 0 else 1):
+				id = WALL_IDS[(t + mi) % WALL_IDS.size()]                 # seuls les 2 premiers arbres de chaque masse sont « pleins »
+			if _dplay(x, z) > 10.5:
 				print("arbre %s (%.1f, %.1f) trop loin du sol praticable : ignoré" % [id, x, z])
 				continue
 			_clear_check(id, x, z)
 			_prop(masses, id, _at(x, z, -0.05), float((mi * 53 + t * 91) % 360), 0.95 + 0.1 * float((mi + t) % 3), "Arbre_%d_%d" % [mi, t])
 		mi += 1
 
+func _lip_props(g: Node3D) -> void:
+	var k := 0
+	for side in [[-1.0, LIP_L, "G"], [1.0, LIP_R, "D"]]:
+		for z in side[1]:
+			var x := _px(z)
+			var hw := 2.0
+			var guard := 0
+			while _dplay(x, z) < 0.35 and guard < 80:
+				x += side[0] * 0.25
+				guard += 1
+			if absf(x - _px(z)) > 6.0 or (z < -33.0 and z > -64.0):
+				continue                                                  # embouchure d'un embranchement, ou marais
+			var id: String = LIP_IDS[(k * 3 + 2) % LIP_IDS.size()]
+			var yaw := float((k * 53) % 360)
+			if id == "tronc_couche":
+				yaw = 90.0 + float((k % 3) * 8 - 8)                       # couché le long du chemin (axe X du module)
+			_prop(g, id, _at(x, z, -0.05), yaw, 0.9 + 0.12 * float(k % 3), "Pied_%s_%d" % [side[2], k])
+			k += 1
+
 func _marsh_props(g: Node3D) -> void:
 	var wt := _group(g, "Arbres_echasses")
 	var i := 0
-	for t in WATER_TREES:
+	for t in WATER_TREES.slice(0, 6):
 		_prop(wt, "arbre_echasses", _at(t[0], t[1], -0.05), t[2], t[3], "Echasses_%d" % i)
 		i += 1
 	# roseaux sur les rives, nénuphars sur l'eau (origine au plan d'eau)
@@ -909,8 +950,6 @@ func _ruins(g: Node3D) -> void:
 	_prop_g(g, "racines_basses", -13.4, -89.4, 70.0, 1.0, "Ruine_racines")
 	# la porte de ruine (z −108) et ses murs d'encadrement
 	var pd := _group(g, "Porte_de_ruine")
-	_prop_g(pd, "ruine_mur", -3.4, -108.0, 0.0, 0.6, "Mur_G")
-	_prop_g(pd, "ruine_mur", 3.4, -108.0, 0.0, 0.6, "Mur_D")
 	_prop_g(g, "ruine_colonne", -2.8, -104.4, 0.0, 0.9, "Porte_colonne_G")
 	_prop_g(g, "ruine_colonne", 2.9, -104.0, 0.0, 0.8, "Porte_colonne_D")
 	_prop_g(g, "racines_arche", 0.0, -62.4, 0.0, 1.15, "Racines_arche_nord")
@@ -958,11 +997,11 @@ func _small_props(g: Node3D) -> void:
 
 ## Taches de plantes : [id, x, z, rayon, nombre]. Positions : hachage entier déterministe (aucune graine aléatoire).
 const PATCHES := [
-	["fougere", -4.5, 2.0, 5.0, 26], ["fougere", 4.5, -6.0, 5.0, 22], ["herbes_touffe", 0.0, -9.0, 6.0, 30], ["fougere", -5.5, -15.0, 4.0, 18],
-	["herbes_touffe", 3.0, -20.0, 5.0, 26], ["fougere", -9.0, -24.0, 5.0, 24], ["herbes_touffe", 0.0, -30.0, 6.0, 28],
-	["herbes_touffe", -12.0, -38.0, 5.0, 24], ["herbes_touffe", 12.0, -39.0, 5.0, 24], ["herbes_touffe", 0.0, -63.0, 5.0, 22],
+	["fougere", -4.5, 2.0, 5.0, 26], ["fougere", 4.5, -6.0, 5.0, 22], ["herbes_touffe", 0.0, -9.0, 6.0, 16], ["fougere", -5.5, -15.0, 4.0, 18],
+	["herbes_touffe", 3.0, -20.0, 5.0, 14], ["fougere", -9.0, -24.0, 5.0, 24], ["herbes_touffe", 0.0, -30.0, 6.0, 15],
+	["herbes_touffe", -12.0, -38.0, 5.0, 13], ["herbes_touffe", 12.0, -39.0, 5.0, 13], ["herbes_touffe", 0.0, -63.0, 5.0, 12],
 	["fougere", 3.0, -70.0, 4.0, 16], ["fougere", -3.0, -80.0, 4.0, 16], ["fougere", 3.5, -89.0, 4.0, 14], ["fougere", -3.0, -97.0, 3.5, 14],
-	["fleurs_blanches", 0.0, -120.0, 8.0, 36], ["herbes_touffe", 5.0, -128.0, 9.0, 40], ["fleurs_blanches", -6.0, -128.0, 7.0, 30], ["herbes_touffe", -6.0, -115.0, 5.0, 22]]
+	["fleurs_blanches", 0.0, -120.0, 8.0, 19], ["herbes_touffe", 5.0, -128.0, 9.0, 22], ["fleurs_blanches", -6.0, -128.0, 7.0, 16], ["herbes_touffe", -6.0, -115.0, 5.0, 12]]
 
 func _hash(n: int) -> float:
 	var h := (n * 73856093) ^ (n * 19349663) ^ (n * 83492791)
@@ -1010,6 +1049,9 @@ func _plants(g: Node3D) -> void:
 		mmi.name = "Plantes_" + String(id)
 		mmi.multimesh = mm
 		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mmi.visibility_range_end = 50.0
+		mmi.visibility_range_end_margin = 8.0
+		mmi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
 		g.add_child(mmi)
 		_tri_total += StyleKit.triangles(mesh) * xfs.size()
 		print("plantes %-20s %d instances" % [id, xfs.size()])
@@ -1109,36 +1151,30 @@ func _passerelle(g: Node3D) -> void:
 	var logs := _cached("passerelle_billes", func() -> Mesh:
 		return StyleKit.merge([[_cyl(0.36, 0.34, 8.7, bark, 9), _xf(Vector3(0, 0, 0), Vector3(-90, 0, 0))]]))
 	var i := 0
-	for x in [-0.95, 0.0, 0.95]:
+	for x in [-0.6, 0.0, 0.6]:
 		var mi := _mi(p, "Bille_%d" % i, logs, Vector3(x, DECK_Y - 0.36, -34.4))
 		i += 1
 	# traverses (planches posées en travers)
-	var plank := _cached("passerelle_traverse", func() -> Mesh: return StyleKit.rounded_box(Vector3(2.9, 0.08, 0.3), 0.02, bark, 1))
+	var plank := _cached("passerelle_traverse", func() -> Mesh: return StyleKit.rounded_box(Vector3(2.0, 0.08, 0.3), 0.02, bark, 1))
 	i = 0
 	for z in [-35.2, -36.8, -38.4, -40.0, -41.6, -42.8]:
 		_mi(p, "Traverse_%d" % i, plank, Vector3(0, DECK_Y - 0.01, z))
 		i += 1
-	_body_box(p, Vector3(2.8, 0.3, 8.9), Vector3(0, DECK_Y - 0.15, -38.8), "Plancher")
+	_body_box(p, Vector3(1.9, 0.3, 8.9), Vector3(0, DECK_Y - 0.15, -38.8), "Plancher")
 	p.set_meta("sur_pont", true)
 
+## Pont de racines : le module de B (7 m) posé deux fois bout à bout (de l'îlot à la rive nord, 14 m). Origine = niveau de l'eau.
 func _pont(g: Node3D) -> void:
-	var pont := PontRacines.new()
-	pont.name = "PontRacines"
-	g.add_child(pont)
-	var bark := _sm("ecorce", Color(0.15, 0.13, 0.18))
-	var seg := _cached("racine_segment", func() -> Mesh:
-		return StyleKit.merge([[StyleKit.rounded_box(Vector3(2.7, 0.36, 2.7), 0.1, bark, 2), _xf(Vector3(0, DECK_Y - 0.18, 0))],
-			[_cyl(0.3, 0.22, 2.7, bark, 8), _xf(Vector3(-1.35, DECK_Y - 0.34, 1.35), Vector3(-90, 0, 0))], [_cyl(0.3, 0.22, 2.7, bark, 8), _xf(Vector3(1.35, DECK_Y - 0.34, 1.35), Vector3(-90, 0, 0))]]))
-	for k in 5:
-		var piv := Node3D.new()
-		piv.name = "Racine_%d" % (k + 1)
-		piv.position = Vector3(0.0, 0.0, -49.9 - 2.4 * k)
-		pont.add_child(piv)
-		_mi(piv, "Maillage", seg, Vector3.ZERO)
-	var pl := _body_box(pont, Vector3(2.8, 0.3, 13.6), Vector3(0, DECK_Y - 0.15, -54.3), "Plancher")
-	var ba := _body_box(pont, Vector3(3.0, 4.6, 13.6), Vector3(0, WATER_Y + 0.3, -54.3), "Barriere")
-	pl.collision_layer = 0
-	pont.set_meta("sur_pont", true)
+	var i := 0
+	for zc in [-51.5, -58.5]:
+		var pont := PontRacines.new()
+		pont.name = "PontRacines" if i == 0 else "PontRacines_2"
+		pont.position = Vector3(0.0, WATER_Y, zc)
+		pont.delai = 0.0 if i == 0 else 1.4
+		g.add_child(pont)
+		_prop(pont, "pont_racines", Vector3.ZERO, 0.0, 1.0, "Module")
+		_body_box(pont, Vector3(2.2, 4.6, 7.4), Vector3(0, 0.3, 0), "Barriere")
+		i += 1
 
 func _jeune_fille(g: Node3D) -> void:
 	var etapes := _group(g, "Etapes")

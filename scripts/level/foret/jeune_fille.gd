@@ -86,10 +86,15 @@ func _dxz(a: Vector3, b: Vector3) -> float:
 	return Vector2(a.x - b.x, a.z - b.z).length()
 
 func _applique_pose() -> void:
-	if _modele:
-		var k := _debout
-		_modele.scale = Vector3(1.0, lerpf(0.62, 1.0, k), 1.0)
-		_modele.position.y = lerpf(0.0, 0.0, k)
+	if _modele == null:
+		return
+	var deb := _modele.get_node_or_null("Debout") as Node3D
+	var ass := _modele.get_node_or_null("Assise") as Node3D
+	if deb != null and ass != null:
+		deb.visible = _debout > 0.5
+		ass.visible = _debout <= 0.5
+	else:
+		_modele.scale = Vector3(1.0, lerpf(0.62, 1.0, _debout), 1.0)
 
 func _physics_process(delta: float) -> void:
 	_debout = move_toward(_debout, _debout_cible, delta / 0.9)

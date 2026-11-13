@@ -41,7 +41,7 @@ func _static() -> void:
 		check("arrivée « %s »" % sp, lv.get_node_or_null("Spawns/" + sp) is Marker3D)
 	for path in ["Architecture/Relief", "Architecture/Eau", "Architecture/Eau_barriere", "Architecture/Chemin_sud", "Architecture/Chemin_nord",
 			"Gameplay/Etat", "Gameplay/JeuneFille", "Gameplay/Etapes", "Gameplay/Fleurs/Fleur_1", "Gameplay/Fleurs/Fleur_2", "Gameplay/Fleurs/Fleur_3",
-			"Gameplay/PontRacines", "Gameplay/PontRacines/Racine_1", "Gameplay/PontRacines/Racine_5", "Gameplay/Piedestal", "Gameplay/Porte_de_lune/PorteLune",
+			"Gameplay/PontRacines/Module/Racine_1", "Gameplay/PontRacines_2/Module/Racine_4", "Gameplay/PontRacines/Barriere", "Gameplay/PontRacines_2/Barriere", "Gameplay/Piedestal", "Gameplay/Porte_de_lune/PorteLune",
 			"Gameplay/Porte_de_lune/Ruine/VantailG", "Gameplay/Porte_de_lune/Ruine/VantailD", "Gameplay/Feux_follets/Feu_follet_1", "Gameplay/Silhouettes/Silhouette_1",
 			"Gameplay/Portes/Porte_du_reve", "Gameplay/Portes/Cadre_porte_reve", "Decor/Arbres/Murs_de_troncs", "Limites/MursInvisibles"]:
 		check("nœud %s" % path, lv.get_node_or_null(path) != null)
@@ -138,6 +138,7 @@ func _played() -> void:
 	var p := lv.player
 	var jf := lv.get_node("Gameplay/JeuneFille") as JeuneFille
 	var pont := lv.get_node("Gameplay/PontRacines") as PontRacines
+	var pont2 := lv.get_node("Gameplay/PontRacines_2") as PontRacines
 	var etat := lv.get_node("Gameplay/Etat") as ForetEtat
 	var porte := lv.get_node("Gameplay/Porte_de_lune/PorteLune") as PorteLune
 	check("GameSave : niveau marqué « visited »", GameSave.level("foret-de-la-peur").get("visited") == true)
@@ -198,7 +199,7 @@ func _played() -> void:
 	# depuis l'îlot, le nord est fermé tant que le pont dort
 	p.teleport(Vector3(0.0, 0.4, -45.0))
 	await _frames(10)
-	check("pont : endormi (sans collision)", not pont.ouvert and (pont.get_node("Plancher") as StaticBody3D).collision_layer == 0)
+	check("pont : endormi (sans collision)", not pont.ouvert and (pont.find_child("PontCollision", true, false) as StaticBody3D).collision_layer == 0 and (pont2.find_child("PontCollision", true, false) as StaticBody3D).collision_layer == 0)
 	await _push(p, Vector2(0, -1), 240)
 	check("pont : sans les fleurs, l'étang bloque la rive nord", p.global_position.z > -48.5 and p.global_position.y > -0.6, str(p.global_position))
 	check("pont : aucune fleur allumée", etat.fleurs.is_empty())
@@ -234,8 +235,8 @@ func _played() -> void:
 	await _frames(10)
 	check("fleur 2 : allumée → les racines se soulèvent", f2.lit and etat.fleurs.size() == 3 and pont.ouvert)
 	await _frames(240)
-	check("pont : collision du plancher activée", (pont.get_node("Plancher") as StaticBody3D).collision_layer == 1 and (pont.get_node("Barriere") as StaticBody3D).collision_layer == 0)
-	check("pont : racines levées (Racine_5 à y = 0)", absf(pont.get_node("Racine_5").position.y) < 0.02, str(pont.get_node("Racine_5").position))
+	check("pont : collision du plancher activée (2 modules)", (pont.find_child("PontCollision", true, false) as StaticBody3D).collision_layer == 1 and (pont2.find_child("PontCollision", true, false) as StaticBody3D).collision_layer == 1 and (pont.get_node("Barriere") as StaticBody3D).collision_layer == 0)
+	check("pont : racines levées (rotation 0)", pont.get_node("Module/Racine_4").rotation_degrees.length() < 0.5 and pont2.get_node("Module/Racine_4").rotation_degrees.length() < 0.5, str(pont2.get_node("Module/Racine_4").rotation_degrees))
 	check("pont : état mémorisé", etat.pont_ouvert and GameSave.level("foret-de-la-peur").get("pont_ouvert") == true)
 	# traversée : passerelle, îlot, pont, rive nord
 	ok = await _route(p, [[7.0, -34.8], [0.0, -34.0], [0.0, -45.0]], false)
@@ -284,6 +285,14 @@ func _played() -> void:
 	await _walk_to(p, Vector2(6.0, -74.6), 600, false)
 	await _frames(240)
 	check("feu follet : recule dans l'impasse à l'approche du joueur (%.1f m du fond)" % ff.global_position.distance_to(ff.repli), ff.global_position.distance_to(ff.repli) < start_d - 3.0 and ff.global_position.distance_to(p.global_position) > 2.0)
+	# les talus ne se gravissent pas
+	await _tp(lv, p, _px_chemin(chem, -88.0), -88.0)
+	var y_sol := p.global_position.y
+	for dx in [-1.0, 1.0]:
+		await _tp(lv, p, _px_chemin(chem, -88.0), -88.0)
+		await _push(p, Vector2(dx, 0), 200)
+		await _push(p, Vector2(0, -1), 30)
+		check("talus : infranchissable (côté %s, +%.1f m)" % ["ouest" if dx < 0 else "est", p.global_position.y - y_sol], p.global_position.y - y_sol < 1.6, str(p.global_position))
 	# porte de ruine fermée
 	await _tp(lv, p, 0.0, -103.5)
 	check("porte de lune : fermée au départ", not porte.ouvert)
@@ -369,7 +378,7 @@ func _props_au_sol(lv: Level) -> void:
 		if co != relief:
 			exclude.append((co as CollisionObject3D).get_rid())
 	var space := lv.get_world_3d().direct_space_state
-	var exceptions := ["nenuphars", "jeune_fille_provisoire"]            # sur l'eau ; assise sur sa souche
+	var exceptions := ["nenuphars", "jeune_fille_provisoire", "pont_racines"]            # sur l'eau ; assise sur sa souche
 	var bad := 0
 	var n := 0
 	for node in lv.find_children("*", "Node3D", true, false):
