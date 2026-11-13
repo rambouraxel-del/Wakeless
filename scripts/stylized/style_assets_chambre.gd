@@ -117,7 +117,7 @@ static func tableau(id: String, w: float, h: float, style: int) -> ModuleBuilder
 		b.add(StyleKit.extrude(_ellipse(rx + 0.06, ry + 0.06, 32), 0.05, M(GOLD), 0.012), ModuleBuilder.at(Vector3(0, 0, 0.025)))
 		b.add(StyleKit.extrude(_ellipse(rx + 0.012, ry + 0.012, 32), 0.054, M("pierre_sombre"), 0.0), ModuleBuilder.at(Vector3(0, 0, 0.025)))
 		b.add(_oval_plane(rx, ry, M("tableau_nuit")), ModuleBuilder.at(Vector3(0, 0, 0.0535)))
-		b.add(StyleKit.extrude(StyleKit.star_outline(0.06, 0.025, 4), 0.02, M("etoile_or"), 0.004), ModuleBuilder.at(Vector3(0, ry + 0.1, 0.04)))
+		b.add(StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.02, M("or"), 0.004), ModuleBuilder.at(Vector3(0, ry + 0.1, 0.04)))
 		b.add(StyleKit.torus(0.05, 0.012, M(GOLD), 10, 4), ModuleBuilder.at(Vector3(-0.03, ry + 0.04, 0.045), Vector3(90, 0, 0)))
 		b.add(StyleKit.torus(0.05, 0.012, M(GOLD), 10, 4), ModuleBuilder.at(Vector3(0.03, ry + 0.04, 0.045), Vector3(90, 0, 0)))
 	elif style == 1:
@@ -142,7 +142,7 @@ static func miroir() -> ModuleBuilder:
 	for spec in [[Vector3(-0.1, 0.22, 0.0), 0.36, 0.034], [Vector3(0.0, 0.1, 0.0), 0.2, 0.016]]:
 		b.add(StyleAssets._cube(Vector3(spec[2], spec[1], 0.002), M("verre_lune")), ModuleBuilder.at(Vector3(spec[0].x, spec[0].y, 0.0635), Vector3(0, 0, -28)))
 	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.13, 0.55), 0.04, M("etoile_or"), 0.01), ModuleBuilder.at(Vector3(0, ry + 0.18, 0.04), Vector3(0, 0, 90)))
-	b.add(StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.03, M("etoile_or"), 0.005), ModuleBuilder.at(Vector3(0, ry + 0.32, 0.04)))
+	b.add(StyleKit.extrude(StyleKit.star_outline(0.04, 0.016, 4), 0.03, M("or"), 0.005), ModuleBuilder.at(Vector3(0, ry + 0.32, 0.04)))
 	for sx in [-1.0, 1.0]:
 		b.add(StyleKit.sphere(0.035, M(GOLD), 8, 4), ModuleBuilder.at(Vector3(sx * (rx + 0.1), 0.0, 0.06)))
 	b.cast_shadows = false
@@ -318,14 +318,10 @@ static func tapis_couloir() -> ModuleBuilder:
 	for s in [-1.0, 1.0]:
 		StyleAssets._cb(b, Vector3(L, 0.024, 0.03), GOLD, Vector3(0, 0.012, s * (W * 0.5 - 0.1)))
 		StyleAssets._cb(b, Vector3(L, 0.024, 0.016), GOLD, Vector3(0, 0.012, s * (W * 0.5 - 0.02)))
-	# médaillon central en losange doré, étoiles entre
+	# médaillon central en losange : filet d'or, champ ton sur ton, petite étoile brodée (mate)
 	b.add(StyleKit.extrude(P([[-0.55, 0], [0, 0.3], [0.55, 0], [0, -0.3]]), 0.012, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0.024, 0), Vector3(-90, 0, 0)))
-	b.add(StyleKit.extrude(P([[-0.46, 0], [0, 0.23], [0.46, 0], [0, -0.23]]), 0.014, M("banniere"), 0.0), ModuleBuilder.at(Vector3(0, 0.025, 0), Vector3(-90, 0, 0)))
-	b.add(StyleKit.extrude(StyleKit.star_outline(0.16, 0.06, 4), 0.012, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(0, 0.03, 0), Vector3(-90, 0, 0)))
-	for sx in [-1.7, 1.7]:
-		b.add(StyleKit.extrude(StyleKit.star_outline(0.09, 0.035, 4), 0.01, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(sx, 0.028, 0), Vector3(-90, 0, 0)))
-		for sz in [-0.45, 0.45]:
-			b.add(StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.01, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(sx * 0.62, 0.028, sz), Vector3(-90, 0, 0)))
+	b.add(StyleKit.extrude(P([[-0.5, 0], [0, 0.26], [0.5, 0], [0, -0.26]]), 0.014, M("rideau_velours"), 0.0), ModuleBuilder.at(Vector3(0, 0.025, 0), Vector3(-90, 0, 0)))
+	b.add(StyleKit.extrude(StyleKit.star_outline(0.12, 0.045, 4), 0.012, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0.03, 0), Vector3(-90, 0, 0)))
 	b.cast_shadows = false
 	return b
 
@@ -379,7 +375,8 @@ static func _wainscot(parts: Array, axis: int, pos: float, inward: float, a0: fl
 				_c(parts, _ws(axis, pw + 0.07, 0.034, 0.026), "moulure_lilas", _wm(axis, pos, inward, ac, 0.6 + dy * (ph * 0.5 + 0.017), 0.093))
 			for da in [-1.0, 1.0]:
 				_c(parts, _ws(axis, 0.034, ph, 0.026), "moulure_lilas", _wm(axis, pos, inward, ac + da * (pw * 0.5 + 0.017), 0.6, 0.093))
-			parts.append([StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.012, M("etoile_or"), 0.0), ModuleBuilder.at(_wm(axis, pos, inward, ac, 0.6, 0.123), Vector3(0, 90.0 if axis == 0 else 0.0, 0) if inward > 0.0 else Vector3(0, -90.0 if axis == 0 else 180.0, 0))])
+			if k % 2 == 0:
+				parts.append([StyleKit.extrude(StyleKit.star_outline(0.035, 0.014, 4), 0.012, M("or"), 0.0), ModuleBuilder.at(_wm(axis, pos, inward, ac, 0.6, 0.123), Vector3(0, 90.0 if axis == 0 else 0.0, 0) if inward > 0.0 else Vector3(0, -90.0 if axis == 0 else 180.0, 0))])
 
 ## Cadre mouluré rectangulaire sur le papier peint (lilas, filet d'or intérieur, rosettes aux angles).
 static func _wall_frame(parts: Array, axis: int, pos: float, inward: float, a: float, y0: float, y1: float, w: float) -> void:
@@ -400,7 +397,7 @@ static func _wall_frame(parts: Array, axis: int, pos: float, inward: float, a: f
 		for da in [-1.0, 1.0]:
 			for k in [1, 2]:
 				var rr: float = 0.06 / float(k)
-				parts.append([StyleKit.extrude(StyleKit.star_outline(rr * 1.6, rr * 0.65, 4), 0.014, M("etoile_or"), 0.003), ModuleBuilder.at(_wm(axis, pos, inward, a + da * 0.4 * float(k) * (1.8 if w > 3.0 else 1.0), yc, 0.022), rot_s)])
+				parts.append([StyleKit.extrude(StyleKit.star_outline(rr * 1.2, rr * 0.5, 4), 0.014, M("or"), 0.003), ModuleBuilder.at(_wm(axis, pos, inward, a + da * 0.4 * float(k) * (1.8 if w > 3.0 else 1.0), yc, 0.022), rot_s)])
 
 ## Corniche moulurée et denticules sous le plafond (5,0 m) le long d'un mur.
 static func _cornice(parts: Array, axis: int, pos: float, inward: float, a0: float, a1: float) -> void:
@@ -458,6 +455,15 @@ static func room_shell(x0: float, x1: float, z0: float, z1: float) -> Array:
 		_r(parts, Vector3(0.3, 0.24, z1 - z0), 0.04, "bois_porte", Vector3(bx, 4.88, cz))
 		for s in [-1.0, 1.0]:
 			_c(parts, Vector3(0.026, 0.022, z1 - z0), "or", Vector3(bx + s * 0.12, 4.765, cz))
+	# caissons : fond indigo moyen entre les poutres (le ciel étoilé reste visible autour)
+	var xe := [29.1 - 0.15, 33.6 - 0.15, x1 - 0.3]
+	for i in 3:
+		for j in 3:
+			var xa: float = [x0 + 0.3, 29.1 + 0.15, 33.6 + 0.15][i]
+			var xb: float = xe[i]
+			var za: float = [z0 + 0.3, -9.35 + 0.15, -5.05 + 0.15][j]
+			var zb: float = [-9.35 - 0.15, -5.05 - 0.15, z1 - 0.3][j]
+			_c(parts, Vector3(xb - xa, 0.01, zb - za), "mur_chambre", Vector3((xa + xb) * 0.5, 4.99, (za + zb) * 0.5))
 	var mx := 31.0
 	var mz := -7.2
 	parts.append([StyleKit.cylinder(1.0, 0.035, M("bois_porte"), 36), Transform3D(Basis.IDENTITY, Vector3(mx, 4.965, mz))])
@@ -466,7 +472,7 @@ static func room_shell(x0: float, x1: float, z0: float, z1: float) -> Array:
 	parts.append([StyleKit.extrude(StyleKit.crescent_outline(0.34, 0.55), 0.03, M("etoile_or"), 0.008), ModuleBuilder.at(Vector3(mx + 0.05, 4.95, mz), Vector3(90, 0, 0))])
 	for i in 8:
 		var a := TAU * i / 8.0
-		parts.append([StyleKit.extrude(StyleKit.star_outline(0.07, 0.028, 4), 0.016, M("etoile_or"), 0.003), ModuleBuilder.at(Vector3(mx + cos(a) * 0.85, 4.95, mz + sin(a) * 0.85), Vector3(90, 0, 0))])
+		parts.append([StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.016, M("or"), 0.003), ModuleBuilder.at(Vector3(mx + cos(a) * 0.85, 4.95, mz + sin(a) * 0.85), Vector3(90, 0, 0))])
 	# flaque de clair de lune sous la fenêtre (quatre carreaux, additive)
 	parts.append([flaque_lune(), Transform3D(Basis.IDENTITY, Vector3(cx, 0.052, z0))])
 	return parts

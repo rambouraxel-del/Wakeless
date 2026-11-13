@@ -222,7 +222,7 @@
 	"tableau_ovale": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 678
+		"triangles": 686
 	},
 	"tableau_paysage": {
 		"collisions": 0,
@@ -237,12 +237,12 @@
 	"tapis_couloir": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 292
+		"triangles": 124
 	},
 	"tapis_rond": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 3292
+		"triangles": 3068
 	},
 	"travee_couloir": {
 		"collisions": 4,

@@ -675,7 +675,7 @@ const DUVET_Y := 0.80
 
 static func _duvet_top(x: float, z: float) -> float:
 	var sag := 0.03 * exp(-pow(x / 0.62, 2.0)) * smoothstep(-0.5, 0.2, z) * (1.0 - smoothstep(0.7, 1.15, z))
-	var folds := 0.011 * sin(6.5 * x + 2.2 * z + 0.6) * (1.0 - absf(x) * 0.5) + 0.008 * sin(9.0 * z - 3.0 * x)
+	var folds := 0.026 * sin(5.2 * z + 0.5) * (1.0 - absf(x) * 0.35) + 0.012 * sin(6.5 * x + 2.2 * z + 0.6)
 	var head := 0.07 * (1.0 - smoothstep(0.0, 0.14, z + 0.52))
 	return DUVET_Y - sag + folds - head
 
@@ -810,7 +810,7 @@ static func lit() -> ModuleBuilder:
 			b.add(StyleKit.extrude(inset2[0], 0.178, M("bois_sombre"), 0.012), ModuleBuilder.at(Vector3(0, 0.12, hbz + 0.0)))
 	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.3, 0.55, 14), 0.03, M("etoile_or"), 0.01), ModuleBuilder.at(Vector3(0, 1.62, hbz + 0.09), Vector3(0, 0, 90)))
 	for spec in [[-0.5, 1.7, 0.07], [0.5, 1.6, 0.06], [-0.38, 1.38, 0.045], [0.35, 1.45, 0.05]]:
-		b.add(StyleKit.extrude(StyleKit.star_outline(spec[2], spec[2] * 0.42, 4), 0.02, M("etoile_or"), 0.004), ModuleBuilder.at(Vector3(spec[0], spec[1], hbz + 0.09)))
+		b.add(StyleKit.extrude(StyleKit.star_outline(spec[2] * 0.7, spec[2] * 0.3, 4), 0.02, M(GOLD), 0.004), ModuleBuilder.at(Vector3(spec[0], spec[1], hbz + 0.09)))
 	b.box(Vector3(W + 0.1, 0.1, 0.2), 0.04, "bois_sombre", Vector3(0, 0.62, hbz), Vector3.ZERO, 1)
 	# pied de lit : bas panneau galbé
 	var fb := _headboard_outline(W + 0.06, 0.74, 0.92)
@@ -912,7 +912,7 @@ static func chevet() -> ModuleBuilder:
 		b.add(StyleKit.torus(0.019, 0.0025, M(GOLD), 14, 4), ModuleBuilder.at(Vector3(-0.18 + s * 0.023, gy, -0.045), Vector3(8, 0, 0)))
 		b.add(_cube(Vector3(0.002, 0.002, 0.075), M(GOLD)), ModuleBuilder.at(Vector3(-0.18 + s * 0.042, gy, -0.085), Vector3(0, s * -4.0, 0)))
 	b.add(_cube(Vector3(0.012, 0.002, 0.002), M(GOLD)), ModuleBuilder.at(Vector3(-0.18, gy + 0.004, -0.045)))
-	b.omni(Vector3(lx, top + 0.4, lz), Color("#ffb066"), 1.1, 4.0, false)
+	b.omni(Vector3(lx, top + 0.56, lz), Color("#ffb066"), 1.4, 3.5, false)
 	b.collide(Vector3(0.6, 0.72, 0.5), Vector3(0, 0.36, 0))
 	return b
 
@@ -1069,9 +1069,9 @@ static func tapis() -> ModuleBuilder:
 	b.add(StyleKit.torus(0.95, 0.008, M(GOLD), 48, 4), ModuleBuilder.at(Vector3(0, 0.028, 0), Vector3.ZERO, Vector3(S.x, 0.5, S.z)))
 	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.5, 0.55), 0.02, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0.04, 0), Vector3(-90, 0, 0), Vector3(1.0, 1.0, 1.0)))
 	# chaîne d'étoiles dorées entre les bandes
-	for i in 16:
-		var a := TAU * i / 16.0
-		b.add(StyleKit.extrude(StyleKit.star_outline(0.07, 0.03, 4), 0.01, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(cos(a) * 1.27 * S.x, 0.032, sin(a) * 1.27 * S.z), Vector3(-90, rad_to_deg(-a), 0)))
+	for i in 8:
+		var a := TAU * (i + 0.5) / 8.0
+		b.add(StyleKit.extrude(StyleKit.star_outline(0.05, 0.02, 4), 0.008, M(GOLD), 0.0), ModuleBuilder.at(Vector3(cos(a) * 1.27 * S.x, 0.032, sin(a) * 1.27 * S.z), Vector3(-90, rad_to_deg(-a), 0)))
 	# franges (deux extrémités, selon x)
 	for side in [-1.0, 1.0]:
 		for i in 17:

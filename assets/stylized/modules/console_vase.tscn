@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/console_vase.res" id="1_7n1gg"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/console_vase.res" id="1_nm0lw"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r476n"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds0gc"]
 size = Vector3(0.94, 0.88, 0.34)
 
 [node name="ConsoleVase" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_7n1gg")
+mesh = ExtResource("1_nm0lw")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 0.16)
-shape = SubResource("BoxShape3D_r476n")
+shape = SubResource("BoxShape3D_ds0gc")

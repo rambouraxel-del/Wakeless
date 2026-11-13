@@ -29,7 +29,7 @@ static func add(d: Dictionary) -> void:
 	d["lin_lavande"] = StyleMaterials._surface("#8c82b4", "#8379ab", 0.92, {"variation": 0.06, "variation_scale": 1.6, "rim_color": "#cfc6f0", "rim_strength": 0.22})
 	d["lin_creme"] = StyleMaterials._surface("#e6d9c0", "#d8cbb4", 0.92, {"variation": 0.04, "rim_color": "#fff0d8", "rim_strength": 0.15})
 	d["rose_lune"] = StyleMaterials._surface("#c597aa", "#b78a9d", 0.9, {"variation": 0.04, "rim_color": "#f0c8d6", "rim_strength": 0.25})
-	d["abat_jour"] = StyleMaterials._glow("#dcb98a", "#ff9d4d", 0.85)
+	d["abat_jour"] = StyleMaterials._glow("#d9954a", "#ff8a2e", 0.9)
 	var vo := StandardMaterial3D.new()                      # voilage : toile translucide
 	vo.albedo_color = Color(0.82, 0.8, 0.95, 0.33)
 	vo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -39,7 +39,7 @@ static func add(d: Dictionary) -> void:
 	vo.emission = Color(0.35, 0.33, 0.55)
 	vo.emission_energy_multiplier = 0.25
 	d["voilage"] = vo
-	d["tapis_prune"] = StyleMaterials._surface("#6c466c", "#6c466c", 0.97, {"variation": 0.05, "variation_scale": 2.5, "rim_strength": 0.04})
+	d["tapis_prune"] = StyleMaterials._surface("#4e2e52", "#4e2e52", 0.97, {"variation": 0.05, "variation_scale": 2.5, "rim_strength": 0.04})
 	var tb := ShaderMaterial.new()
 	tb.shader = load(StyleMaterials.DIR + "tableau_nuit.gdshader")
 	d["tableau_nuit"] = tb
