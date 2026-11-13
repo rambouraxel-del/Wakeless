@@ -10,9 +10,9 @@ S=res://scenes/levels/foret_de_la_peur.tscn
 shot() { local n=$1; shift; [[ -n "$filt" && "$n" != $filt* ]] && return; bash tools/shot.sh $S "$out/$n.jpg" "$@"; }
 # --- L : vues larges
 shot L01_depart_lisiere        0 2.8 9      0 1.5 -22 70
-shot L02_lisiere_lune          5 5.0 -2     -8 7 -34 72
+shot L02_lisiere_lune          0 4.6 6      -6 6 -30 72
 shot L03_marais_etang          -4 2.2 -31   -2 0 -46 72
-shot L04_bois_noir_entree      0 2.6 -64    0 2.5 -92 72
+shot L04_bois_noir_entree      0 3.4 -66    0 3.0 -92 72
 shot L05_bois_noir_profond     0 3.2 -92    0 3.5 -112 70
 shot L06_clairiere_large       0 4.2 -112   0 4 -138 74
 shot L07_vue_arriere           0 3.2 -70    0 1.5 10 74
@@ -44,7 +44,7 @@ shot J04_jeu_clairiere         spawn=clairiere
 shot J05_jeu_passerelle        spawn=marais joueur=0,0.5,-38,0
 # --- N : moments inquiétants
 shot N01_follets_au_loin       0 2.2 -50    -8 1.5 -78 62
-shot N02_impasse_bois          8 2.6 -72    13 1.5 -78 60
+shot N02_impasse_bois          1 2.4 -74    13 1.5 -78 62
 shot N03_ruine_laterale        -8 3.0 -84   -18.5 3.0 -88.5 58
 # --- F : clairière
 shot F01_clairiere_entree      0 3.7 -114   0 4 -130 68
