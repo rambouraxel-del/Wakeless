@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pantoufles.res" id="1_kejqe"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pantoufles.res" id="1_ml1kp"]
 
 [node name="Pantoufles" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_kejqe")
+mesh = ExtResource("1_ml1kp")

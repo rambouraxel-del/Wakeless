@@ -31,6 +31,12 @@ uniform float grain : hint_range(0.0, 0.3) = 0.0;       // grain d'enduit fin
 uniform float wood : hint_range(0.0, 1.0) = 0.0;        // veinage en bandes
 uniform vec3 wood_dir = vec3(0.0, 1.0, 0.0);            // direction du fil
 uniform float wood_freq = 9.0;
+// chaleur simulée des appliques/lanternes (hors limite de 8 lumières par objet) : (x, y, z, force)
+uniform vec4 warm_pts[24];
+uniform float warm_strength = 0.0;
+uniform float warm_radius = 2.4;
+uniform float warm_low = 0.0;                 // réchauffement doux du bas des murs et boiseries
+uniform vec4 warm_color : source_color = vec4(1.0, 0.62, 0.30, 1.0);
 uniform float core_boost : hint_range(0.0, 3.0) = 0.0;   // coeur plus lumineux au centre (verres)
 uniform float fake_reflect : hint_range(0.0, 2.0) = 0.0; // faux reflet d'environnement (métal, vernis)
 uniform vec4 reflect_color : source_color = vec4(1.0, 0.8, 0.5, 1.0);
@@ -139,6 +145,20 @@ void fragment() {
 	SPECULAR = specular;
 	float fres = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), rim_power);
 	emis += rim_color.rgb * fres * rim_strength;
+	if (warm_strength > 0.0) {
+		float wg = 0.0;
+		for (int i = 0; i < 24; i++) {
+			vec3 dv = warm_pts[i].xyz - world_pos;
+			float dd = dot(dv, dv);
+			float facing = 0.35 + 0.65 * clamp(dot(world_nrm, dv * inversesqrt(dd + 0.001)), 0.0, 1.0);
+			wg += warm_pts[i].w * exp(-dd / (warm_radius * warm_radius)) * facing;
+		}
+		emis += warm_color.rgb * (col * 2.2 + 0.015) * wg * warm_strength;
+	}
+	if (warm_low > 0.0) {
+		float vert = 1.0 - smoothstep(0.3, 0.8, abs(world_nrm.y));
+		emis += warm_color.rgb * col * 1.6 * warm_low * vert * (1.0 - smoothstep(0.0, 1.9, world_pos.y));
+	}
 	if (core_boost > 0.0) {
 		emis += emission_color.rgb * emission_energy * core_boost * pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), 2.5);
 	}

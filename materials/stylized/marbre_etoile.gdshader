@@ -5,7 +5,7 @@ shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
 
 uniform vec4 marble_dark : source_color = vec4(0.065, 0.06, 0.15, 1.0);
-uniform vec4 marble_light : source_color = vec4(0.15, 0.14, 0.30, 1.0);
+uniform vec4 marble_light : source_color = vec4(0.19, 0.17, 0.35, 1.0);
 uniform vec4 vein_color : source_color = vec4(0.86, 0.80, 0.68, 1.0);
 uniform vec4 gold : source_color = vec4(0.79, 0.63, 0.37, 1.0);
 uniform float gold_glow = 0.04;

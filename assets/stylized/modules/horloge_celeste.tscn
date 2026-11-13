@@ -1,19 +1,19 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/stylized/celestial_clock.gd" id="1_nwsjs"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste.res" id="2_np0me"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_anneau.res" id="3_kleen"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_heures.res" id="4_26v1d"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_minutes.res" id="5_jj8fs"]
+[ext_resource type="Script" path="res://scripts/stylized/celestial_clock.gd" id="1_u7c70"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste.res" id="2_5ls5c"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_anneau.res" id="3_w68d0"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_heures.res" id="4_6ifoh"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_minutes.res" id="5_eb2eg"]
 
 [node name="HorlogeCeleste" type="Node3D"]
-script = ExtResource("1_nwsjs")
+script = ExtResource("1_u7c70")
 hour_hand = NodePath("Heures")
 minute_hand = NodePath("Minutes")
 ring = NodePath("Anneau")
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_np0me")
+mesh = ExtResource("2_5ls5c")
 
 [node name="Eclairage" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 2.5)
@@ -149,16 +149,16 @@ outline_size = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.35)
 
 [node name="MaillageAnneau" type="MeshInstance3D" parent="Anneau"]
-mesh = ExtResource("3_kleen")
+mesh = ExtResource("3_w68d0")
 
 [node name="Heures" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41)
 
 [node name="MaillageHeures" type="MeshInstance3D" parent="Heures"]
-mesh = ExtResource("4_26v1d")
+mesh = ExtResource("4_6ifoh")
 
 [node name="Minutes" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45)
 
 [node name="MaillageMinutes" type="MeshInstance3D" parent="Minutes"]
-mesh = ExtResource("5_jj8fs")
+mesh = ExtResource("5_eb2eg")

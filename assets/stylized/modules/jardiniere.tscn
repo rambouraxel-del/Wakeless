@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jardiniere.res" id="1_nkmgn"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jardiniere.res" id="1_salbh"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r36w5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2at2g"]
 size = Vector3(1, 1.2, 1)
 
 [node name="Jardiniere" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_nkmgn")
+mesh = ExtResource("1_salbh")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("BoxShape3D_r36w5")
+shape = SubResource("BoxShape3D_2at2g")

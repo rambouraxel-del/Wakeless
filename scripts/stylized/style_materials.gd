@@ -25,10 +25,33 @@ static func _surface(base: String, top: String, rough: float, extra := {}) -> Sh
 	m.set_shader_parameter("top_color", Color(top))
 	m.set_shader_parameter("roughness", rough)
 	m.set_shader_parameter("rim_power", 4.5)        # liseré fin par défaut
+	if not extra.has("metallic") and not extra.has("emission_energy") and not extra.has("star_density") and not extra.has("foot_dark_skip"):
+		m.set_shader_parameter("warm_low", 0.22)
+		m.set_shader_parameter("warm_strength", 1.3)
+		m.set_shader_parameter("warm_radius", 3.0)
+		m.set_shader_parameter("warm_pts", warm_points())
 	for k in extra:
 		var v = extra[k]
 		m.set_shader_parameter(k, Color(v) if typeof(v) == TYPE_STRING else v)
 	return m
+
+## Positions (x, y, z, force) des sources chaudes de l'atrium : appliques des murs, lanternes sous les galeries.
+## Simulent des flaques ambrées sur les grandes surfaces fusionnées (que la limite de 8 lumières par objet priverait de lumière).
+static func warm_points() -> PackedVector4Array:
+	var a := PackedVector4Array()
+	for z in [-9.0, -3.0, 3.0, 9.0]:
+		a.append(Vector4(-14.5, 2.9, z, 1.0))
+	for z in [-10.5, -4.5, 4.5, 10.5]:
+		a.append(Vector4(14.5, 2.9, z, 1.0))
+	for x in [-10.0, -3.2, 3.2, 10.0]:
+		a.append(Vector4(x, 2.9, -12.5, 1.0))
+	for x in [-3.2, 3.2, -9.0, 9.0]:
+		a.append(Vector4(x, 2.9, 12.5, 1.0))
+	for p in [Vector3(-13.3, 3.4, -11.3), Vector3(13.3, 3.4, -11.3), Vector3(-13.3, 3.4, 11.0), Vector3(13.3, 3.4, 11.0), Vector3(0, 3.4, -11.3)]:
+		a.append(Vector4(p.x, p.y, p.z, 0.8))
+	while a.size() < 24:
+		a.append(Vector4(0, -50, 0, 0))
+	return a
 
 static func _glow(color: String, emission: String, energy: float) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()
@@ -54,7 +77,7 @@ static func definitions() -> Dictionary:
 	d["mur_violet"] = _surface("#575184", "#29254f", 0.9, {"gradient_top": 17.0, "variation": 0.09, "variation_scale": 0.3, "rim_strength": 0.04, "foot_dark": 0.5, "foot_height": 1.7, "dirt": 0.07, "grain": 0.03, "specular": 0.2})
 	d["mur_couloir"] = _surface("#4d4876", "#25214a", 0.9, {"gradient_top": 8.5, "variation": 0.08, "rim_strength": 0.04, "foot_dark": 0.45, "foot_height": 1.4, "dirt": 0.1, "grain": 0.03, "specular": 0.2})
 	d["mur_chambre"] = _surface("#524e78", "#2b2850", 0.92, {"gradient_top": 4.6, "variation": 0.07, "rim_strength": 0.03, "foot_dark": 0.4, "foot_height": 1.2, "dirt": 0.09, "grain": 0.04, "specular": 0.15})
-	d["pierre_claire"] = _surface("#9c8fa6", "#6f6488", 0.72, {"gradient_top": 17.0, "variation": 0.08, "variation_scale": 0.5, "rim_strength": 0.08, "rim_color": "#e8c8b0", "foot_dark": 0.3, "foot_height": 1.2, "dirt": 0.1, "grain": 0.04, "specular": 0.3, "fake_reflect": 0.25, "reflect_color": "#ffc89a"})
+	d["pierre_claire"] = _surface("#766b82", "#554c6a", 0.72, {"gradient_top": 17.0, "variation": 0.08, "variation_scale": 0.5, "rim_strength": 0.08, "rim_color": "#e8c8b0", "foot_dark": 0.3, "foot_height": 1.2, "dirt": 0.1, "grain": 0.04, "specular": 0.3, "fake_reflect": 0.25, "reflect_color": "#ffc89a"})
 	d["pierre_sombre"] = _surface("#241f48", "#1b1738", 0.6, {"variation": 0.07, "rim_strength": 0.06, "dirt": 0.15, "specular": 0.45, "fake_reflect": 0.25, "reflect_color": "#8a8ccf"})
 	# --- métaux : l'or est un MÉTAL (reflet net, valeur sombre, creux), jamais un aplat jaune
 	d["or"] = _surface("#9a7a42", "#7e6234", 0.3, {"metallic": 0.85, "specular": 0.8, "variation": 0.08, "variation_scale": 1.4, "rim_color": "#ffd9a0", "rim_strength": 0.5, "rim_power": 6.0, "fake_reflect": 1.3, "reflect_color": "#ffc98a", "foot_dark": 0.35, "foot_height": 0.5, "dirt": 0.35})
@@ -107,6 +130,13 @@ static func definitions() -> Dictionary:
 	d["vue_nuit_c"] = _vista(Vector2(0.3, 0.7), 3.0, Vector2(3.0, 3.6))           # fenêtre de chambre
 	StyleMaterialsAtrium.add(d)       # matériaux propres à l'atrium
 	StyleMaterialsChambre.add(d)      # matériaux propres à la chambre et au couloir
+	# retouches de finition sur des matériaux ajoutés ci-dessus : moulures de pierre plus chaudes et moins claires (couloir)
+	var mp = d.get("moulure_pierre")
+	if mp != null:
+		mp.set_shader_parameter("base_color", Color("#7e7292"))
+		mp.set_shader_parameter("top_color", Color("#675c82"))
+		mp.set_shader_parameter("rim_color", Color("#e0c4b0"))
+		mp.set_shader_parameter("rim_strength", 0.1)
 	return d
 
 ## (Re)crée et enregistre tous les matériaux. Renvoie le nombre écrit.

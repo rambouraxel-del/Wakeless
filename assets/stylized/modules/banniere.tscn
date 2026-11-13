@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banniere.res" id="1_hc4ft"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banniere.res" id="1_naqhp"]
 
 [node name="Banniere" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_hc4ft")
+mesh = ExtResource("1_naqhp")

@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_parapluie.res" id="1_4eexb"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_parapluie.res" id="1_fe6ry"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gsorw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_f55mj"]
 size = Vector3(0.36, 0.7, 0.36)
 
 [node name="PorteParapluie" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_4eexb")
+mesh = ExtResource("1_fe6ry")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.2)
-shape = SubResource("BoxShape3D_gsorw")
+shape = SubResource("BoxShape3D_f55mj")

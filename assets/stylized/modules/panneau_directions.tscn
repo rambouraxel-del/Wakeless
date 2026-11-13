@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/panneau_directions.res" id="1_84a4j"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/panneau_directions.res" id="1_mkqxg"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kn805"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_efw88"]
 size = Vector3(0.6, 3, 0.6)
 
 [node name="PanneauDirections" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_84a4j")
+mesh = ExtResource("1_mkqxg")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("BoxShape3D_kn805")
+shape = SubResource("BoxShape3D_efw88")
 
 [node name="Texte_0" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62, 2.5, 0.036)

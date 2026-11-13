@@ -476,6 +476,14 @@ func _lights_atrium(g: Node3D) -> void:
 	ilot.light_energy = 2.0
 	ilot.omni_range = 7.0
 	g.add_child(ilot)
+	# remplissage froid derrière l'entrée : détache la silhouette du joueur du sol sombre
+	var fill := OmniLight3D.new()
+	fill.name = "Remplissage_entree"
+	fill.position = Vector3(0, 3.4, 11.8)
+	fill.light_color = Color("#a9b0ff")
+	fill.light_energy = 1.1
+	fill.omni_range = 9.0
+	g.add_child(fill)
 	# lueurs chaudes au pied des colonnes (dorures et marbre réchauffés, sans ombres)
 	var warm := Color("#ffb066")
 	for p in [Vector3(-12.0, 1.4, -8.6), Vector3(-3.0, 1.4, -8.6), Vector3(3.0, 1.4, -8.6), Vector3(12.0, 1.4, -8.6),
@@ -490,6 +498,22 @@ func _lights_atrium(g: Node3D) -> void:
 # ================================================================== lumières du couloir et de la chambre
 
 func _lights_couloir_chambre(g: Node3D) -> void:
+	# variation voulue par B : applique de la travée 5, plus faible
+	for nm in ["App_N_5", "App_S_5"]:
+		var ap := lvl.find_child(nm, true, false)
+		if ap:
+			var li := ap.find_child("Lumiere", true, false) as Light3D
+			if li:
+				li.light_energy *= 0.55
+				li.owner = lvl
+	# îlot chaud du lit : tête de lit et oreillers
+	var ilot := OmniLight3D.new()
+	ilot.name = "Ilot_lit"
+	ilot.position = Vector3(33.2, 1.75, -7.5)
+	ilot.light_color = Color("#ffb066")
+	ilot.light_energy = 1.5
+	ilot.omni_range = 4.2
+	g.add_child(ilot)
 	var moon := Color("#a9b0ff")
 	# fond du couloir et chambre : lune
 	for spec in [[Vector3(CX0 + BAY * BAYS - 1.5, 5.0, 0.0), 1.4, 10.0, "Lune_fond_couloir"], [Vector3(31.35, 2.6, -10.3), 1.3, 7.0, "Lune_chambre"]]:

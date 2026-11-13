@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banquette_fenetre.res" id="1_jvvxu"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/banquette_fenetre.res" id="1_eedfk"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pb6d3"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_iicjn"]
 size = Vector3(2.5, 0.6, 0.55)
 
 [node name="BanquetteFenetre" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_jvvxu")
+mesh = ExtResource("1_eedfk")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0.27)
-shape = SubResource("BoxShape3D_pb6d3")
+shape = SubResource("BoxShape3D_iicjn")

@@ -1,12 +1,12 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+[gd_resource type="ShaderMaterial" load_steps=2 format=4]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_y01p8"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_8tv1q"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_y01p8")
-shader_parameter/base_color = Color(0.611765, 0.560784, 0.65098, 1)
-shader_parameter/top_color = Color(0.435294, 0.392157, 0.533333, 1)
+shader = ExtResource("1_8tv1q")
+shader_parameter/base_color = Color(0.462745, 0.419608, 0.509804, 1)
+shader_parameter/top_color = Color(0.333333, 0.298039, 0.415686, 1)
 shader_parameter/gradient_bottom = null
 shader_parameter/gradient_top = 17.0
 shader_parameter/variation = 0.08
@@ -30,6 +30,11 @@ shader_parameter/grain = 0.04
 shader_parameter/wood = null
 shader_parameter/wood_dir = null
 shader_parameter/wood_freq = null
+shader_parameter/warm_pts = PackedVector4Array(-14.5, 2.9, -9, 1, -14.5, 2.9, -3, 1, -14.5, 2.9, 3, 1, -14.5, 2.9, 9, 1, 14.5, 2.9, -10.5, 1, 14.5, 2.9, -4.5, 1, 14.5, 2.9, 4.5, 1, 14.5, 2.9, 10.5, 1, -10, 2.9, -12.5, 1, -3.2, 2.9, -12.5, 1, 3.2, 2.9, -12.5, 1, 10, 2.9, -12.5, 1, -3.2, 2.9, 12.5, 1, 3.2, 2.9, 12.5, 1, -9, 2.9, 12.5, 1, 9, 2.9, 12.5, 1, -13.3, 3.4, -11.3, 0.8, 13.3, 3.4, -11.3, 0.8, -13.3, 3.4, 11, 0.8, 13.3, 3.4, 11, 0.8, 0, 3.4, -11.3, 0.8, 0, -50, 0, 0, 0, -50, 0, 0, 0, -50, 0, 0)
+shader_parameter/warm_strength = 1.3
+shader_parameter/warm_radius = 3.0
+shader_parameter/warm_low = 0.22
+shader_parameter/warm_color = null
 shader_parameter/core_boost = null
 shader_parameter/fake_reflect = 0.25
 shader_parameter/reflect_color = Color(1, 0.784314, 0.603922, 1)

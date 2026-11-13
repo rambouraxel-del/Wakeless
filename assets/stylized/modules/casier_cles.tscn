@@ -1,21 +1,21 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/casier_cles.res" id="1_606b8"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/casier_cles.res" id="1_858wv"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xml0p"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v7nik"]
 size = Vector3(2.9, 1.3, 0.5)
 
 [node name="CasierCles" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_606b8")
+mesh = ExtResource("1_858wv")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0.25)
-shape = SubResource("BoxShape3D_xml0p")
+shape = SubResource("BoxShape3D_v7nik")
 
 [node name="LumiereCasier" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.2)
