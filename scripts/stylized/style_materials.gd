@@ -99,6 +99,8 @@ static func definitions() -> Dictionary:
 	d["vue_nuit_a"] = _vista(Vector2(0.68, 0.78), 1.0, Vector2(4.0, 9.0))
 	d["vue_nuit_b"] = _vista(Vector2(2.0, 2.0), 2.0, Vector2(4.0, 9.0))          # sans lune visible
 	d["vue_nuit_c"] = _vista(Vector2(0.3, 0.7), 3.0, Vector2(3.0, 3.6))           # fenêtre de chambre
+	StyleMaterialsAtrium.add(d)       # matériaux propres à l'atrium
+	StyleMaterialsChambre.add(d)      # matériaux propres à la chambre et au couloir
 	return d
 
 ## (Re)crée et enregistre tous les matériaux. Renvoie le nombre écrit.

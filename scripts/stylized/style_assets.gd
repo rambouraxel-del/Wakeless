@@ -15,7 +15,7 @@ static func all_ids() -> PackedStringArray:
 		"table_globe", "banc_velours", "jardiniere", "panneau_directions", "travee_couloir", "travee_couloir_ouverte",
 		"lit_reveur", "table_chevet", "armoire", "bureau_ecriture", "fauteuil", "tapis_rond", "etagere_livres",
 		"mobile_etoiles", "porte_double_entree",
-	])
+	]) + StyleAssetsAtrium.ids() + StyleAssetsChambre.ids()
 
 static func make(id: String) -> ModuleBuilder:
 	match id:
@@ -54,7 +54,10 @@ static func make(id: String) -> ModuleBuilder:
 		"etagere_livres": return etagere()
 		"mobile_etoiles": return mobile()
 		"porte_double_entree": return porte_double()
-	return null
+	var b := StyleAssetsAtrium.make(id)
+	if b == null:
+		b = StyleAssetsChambre.make(id)
+	return b
 
 static func M(n: String) -> Material:
 	return StyleMaterials.get_mat(n)

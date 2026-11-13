@@ -3,6 +3,7 @@ extends SceneTree
 ## Usage : godot --rendering-driver opengl3 -s tools/capture.gd -- <scène.tscn> <sortie.png> px py pz tx ty tz [fov] [préréglage] [hud]
 ##   La caméra de capture remplace celle du joueur ; « hud » conserve l'interface (sinon masquée).
 ##   Sans coordonnées : vue du joueur à son point d'arrivée.
+##   « spawn=<id> » : point d'arrivée ; « joueur=x,y,z,lacet° » : place Star-Faced One (vue de jeu à la 3e personne).
 
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -11,10 +12,20 @@ func _initialize() -> void:
 	for a in args:
 		if a.begins_with("spawn=") and inst is Level:
 			(inst as Level).default_spawn = a.substr(6)
-	args = PackedStringArray(Array(args).filter(func(a): return not String(a).begins_with("spawn=")))
+	var place := ""
+	for a in args:
+		if a.begins_with("joueur="):
+			place = a.substr(7)
+	args = PackedStringArray(Array(args).filter(func(a): return not (String(a).begins_with("spawn=") or String(a).begins_with("joueur="))))
 	root.add_child(inst)
 	await process_frame
 	var level := inst as Level
+	if level and place != "":
+		var v := place.split_floats(",")
+		level.player.teleport(Vector3(v[0], v[1], v[2]), deg_to_rad(v[3]))
+		level.camera.yaw = deg_to_rad(v[3])
+		level.camera.pitch = -0.12
+		level.camera.snap()
 	var show_hud := "hud" in args
 	if args.has("hud"):
 		args.remove_at(args.find("hud"))

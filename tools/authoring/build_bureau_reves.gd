@@ -54,7 +54,9 @@ func _initialize() -> void:
 	_atrium_modules(_group(lvl, "Atrium"))
 	_corridor_modules(_group(lvl, "Couloir"))
 	_room_modules(_group(lvl, "Chambre"))
-	_lights(_group(lvl, "Lumieres"))
+	var lum := _group(lvl, "Lumieres")
+	_lights_atrium(lum)
+	_lights_couloir_chambre(lum)
 
 	_save()
 
@@ -389,7 +391,7 @@ func _room_modules(g: Node3D) -> void:
 
 # ================================================================== lumières d'ambiance (clair de lune)
 
-func _lights(g: Node3D) -> void:
+func _lights_atrium(g: Node3D) -> void:
 	var moon := Color("#b9a8ff")
 	# rayons de lune tombant des grandes fenêtres du nord et du sud (sans ombres : efficaces)
 	for spec in [[Vector3(-9.5, 13.0, -11.0), Vector3(-50, 0, 0)], [Vector3(9.5, 13.0, -11.0), Vector3(-50, 0, 0)],
@@ -424,6 +426,10 @@ func _lights(g: Node3D) -> void:
 		o.light_energy = 0.9
 		o.omni_range = 4.5
 		g.add_child(o)
+# ================================================================== lumières du couloir et de la chambre
+
+func _lights_couloir_chambre(g: Node3D) -> void:
+	var moon := Color("#b9a8ff")
 	# fond du couloir et chambre : lune
 	for spec in [[Vector3(CX0 + BAY * BAYS - 1.5, 5.0, 0.0), 1.4, 10.0, "Lune_fond_couloir"], [Vector3(31.35, 2.6, -10.3), 1.3, 7.0, "Lune_chambre"]]:
 		var o := OmniLight3D.new()
