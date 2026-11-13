@@ -138,18 +138,8 @@ func _atrium_shell() -> void:
 	# encadrement de l'arche du couloir (côté atrium)
 	walls.append([StyleKit.extrude(StyleKit.arch_frame_outline(4.6, 5.0, 0.4, 20), 0.5, M("pierre_claire"), 0.06), Transform3D(Basis(Vector3.UP, -PI * 0.5), Vector3(14.95, 0, 0))])
 	walls.append([StyleKit.extrude(StyleKit.arch_frame_outline(5.4, 5.4, 0.06, 20), 0.55, M("or"), 0.0), Transform3D(Basis(Vector3.UP, -PI * 0.5), Vector3(14.95, 0, 0))])
-	# soubassements et corniches dorées du rez-de-chaussée et de l'étage
-	for spec in [[Vector3(30.0, 1.1, 0.12), Vector3(0, 0.55, -12.95)], [Vector3(30.0, 1.1, 0.12), Vector3(0, 0.55, 12.95)],
-			[Vector3(0.12, 1.1, 26.0), Vector3(-14.95, 0.55, 0)], [Vector3(0.12, 1.1, 10.0), Vector3(14.95, 0.55, -8.0)], [Vector3(0.12, 1.1, 10.0), Vector3(14.95, 0.55, 8.0)]]:
-		_box(walls, spec[0], "pierre_sombre", spec[1], 0.04)
-	for y in [1.15, 18.4]:
-		_box(walls, Vector3(30.0, 0.14, 0.2), "or", Vector3(0, y, -12.92), 0.05)
-		_box(walls, Vector3(30.0, 0.14, 0.2), "or", Vector3(0, y, 12.92), 0.05)
-		_box(walls, Vector3(0.2, 0.14, 26.0), "or", Vector3(-14.92, y, 0), 0.05)
-		_box(walls, Vector3(0.2, 0.14, 26.0), "or", Vector3(14.92, y, 0), 0.05)
-	for spec in [[Vector3(30.0, 0.5, 0.5), Vector3(0, 18.8, -12.8)], [Vector3(30.0, 0.5, 0.5), Vector3(0, 18.8, 12.8)],
-			[Vector3(0.5, 0.5, 26.0), Vector3(-14.8, 18.8, 0)], [Vector3(0.5, 0.5, 26.0), Vector3(14.8, 18.8, 0)]]:
-		_box(walls, spec[0], "pierre_claire", spec[1], 0.12)
+	# habillage : lambris, cadres moulurés, pilastres, corniches à denticules, frise de constellations (voir StyleAssetsAtrium)
+	StyleAssetsAtrium.dress_walls(walls)
 	_mesh("Atrium_Murs", walls)
 	_col("mur_nord", Vector3(31.2, 21.0, 0.6), Vector3(0, 10.0, -13.3))
 	_col("mur_sud", Vector3(31.2, 21.0, 0.6), Vector3(0, 10.0, 13.3))
@@ -162,13 +152,8 @@ func _atrium_shell() -> void:
 	_box(gal, Vector3(30.0, 0.5, 3.5), "marbre_atrium", Vector3(0, 5.75, -11.25), 0.08)
 	_box(gal, Vector3(3.5, 0.5, 22.5), "marbre_atrium", Vector3(-13.25, 5.75, 1.75), 0.08)
 	_box(gal, Vector3(3.5, 0.5, 22.5), "marbre_atrium", Vector3(13.25, 5.75, 1.75), 0.08)
-	# rives dorées et bandeau sculpté sous les galeries
-	_box(gal, Vector3(23.0, 0.12, 0.2), "or", Vector3(0, 5.55, -9.45), 0.05)
-	_box(gal, Vector3(0.2, 0.12, 22.5), "or", Vector3(-11.45, 5.55, 1.75), 0.05)
-	_box(gal, Vector3(0.2, 0.12, 22.5), "or", Vector3(11.45, 5.55, 1.75), 0.05)
-	_box(gal, Vector3(23.0, 0.6, 0.35), "pierre_claire", Vector3(0, 5.25, -9.6), 0.1)
-	_box(gal, Vector3(0.35, 0.6, 22.5), "pierre_claire", Vector3(-11.6, 5.25, 1.75), 0.1)
-	_box(gal, Vector3(0.35, 0.6, 22.5), "pierre_claire", Vector3(11.6, 5.25, 1.75), 0.1)
+	# rives moulurées, architrave, consoles galbées et sous-faces à caissons (voir StyleAssetsAtrium)
+	StyleAssetsAtrium.dress_galleries(gal)
 	_mesh("Atrium_Galeries", gal)
 	_col("galerie_nord", Vector3(30.0, 0.5, 3.5), Vector3(0, 5.75, -11.25))
 	_col("galerie_ouest", Vector3(3.5, 0.5, 22.5), Vector3(-13.25, 5.75, 1.75))
@@ -180,12 +165,15 @@ func _atrium_shell() -> void:
 	var ceil := []
 	_box(ceil, Vector3(31.2, 0.6, 27.2), "voute_etoilee", Vector3(0, 20.3, 0), 0.05)
 	for x in [-9.0, -3.0, 3.0, 9.0]:
-		_box(ceil, Vector3(0.6, 0.7, 26.0), "pierre_claire", Vector3(x, 19.65, 0), 0.15)
-		_box(ceil, Vector3(0.66, 0.08, 26.0), "or", Vector3(x, 19.3, 0), 0.03)
+		_box(ceil, Vector3(0.6, 0.7, 26.0), "moulure_pierre", Vector3(x, 19.65, 0), 0.15)
+		_box(ceil, Vector3(0.66, 0.08, 26.0), "or_vieilli", Vector3(x, 19.3, 0), 0.03)
+		_box(ceil, Vector3(0.04, 0.5, 26.1), "or_vieilli", Vector3(x - 0.3, 19.65, 0), 0.015)
+		_box(ceil, Vector3(0.04, 0.5, 26.1), "or_vieilli", Vector3(x + 0.3, 19.65, 0), 0.015)
 	for z in [-7.0, 0.0, 7.0]:
-		_box(ceil, Vector3(30.0, 0.6, 0.6), "pierre_claire", Vector3(0, 19.7, z), 0.15)
-	_box(ceil, Vector3(6.6, 0.3, 6.6), "pierre_claire", Vector3(0, 19.85, 0), 0.12)
-	ceil.append([StyleKit.torus(2.6, 0.12, M("or"), 48, 8), ModuleBuilder.at(Vector3(0, 19.6, 0))])
+		_box(ceil, Vector3(30.0, 0.6, 0.6), "moulure_pierre", Vector3(0, 19.7, z), 0.15)
+		_box(ceil, Vector3(30.0, 0.07, 0.66), "or_vieilli", Vector3(0, 19.38, z), 0.025)
+	# caissons à cadres dorés et constellations (voir StyleAssetsAtrium)
+	StyleAssetsAtrium.dress_ceiling(ceil)
 	_mesh("Atrium_Plafond", ceil, false)
 	_col("plafond_atrium", Vector3(31.2, 0.6, 27.2), Vector3(0, 20.3, 0))
 
@@ -270,6 +258,12 @@ func _atrium_modules(g: Node3D) -> void:
 	# réception et arbre de lune
 	_inst(g, "bureau_reception", Vector3(0, 0, 0.5), 0.0, "Reception")
 	_inst(g, "arbre_de_lune", Vector3(0, 0, -4.2), 0.0, "Arbre_de_lune")
+	_inst(g, "casier_cles", Vector3(0, 0, 1.1), 0.0, "Casier_cles")
+	_inst(g, "tapis_hall", Vector3(0, 0, 0.5), 0.0, "Tapis_reception")
+	_inst(g, "rosace_plafond", Vector3(0, 20.0, 0), 0.0, "Rosace")
+	for sx in [-1.0, 1.0]:
+		_inst(g, "fauteuil_hall", Vector3(sx * 4.9, 0, 5.6), 180.0 + sx * 24.0, "Fauteuil_hall_%d" % int(sx))
+		_inst(g, "vase_etoile", Vector3(sx * 2.0, 0, -8.6), 0.0, "Vase_axe_%d" % int(sx))
 	# portes numérotées du rez-de-chaussée (fermées), porte d'entrée, archives
 	var doors := _group(g, "Portes")
 	_door(doors, "porte_hotel", Vector3(-15.0, 0, -6.0), 90.0, "1", true)
@@ -284,7 +278,7 @@ func _atrium_modules(g: Node3D) -> void:
 	var sc := _group(g, "Appliques")
 	for z in [-9.0, -3.0, 3.0, 9.0]:
 		_inst(sc, "applique", Vector3(-15.0, 2.9, z), 90.0, "App_O_%d" % int(z))
-	for z in [-10.5, -4.0, 4.0, 10.5]:
+	for z in [-10.5, -4.5, 4.5, 10.5]:
 		_inst(sc, "applique", Vector3(15.0, 2.9, z), -90.0, "App_E_%d" % int(z))
 	for x in [-10.0, -3.2, 3.2, 10.0]:
 		_inst(sc, "applique", Vector3(x, 2.9, -13.0), 0.0, "App_N_%d" % int(x))
@@ -300,13 +294,19 @@ func _atrium_modules(g: Node3D) -> void:
 	for z in [-0.5, 5.5]:
 		_inst(deco, "banniere", Vector3(-11.45, 6.95, z), 90.0, "Banniere_O_%d" % int(z))
 		_inst(deco, "banniere", Vector3(11.45, 6.95, z), -90.0, "Banniere_E_%d" % int(z))
-	for x in [-10.0, -5.5, 5.5, 10.0]:
+	for x in [-10.0, -6.8, 6.8, 10.0]:
 		_inst(deco, "glycine", Vector3(x, 5.45, -9.5), float(int(x * 37.0) % 360), "Glycine_N_%d" % int(x * 10.0))
-	for z in [-6.5, -2.0, 4.0, 11.0]:
+	for z in [-4.9, -2.0, 4.0, 12.2]:
 		_inst(deco, "glycine", Vector3(-11.5, 5.45, z), float(int(z * 53.0) % 360), "Glycine_O_%d" % int(z * 10.0))
 		_inst(deco, "glycine", Vector3(11.5, 5.45, z), float(int(z * 29.0) % 360), "Glycine_E_%d" % int(z * 10.0))
 	for p in [Vector3(-8.0, 7.0, -9.55), Vector3(8.0, 7.0, -9.55)]:
 		_inst(deco, "glycine", p, 30.0, "Glycine_haut_%d" % int(p.x))
+	# rameaux de glycine posés sur les mains courantes, grappes retombant vers la salle
+	for x in [-4.5, 4.5]:
+		_inst(deco, "rameau_glycine", Vector3(x, 7.0, -9.65), 0.0, "Rameau_N_%d" % int(x * 10.0))
+	for z in [2.5, 8.5]:
+		_inst(deco, "rameau_glycine", Vector3(-11.65, 7.0, z), 90.0, "Rameau_O_%d" % int(z * 10.0))
+		_inst(deco, "rameau_glycine", Vector3(11.65, 7.0, z), -90.0, "Rameau_E_%d" % int(z * 10.0))
 	# mobilier d'apparat
 	_inst(deco, "panneau_directions", Vector3(4.6, 0, 8.6), 0.0, "Panneau")
 	_inst(deco, "chariot_bagages", Vector3(-5.2, 0, 10.2), 25.0, "Chariot")

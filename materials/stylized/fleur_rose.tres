@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_570wm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_570wm")
+shader_parameter/base_color = Color(0.909804, 0.690196, 0.776471, 1)
+shader_parameter/top_color = Color(0.847059, 0.611765, 0.705882, 1)
+shader_parameter/gradient_bottom = null
+shader_parameter/gradient_top = null
+shader_parameter/variation = null
+shader_parameter/variation_scale = null
+shader_parameter/roughness = 0.85
+shader_parameter/metallic = null
+shader_parameter/specular = null
+shader_parameter/rim_color = Color(1, 0.941176, 0.956863, 1)
+shader_parameter/rim_strength = 0.3
+shader_parameter/emission_color = Color(0.752941, 0.345098, 0.494118, 1)
+shader_parameter/emission_energy = 0.26
+shader_parameter/star_density = null
+shader_parameter/star_scale = null
+shader_parameter/star_color = null
+shader_parameter/star_glow = null

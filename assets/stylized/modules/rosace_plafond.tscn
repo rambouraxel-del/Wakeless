@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/rosace_plafond.res" id="1_34kv2"]
+
+[node name="RosacePlafond" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = ExtResource("1_34kv2")

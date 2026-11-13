@@ -7,12 +7,12 @@
 	"arbre_de_lune": {
 		"collisions": 1,
 		"lumieres": 1,
-		"triangles": 3652
+		"triangles": 15590
 	},
 	"arcade": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 2024
+		"triangles": 2460
 	},
 	"armoire": {
 		"collisions": 1,
@@ -22,12 +22,12 @@
 	"balustrade_3m": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 1884
+		"triangles": 2868
 	},
 	"balustrade_4_5m": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 2484
+		"triangles": 3732
 	},
 	"banc_velours": {
 		"collisions": 1,
@@ -37,7 +37,7 @@
 	"banniere": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 972
+		"triangles": 1392
 	},
 	"bureau_ecriture": {
 		"collisions": 1,
@@ -47,7 +47,12 @@
 	"bureau_reception": {
 		"collisions": 6,
 		"lumieres": 2,
-		"triangles": 7042
+		"triangles": 8886
+	},
+	"casier_cles": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 5104
 	},
 	"chariot_bagages": {
 		"collisions": 1,
@@ -57,17 +62,17 @@
 	"colonne": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 2828
+		"triangles": 3324
 	},
 	"colonne_courte": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 2828
+		"triangles": 3324
 	},
 	"escalier_grand": {
 		"collisions": 3,
 		"lumieres": 0,
-		"triangles": 14388
+		"triangles": 13968
 	},
 	"etagere_livres": {
 		"collisions": 1,
@@ -79,30 +84,35 @@
 		"lumieres": 0,
 		"triangles": 2448
 	},
+	"fauteuil_hall": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2580
+	},
 	"fenetre_chambre": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 2549
+		"triangles": 3893
 	},
 	"fenetre_haute": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 3081
+		"triangles": 4449
 	},
 	"glycine": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 4356
+		"triangles": 3434
 	},
 	"horloge_celeste": {
 		"collisions": 0,
 		"lumieres": 1,
-		"triangles": 4004
+		"triangles": 9838
 	},
 	"jardiniere": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 1292
+		"triangles": 2520
 	},
 	"lanterne": {
 		"collisions": 0,
@@ -117,7 +127,7 @@
 	"lustre_astronomique": {
 		"collisions": 0,
 		"lumieres": 2,
-		"triangles": 9716
+		"triangles": 14140
 	},
 	"mobile_etoiles": {
 		"collisions": 0,
@@ -132,7 +142,7 @@
 	"pilastre": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 1776
+		"triangles": 334
 	},
 	"porte_chambre": {
 		"collisions": 2,
@@ -149,6 +159,16 @@
 		"lumieres": 0,
 		"triangles": 3696
 	},
+	"rameau_glycine": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 4068
+	},
+	"rosace_plafond": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 5088
+	},
 	"table_chevet": {
 		"collisions": 1,
 		"lumieres": 1,
@@ -158,6 +178,11 @@
 		"collisions": 1,
 		"lumieres": 1,
 		"triangles": 1274
+	},
+	"tapis_hall": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 3330
 	},
 	"tapis_rond": {
 		"collisions": 0,
@@ -173,5 +198,10 @@
 		"collisions": 6,
 		"lumieres": 0,
 		"triangles": 7248
+	},
+	"vase_etoile": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 2832
 	}
 }

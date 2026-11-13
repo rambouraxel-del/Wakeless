@@ -72,43 +72,13 @@ static func P(arr: Array) -> PackedVector2Array:
 
 ## Colonne : socle, tores, fût légèrement galbé avec bague dorée, chapiteau évasé, tailloir.
 static func colonne(id: String, h: float) -> ModuleBuilder:
-	var b := ModuleBuilder.new(id)
-	b.box(Vector3(0.95, 0.34, 0.95), 0.07, "pierre_sombre", Vector3(0, 0.17, 0))
-	b.add(StyleKit.torus(0.38, 0.07, M(GOLD), 28, 8), ModuleBuilder.at(Vector3(0, 0.41, 0)))
-	b.add(StyleKit.torus(0.34, 0.06, M("pierre_claire"), 28, 8), ModuleBuilder.at(Vector3(0, 0.53, 0)))
-	var top := h - 0.75
-	b.add(StyleKit.lathe(P([[0.31, 0.5], [0.325, 0.5 + (top - 0.5) * 0.33], [0.3, top - 0.2], [0.29, top]]), 24, M("pierre_claire")))
-	b.add(StyleKit.torus(0.315, 0.035, M(GOLD), 28, 6), ModuleBuilder.at(Vector3(0, 0.5 + (top - 0.5) * 0.33, 0)))
-	b.add(StyleKit.torus(0.3, 0.045, M(GOLD), 28, 6), ModuleBuilder.at(Vector3(0, top + 0.05, 0)))
-	b.add(StyleKit.lathe(P([[0.29, top], [0.3, top + 0.12], [0.4, top + 0.38], [0.5, top + 0.5]]), 24, M("pierre_claire"), false, true))
-	b.box(Vector3(1.08, 0.25, 1.08), 0.06, "pierre_claire", Vector3(0, h - 0.125, 0))
-	b.box(Vector3(1.12, 0.05, 1.12), 0.02, GOLD, Vector3(0, h - 0.27, 0))
-	b.collide(Vector3(0.8, h, 0.8), Vector3(0, h * 0.5, 0))
-	return b
-
+	return StyleAssetsAtrium.colonne(id, h)
 ## Pilastre mural (adossé à z = 0, saillie 0,35 m) avec base, chapiteau doré.
 static func pilastre(id: String, h: float) -> ModuleBuilder:
-	var b := ModuleBuilder.new(id)
-	b.box(Vector3(0.9, 0.5, 0.45), 0.06, "pierre_sombre", Vector3(0, 0.25, 0.2))
-	b.box(Vector3(0.7, h - 1.0, 0.3), 0.08, "pierre_claire", Vector3(0, 0.5 + (h - 1.0) * 0.5, 0.15))
-	b.box(Vector3(0.74, 0.08, 0.34), 0.03, GOLD, Vector3(0, 1.4, 0.16))
-	b.box(Vector3(0.95, 0.35, 0.45), 0.08, "pierre_claire", Vector3(0, h - 0.33, 0.2))
-	b.box(Vector3(0.85, 0.08, 0.4), 0.03, GOLD, Vector3(0, h - 0.56, 0.19))
-	b.add(StyleKit.extrude(StyleKit.star_outline(0.14, 0.06, 4), 0.06, M("etoile_or"), 0.015), ModuleBuilder.at(Vector3(0, h - 0.33, 0.43)))
-	b.collide(Vector3(0.9, h, 0.45), Vector3(0, h * 0.5, 0.2))
-	return b
-
+	return StyleAssetsAtrium.pilastre(id, h)
 ## Arc décoratif reliant deux colonnes espacées de 6 m (sous les galeries) : bandeau de pierre et filet doré.
 static func arcade() -> ModuleBuilder:
-	var b := ModuleBuilder.new("arcade")
-	b.add(StyleKit.extrude(StyleKit.arch_frame_outline(5.0, 5.75, 0.38, 22), 0.6, M("pierre_claire"), 0.06))
-	b.add(StyleKit.extrude(StyleKit.arch_frame_outline(5.0, 5.75, 0.05, 22), 0.64, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0, 0)))
-	# clé de voûte
-	b.box(Vector3(0.5, 0.7, 0.7), 0.08, "pierre_claire", Vector3(0, 5.75 + 0.1, 0))
-	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.18, 0.6), 0.05, M("etoile_or"), 0.01), ModuleBuilder.at(Vector3(0, 5.85, 0.36)))
-	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.18, 0.6), 0.05, M("etoile_or"), 0.01), ModuleBuilder.at(Vector3(0, 5.85, -0.36), Vector3(0, 180, 0)))
-	return b
-
+	return StyleAssetsAtrium.arcade()
 ## Porte en arche numérotée (ouverture 1,5 × 3,0 m), adossée au plan z = 0 : cadre mouluré, imposte lumineuse,
 ## battant de bois sombre à panneaux dorés, poignée, médaillon du numéro (texte posé par le niveau).
 ## `wall_backed` : porte d'apparat devant un mur plein ; sinon la porte ferme une ouverture (porte de chambre).
@@ -180,7 +150,7 @@ static func porte_double() -> ModuleBuilder:
 		b.add(StyleKit.extrude(StyleKit.arch_frame_outline(1.0, 2.6, 0.04, 14), 0.03, M(GOLD), 0.0), ModuleBuilder.at(Vector3(x, 0.4, 0.09)))
 		b.add(StyleKit.extrude(StyleKit.star_outline(0.25, 0.1, 8), 0.04, M("etoile_or"), 0.01), ModuleBuilder.at(Vector3(x, 1.9, 0.1)))
 		b.add(StyleKit.sphere(0.07, M(GOLD), 12, 6), ModuleBuilder.at(Vector3(x * 0.2, 1.4, 0.12)))
-	b.add(StyleKit.extrude(_half_disc(1.6, 24), 0.03, M("verre_chaud"), 0.0), ModuleBuilder.at(Vector3(0, h - 1.6, 0.1)))
+	b.add(StyleKit.extrude(_half_disc(1.6, 24), 0.03, M("lueur_douce"), 0.0), ModuleBuilder.at(Vector3(0, h - 1.6, 0.1)))
 	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.5, 0.6), 0.06, M(GOLD), 0.015), ModuleBuilder.at(Vector3(0, h + 0.75, 0.42)))
 	b.collide(Vector3(w + 1.0, h + 0.6, 0.5), Vector3(0, (h + 0.6) * 0.5, 0.1))
 	return b
@@ -216,286 +186,38 @@ static func lanterne() -> ModuleBuilder:
 
 ## Balustrade : socle, balustres tournés, main courante dorée. Longueur L le long de x, hauteur 1,0 m.
 static func balustrade(id: String, L: float) -> ModuleBuilder:
-	var b := ModuleBuilder.new(id)
-	b.box(Vector3(L, 0.14, 0.32), 0.04, "pierre_sombre", Vector3(0, 0.07, 0))
-	b.box(Vector3(L, 0.1, 0.3), 0.045, GOLD, Vector3(0, 0.98, 0))
-	b.box(Vector3(L, 0.06, 0.22), 0.025, "pierre_claire", Vector3(0, 0.9, 0))
-	var bal := StyleKit.lathe(P([[0.06, 0.0], [0.075, 0.06], [0.045, 0.16], [0.085, 0.36], [0.05, 0.6], [0.06, 0.66], [0.06, 0.73]]), 8, M("pierre_claire"), false, false)
-	var n := int(round(L / 0.32))
-	for i in n:
-		var x := -L * 0.5 + (i + 0.5) * L / n
-		b.add(bal, ModuleBuilder.at(Vector3(x, 0.14, 0)))
-	b.collide(Vector3(L, 1.1, 0.3), Vector3(0, 0.55, 0))
-	return b
-
+	return StyleAssetsAtrium.balustrade(id, L)
 ## Grande fenêtre en arche (adossée à z = 0) : paysage nocturne peint par shader dans l'arche, cadre mouluré, meneaux et
 ## rayons dorés, appui. Pas d'ouverture réelle dans le mur : la vue est un plan émissif juste devant le mur.
 static func fenetre(id: String, w: float, h: float, vista: String) -> ModuleBuilder:
-	var b := ModuleBuilder.new(id)
-	b.add(_arch_plane(w, h, 20, M(vista)), ModuleBuilder.at(Vector3(0, 0, 0.03)))
-	b.add(StyleKit.extrude(StyleKit.arch_frame_outline(w, h, 0.28, 24), 0.5, M("pierre_claire"), 0.06), ModuleBuilder.at(Vector3(0, 0, 0.25)))
-	b.add(StyleKit.extrude(StyleKit.arch_frame_outline(w + 0.56, h + 0.28, 0.06, 24), 0.54, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0, 0.25)))
-	var spring := h - w * 0.5
-	var bar := 0.07
-	for x in [-w / 6.0, w / 6.0]:
-		b.box(Vector3(bar, spring, bar), 0.02, GOLD, Vector3(x * 1.5, spring * 0.5, 0.12), Vector3.ZERO, 1)
-	var rows := int(spring / 1.6)
-	for i in range(1, rows + 1):
-		var y := spring * float(i) / (rows + 1)
-		b.box(Vector3(w, bar, bar), 0.02, GOLD, Vector3(0, y, 0.12), Vector3.ZERO, 1)
-	b.box(Vector3(w, bar, bar), 0.02, GOLD, Vector3(0, spring, 0.12), Vector3.ZERO, 1)
-	for i in 5:
-		var a := 30.0 * (i + 1)
-		b.add(StyleKit.rounded_box(Vector3(w * 0.5, bar, bar), 0.02, M(GOLD), 1), Transform3D(Basis(Vector3.BACK, deg_to_rad(a)), Vector3(0, spring, 0.12)) * Transform3D(Basis.IDENTITY, Vector3(w * 0.25, 0, 0)))
-	b.add(StyleKit.torus(w * 0.18, 0.04, M(GOLD), 24, 6), ModuleBuilder.at(Vector3(0, spring, 0.12), Vector3(90, 0, 0)))
-	b.box(Vector3(w + 0.8, 0.22, 0.55), 0.06, "pierre_claire", Vector3(0, -0.06, 0.27))
-	return b
-
+	return StyleAssetsAtrium.fenetre(id, w, h, vista)
 static func banniere() -> ModuleBuilder:
-	var b := ModuleBuilder.new("banniere")
-	var w := 0.95
-	var h := 2.8
-	b.add(StyleKit.cylinder(0.035, w + 0.4, M(GOLD), 10), ModuleBuilder.at(Vector3(-(w + 0.4) * 0.5, 0, 0.05), Vector3(0, 0, -90)))
-	for x in [-(w + 0.4) * 0.5, (w + 0.4) * 0.5]:
-		b.add(StyleKit.sphere(0.06, M(GOLD), 10, 6), ModuleBuilder.at(Vector3(x, 0, 0.05)))
-	var cloth := P([[-w * 0.5, 0], [w * 0.5, 0], [w * 0.5, -h + 0.35], [0, -h], [-w * 0.5, -h + 0.35]])
-	var border := P([[-w * 0.5 - 0.05, 0], [w * 0.5 + 0.05, 0], [w * 0.5 + 0.05, -h + 0.33], [0, -h - 0.07], [-w * 0.5 - 0.05, -h + 0.33]])
-	b.add(StyleKit.extrude(border, 0.025, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, -0.05, 0.03)))
-	b.add(StyleKit.extrude(cloth, 0.04, M("banniere"), 0.01), ModuleBuilder.at(Vector3(0, -0.05, 0.05)))
-	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.26, 0.6), 0.03, M("etoile_or"), 0.008), ModuleBuilder.at(Vector3(0, -1.05, 0.08), Vector3(0, 0, 90)))
-	b.add(StyleKit.extrude(StyleKit.star_outline(0.11, 0.045, 4), 0.03, M("etoile_or"), 0.008), ModuleBuilder.at(Vector3(0, -1.75, 0.08)))
-	b.add(StyleKit.extrude(StyleKit.star_outline(0.06, 0.025, 4), 0.03, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(0.22, -0.6, 0.08)))
-	b.cast_shadows = false
-	return b
-
+	return StyleAssetsAtrium.banniere()
 # ================================================================== pièces maîtresses
 
 ## Lustre astronomique : lune centrale lumineuse, trois anneaux dorés inclinés portant des planètes (animés),
 ## pendeloques d'étoiles, chaînes. Origine = point d'attache au plafond ; la lune est 6,5 m plus bas.
 static func lustre() -> ModuleBuilder:
-	var b := ModuleBuilder.new("lustre_astronomique")
-	var cy := -6.5
-	for i in 3:
-		var a := deg_to_rad(120.0 * i)
-		var top := Vector3(cos(a) * 1.6, 0, sin(a) * 1.6)
-		var bot := Vector3(cos(a) * 2.7, cy + 0.2, sin(a) * 2.7)
-		var d := bot - top
-		var basis := Basis(Quaternion(Vector3.UP, d.normalized()))
-		b.add(StyleKit.cylinder(0.02, d.length(), M(GOLD), 6), Transform3D(basis, top))
-	b.add(StyleKit.cylinder(0.03, -cy - 0.7, M(GOLD), 8), ModuleBuilder.at(Vector3(0, cy + 0.7, 0)))
-	b.add(StyleKit.lathe(P([[0.0, -0.1], [0.5, 0.0], [0.25, 0.25], [0.0, 0.3]]), 24, M(GOLD), false, false), ModuleBuilder.at(Vector3.ZERO))
-	b.add(StyleKit.sphere(0.75, M("lune"), 28, 14), ModuleBuilder.at(Vector3(0, cy, 0)))
-	b.add(StyleKit.torus(0.95, 0.05, M(GOLD), 40, 8), ModuleBuilder.at(Vector3(0, cy, 0)))
-	b.add(StyleKit.torus(2.8, 0.06, M(GOLD), 64, 8), ModuleBuilder.at(Vector3(0, cy + 0.2, 0)))
-	# pendeloques : étoiles suspendues à l'anneau extérieur
-	for i in 12:
-		var a := TAU * i / 12.0
-		var p := Vector3(cos(a) * 2.8, cy + 0.2, sin(a) * 2.8)
-		var drop := 0.5 + 0.35 * float(i % 3)
-		b.add(StyleKit.cylinder(0.008, drop, M(GOLD), 4), ModuleBuilder.at(p - Vector3(0, drop, 0)))
-		b.add(StyleKit.extrude(StyleKit.star_outline(0.14, 0.055, 5), 0.04, M("etoile_or"), 0.01), Transform3D(Basis(Vector3.UP, a + PI * 0.5), p - Vector3(0, drop + 0.12, 0)))
-	# anneaux animés (nœuds séparés)
-	var specs := [[2.0, Vector3(70, 0, 15), 5.0, "AnneauA"], [1.55, Vector3(-60, 30, 0), -7.0, "AnneauB"], [2.35, Vector3(20, 0, -75), 3.5, "AnneauC"]]
-	for s in specs:
-		var R: float = s[0]
-		var ring := Node3D.new()
-		ring.name = s[3]
-		ring.position = Vector3(0, cy, 0)
-		ring.rotation_degrees = s[1]
-		ring.set_script(load("res://scripts/stylized/rotator.gd"))
-		ring.set("axis", Vector3.UP)
-		ring.set("degrees_per_second", s[2])
-		var rb := ModuleBuilder.new("tmp")
-		rb.add(StyleKit.torus(R, 0.035, M(GOLD), 48, 6))
-		rb.add(StyleKit.sphere(0.2, M("velours"), 16, 8), ModuleBuilder.at(Vector3(R, 0, 0)))
-		rb.add(StyleKit.torus(0.3, 0.02, M(GOLD), 20, 4), ModuleBuilder.at(Vector3(R, 0, 0), Vector3(20, 0, 10)))
-		rb.add(StyleKit.sphere(0.13, M("lune"), 14, 7), ModuleBuilder.at(Vector3(-R, 0, 0)))
-		rb.add(StyleKit.sphere(0.09, M(GOLD), 12, 6), ModuleBuilder.at(Vector3(0, 0, R)))
-		var mi := MeshInstance3D.new()
-		mi.name = "Maillage" + String(s[3])
-		mi.mesh = StyleKit.merge(rb.parts)
-		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		ring.add_child(mi)
-		b.extras.append(ring)
-	b.omni(Vector3(0, cy, 0), Color("#ffcf96"), 3.2, 26.0, true, "LumiereLune")
-	b.omni(Vector3(0, cy - 2.5, 0), Color("#c8b0ff"), 1.0, 12.0, false, "LueurBasse")
-	b.cast_shadows = false
-	return b
-
+	return StyleAssetsAtrium.lustre()
 ## Horloge céleste murale (Ø 5,6 m), adossée à z = 0 : cadran étoilé, chiffres romains dorés, anneau des constellations,
 ## aiguilles (heure réelle). Centre du cadran à l'origine.
 static func horloge() -> ModuleBuilder:
-	var b := ModuleBuilder.new("horloge_celeste")
-	b.add(StyleKit.extrude(_circle(2.8, 64), 0.25, M("pierre_sombre"), 0.06), ModuleBuilder.at(Vector3(0, 0, 0.12)))
-	b.add(StyleKit.extrude(_ring(2.8, 2.55, 64), 0.32, M(GOLD), 0.03), ModuleBuilder.at(Vector3(0, 0, 0.14)))
-	b.add(StyleKit.extrude(_ring(1.9, 1.84, 48), 0.27, M(GOLD), 0.0), ModuleBuilder.at(Vector3(0, 0, 0.14)))
-	b.add(StyleKit.extrude(_circle(2.52, 64), 0.02, M("voute_etoilee"), 0.0), ModuleBuilder.at(Vector3(0, 0, 0.26)))
-	var numerals := ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"]
-	for i in 12:
-		var a := PI * 0.5 - TAU * i / 12.0
-		var lb := b.label(numerals[i], Vector3(cos(a) * 2.2, sin(a) * 2.2, 0.3), 120, Color("#ffd27a"), Vector3.ZERO, 0.004)
-		lb.outline_size = 8
-		lb.outline_modulate = Color("#5a3a10")
-		b.add(StyleKit.extrude(StyleKit.star_outline(0.06, 0.025, 4), 0.03, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(cos(a + PI / 12.0) * 2.67, sin(a + PI / 12.0) * 2.67, 0.32)))
-	# anneau tournant : croissant et étoiles
-	var ring := Node3D.new()
-	ring.name = "Anneau"
-	ring.position = Vector3(0, 0, 0.29)
-	var rb := ModuleBuilder.new("tmp")
-	rb.add(StyleKit.extrude(_ring(1.5, 1.46, 40), 0.02, M(GOLD), 0.0))
-	rb.add(StyleKit.extrude(StyleKit.crescent_outline(0.32, 0.55), 0.03, M("lune"), 0.0), ModuleBuilder.at(Vector3(0, 1.1, 0)))
-	for i in 7:
-		var a := TAU * (i + 0.5) / 7.0
-		rb.add(StyleKit.extrude(StyleKit.star_outline(0.1, 0.04, 5), 0.03, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(cos(a) * 1.1, sin(a) * 1.1, 0)))
-	var rmi := MeshInstance3D.new()
-	rmi.name = "MaillageAnneau"
-	rmi.mesh = StyleKit.merge(rb.parts)
-	ring.add_child(rmi)
-	b.extras.append(ring)
-	for hand in [["Heures", 1.3, 0.12], ["Minutes", 1.95, 0.08]]:
-		var pv := Node3D.new()
-		pv.name = hand[0]
-		pv.position = Vector3(0, 0, 0.36 if hand[0] == "Minutes" else 0.33)
-		var hb := ModuleBuilder.new("tmp")
-		var L: float = hand[1]
-		var wdt: float = hand[2]
-		hb.add(StyleKit.extrude(P([[-wdt * 0.5, -0.25], [wdt * 0.5, -0.25], [wdt * 0.3, L - 0.25], [0, L], [-wdt * 0.3, L - 0.25]]), 0.03, M(GOLD), 0.0))
-		hb.add(StyleKit.extrude(StyleKit.star_outline(0.12, 0.05, 4), 0.03, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(0, L * 0.7, 0.02)))
-		var hmi := MeshInstance3D.new()
-		hmi.name = "Maillage" + String(hand[0])
-		hmi.mesh = StyleKit.merge(hb.parts)
-		pv.add_child(hmi)
-		b.extras.append(pv)
-	b.add(StyleKit.sphere(0.14, M(GOLD), 16, 8), ModuleBuilder.at(Vector3(0, 0, 0.38)))
-	b.script_path = "res://scripts/stylized/celestial_clock.gd"
-	b.omni(Vector3(0, -0.5, 2.5), Color("#ffd29a"), 1.2, 7.0, false, "Eclairage")
-	return b
-
+	return StyleAssetsAtrium.horloge()
 ## Comptoir de réception en arc (convexe vers +Z), lampes, sphère armillaire, cloche, registre.
 static func reception() -> ModuleBuilder:
-	var b := ModuleBuilder.new("bureau_reception")
-	var R0 := 2.1
-	var R1 := 2.75
-	var a0 := 25.0
-	var a1 := 155.0
-	b.add(_arc_slab(R0, R1, a0, a1, 1.0, M("bois_sombre")), ModuleBuilder.at(Vector3(0, 0.12, 0)))
-	b.add(_arc_slab(R0 - 0.05, R1 + 0.08, a0 - 1.0, a1 + 1.0, 0.12, M("pierre_sombre")), ModuleBuilder.at(Vector3(0, 0, 0)))
-	b.add(_arc_slab(R0 - 0.1, R1 + 0.15, a0 - 2.0, a1 + 2.0, 0.09, M("pierre_claire")), ModuleBuilder.at(Vector3(0, 1.12, 0)))
-	b.add(_arc_slab(R1 - 0.01, R1 + 0.03, a0, a1, 0.05, M(GOLD)), ModuleBuilder.at(Vector3(0, 0.95, 0)))
-	b.add(_arc_slab(R1 - 0.01, R1 + 0.03, a0, a1, 0.04, M(GOLD)), ModuleBuilder.at(Vector3(0, 0.22, 0)))
-	for ang in [45.0, 70.0, 90.0, 110.0, 135.0]:
-		var a := deg_to_rad(ang)
-		var p := Vector3(cos(a) * (R1 + 0.02), 0.58, sin(a) * (R1 + 0.02))
-		var basis := Basis(Vector3.UP, -a + PI * 0.5)
-		var shape := StyleKit.star_outline(0.17, 0.07, 8) if ang == 90.0 else StyleKit.crescent_outline(0.12, 0.55)
-		b.add(StyleKit.extrude(shape, 0.04, M("etoile_or"), 0.01), Transform3D(basis, p))
-	# lampes à abat-jour
-	for ang in [40.0, 140.0]:
-		var a := deg_to_rad(ang)
-		var p := Vector3(cos(a) * 2.42, 1.17, sin(a) * 2.42)
-		b.add(StyleKit.lathe(P([[0.12, 0.0], [0.1, 0.04], [0.025, 0.1], [0.025, 0.45], [0.05, 0.48]]), 12, M(GOLD), true, true), ModuleBuilder.at(p))
-		b.add(StyleKit.lathe(P([[0.24, 0.42], [0.16, 0.66], [0.15, 0.68]]), 18, M("verre_chaud"), true, true), ModuleBuilder.at(p))
-		b.omni(p + Vector3(0, 0.5, 0), Color("#ffbf7a"), 1.3, 5.0, false)
-	# sphère armillaire
-	var c := Vector3(0, 1.17, 2.42)
-	b.add(StyleKit.lathe(P([[0.16, 0.0], [0.12, 0.05], [0.04, 0.12], [0.03, 0.3]]), 12, M(GOLD)), ModuleBuilder.at(c))
-	for rot in [Vector3(0, 0, 0), Vector3(90, 0, 0), Vector3(90, 60, 0), Vector3(23, 0, 0)]:
-		b.add(StyleKit.torus(0.26, 0.012, M(GOLD), 28, 4), ModuleBuilder.at(c + Vector3(0, 0.56, 0), rot))
-	b.add(StyleKit.sphere(0.08, M("lune"), 12, 6), ModuleBuilder.at(c + Vector3(0, 0.56, 0)))
-	# cloche et registre
-	b.add(StyleKit.lathe(P([[0.08, 0.0], [0.075, 0.02], [0.05, 0.06], [0.01, 0.1], [0.0, 0.11]]), 14, M(GOLD), true, false), ModuleBuilder.at(Vector3(cos(deg_to_rad(65)) * 2.42, 1.17, sin(deg_to_rad(65)) * 2.42)))
-	b.box(Vector3(0.5, 0.06, 0.36), 0.02, "livre_a", Vector3(cos(deg_to_rad(112)) * 2.4, 1.2, sin(deg_to_rad(112)) * 2.4), Vector3(0, -22, 0))
-	b.box(Vector3(0.46, 0.015, 0.32), 0.005, "draps", Vector3(cos(deg_to_rad(112)) * 2.4, 1.24, sin(deg_to_rad(112)) * 2.4), Vector3(0, -22, 0))
-	for ang in [30.0, 55.0, 80.0, 100.0, 125.0, 150.0]:
-		var a := deg_to_rad(ang)
-		b.collide(Vector3(0.9, 1.25, 0.7), Vector3(cos(a) * 2.42, 0.62, sin(a) * 2.42), Vector3(0, -ang + 90.0, 0))
-	return b
-
+	return StyleAssetsAtrium.reception()
 ## Grand escalier droit (largeur 3 m, 24 marches de 25 cm : 6 m de haut, 8,4 m de long), montant vers -Z ; balustrades
 ## inclinées, tapis central. Collision : une rampe lisse sous les nez de marche (déplacement fluide).
 static func escalier() -> ModuleBuilder:
-	var b := ModuleBuilder.new("escalier_grand")
-	var steps := 24
-	var rise := 0.25
-	var run := 0.35
-	var w := 3.0
-	b.add(StyleKit.stairs(steps, rise, run, w, M("pierre_claire"), 0.035))
-	var H := rise * steps
-	var Lz := run * steps
-	var slope := sqrt(H * H + Lz * Lz)
-	var ang := rad_to_deg(atan2(H, Lz))
-	# tapis : bande inclinée posée sur les nez
-	b.box(Vector3(1.5, 0.04, slope), 0.02, "velours", Vector3(0, H * 0.5 + 0.13, -Lz * 0.5), Vector3(ang, 0, 0), 1)
-	# limons latéraux et mains courantes
-	for side in [-1.0, 1.0]:
-		var x: float = side * (w * 0.5 + 0.12)
-		b.box(Vector3(0.24, 0.5, slope + 0.2), 0.06, "pierre_sombre", Vector3(x, H * 0.5 + 0.05, -Lz * 0.5), Vector3(ang, 0, 0))
-		b.box(Vector3(0.14, 0.09, slope + 0.2), 0.04, GOLD, Vector3(x, H * 0.5 + 1.05, -Lz * 0.5), Vector3(ang, 0, 0))
-		for i in range(0, steps + 1, 2):
-			var y := rise * i + 0.3
-			var z := -run * i - 0.1
-			b.add(StyleKit.lathe(P([[0.04, 0.0], [0.055, 0.05], [0.03, 0.15], [0.055, 0.35], [0.035, 0.55], [0.04, 0.72]]), 8, M("pierre_claire"), false, false), ModuleBuilder.at(Vector3(x, y, z)))
-		for end in [0.0, 1.0]:
-			var p := Vector3(x, rise * steps * end + 0.0, -Lz * end)
-			b.add(StyleKit.lathe(P([[0.16, 0.0], [0.16, 0.2], [0.11, 0.3], [0.11, 1.05], [0.15, 1.15], [0.15, 1.25]]), 12, M("pierre_claire")), ModuleBuilder.at(p))
-			b.add(StyleKit.sphere(0.12, M(GOLD), 14, 7), ModuleBuilder.at(p + Vector3(0, 1.36, 0)))
-		b.collide(Vector3(0.3, 1.3, slope), Vector3(x, H * 0.5 + 0.6, -Lz * 0.5), Vector3(ang, 0, 0))
-	# rampe de collision : son dessus passe par les nez de marche
-	var thick := 0.4
-	var n := Vector3(0, cos(deg_to_rad(ang)), sin(deg_to_rad(ang)))
-	b.collide(Vector3(w, thick, slope + 0.6), Vector3(0, H * 0.5, -Lz * 0.5) - n * (thick * 0.5) + Vector3(0, 0.02, 0), Vector3(ang, 0, 0))
-	return b
-
+	return StyleAssetsAtrium.escalier()
 # ================================================================== végétal, mobilier d'apparat
 
 ## Grappe de glycine suspendue (attache à y = 0, ~1,4 m de long) : trois grappes ondulées, quelques feuilles.
 static func glycine() -> ModuleBuilder:
-	var b := ModuleBuilder.new("glycine")
-	var berry := StyleKit.sphere(1.0, M("glycine"), 8, 5)
-	var strands := [[Vector3(0, 0, 0), 1.35, 0.15], [Vector3(0.24, 0.02, 0.1), 1.0, 0.12], [Vector3(-0.22, 0.0, -0.08), 1.15, 0.13],
-		[Vector3(0.05, 0.02, -0.25), 0.8, 0.11], [Vector3(-0.1, 0.0, 0.24), 0.95, 0.12]]
-	var k := 0
-	for s in strands:
-		var base: Vector3 = s[0]
-		var L: float = s[1]
-		var R: float = s[2]
-		var n := 9
-		for i in n:
-			var t := float(i) / (n - 1)
-			var r := R * (1.0 - t * 0.7)
-			var wob := Vector3(sin(float(i + k) * 1.7) * 0.03, 0, cos(float(i + k) * 2.3) * 0.03)
-			b.add(berry, ModuleBuilder.at(base + wob + Vector3(0, -t * L - r, 0), Vector3(0, i * 40.0, 0), Vector3(r, r * 1.15, r)))
-		k += 3
-	for i in 7:
-		var a := TAU * i / 7.0
-		b.add(StyleKit.rounded_box(Vector3(0.26, 0.03, 0.1), 0.012, M("feuillage"), 1), ModuleBuilder.at(Vector3(cos(a) * 0.2, -0.03 - 0.05 * (i % 2), sin(a) * 0.2), Vector3(0, -rad_to_deg(a), 25)))
-	b.cast_shadows = false
-	return b
-
+	return StyleAssetsAtrium.glycine()
 ## Arbre de lune (pièce centrale derrière la réception) : vasque de pierre et d'or, tronc tourné, frondaison mauve lumineuse.
 static func arbre() -> ModuleBuilder:
-	var b := ModuleBuilder.new("arbre_de_lune")
-	b.add(StyleKit.lathe(P([[1.5, 0.0], [1.55, 0.1], [1.45, 0.6], [1.6, 0.75], [1.6, 0.85], [1.4, 0.85]]), 32, M("pierre_claire"), true, true))
-	b.add(StyleKit.torus(1.58, 0.06, M(GOLD), 40, 6), ModuleBuilder.at(Vector3(0, 0.8, 0)))
-	b.add(StyleKit.cylinder(1.42, 0.82, M("parquet"), 32))
-	var trunk := P([[0.32, 0.8], [0.26, 1.3], [0.22, 2.2], [0.24, 2.8], [0.2, 3.2], [0.12, 3.7]])
-	b.add(StyleKit.lathe(trunk, 12, M("ecorce"), false, true))
-	var branches := [[Vector3(0, 2.6, 0), Vector3(1.2, 1.1, 0.3)], [Vector3(0, 2.9, 0), Vector3(-1.0, 1.0, 0.6)], [Vector3(0, 3.1, 0), Vector3(0.2, 1.0, -1.1)], [Vector3(0, 2.4, 0), Vector3(-0.5, 0.8, -0.9)]]
-	for br in branches:
-		var d: Vector3 = br[1]
-		b.add(StyleKit.lathe(P([[0.12, 0.0], [0.05, d.length()]]), 8, M("ecorce"), false, true), Transform3D(Basis(Quaternion(Vector3.UP, d.normalized())), br[0]))
-	var blooms := [[Vector3(0, 4.3, 0), 1.25], [Vector3(1.3, 3.8, 0.3), 0.95], [Vector3(-1.1, 3.9, 0.6), 1.0], [Vector3(0.3, 4.0, -1.1), 0.95],
-		[Vector3(-0.6, 3.4, -0.9), 0.75], [Vector3(0.9, 4.6, -0.4), 0.8], [Vector3(-0.7, 4.7, 0.2), 0.8], [Vector3(0.5, 3.5, 1.0), 0.7]]
-	for bl in blooms:
-		b.add(StyleKit.sphere(bl[1], M("fleur_arbre"), 14, 8), ModuleBuilder.at(bl[0], Vector3.ZERO, Vector3(1.0, 0.82, 1.0)))
-	# pétales lumineux au sol de la vasque
-	for i in 10:
-		var a := TAU * i / 10.0 + 0.3
-		b.add(StyleKit.sphere(0.07, M("fleur_arbre"), 8, 4), ModuleBuilder.at(Vector3(cos(a) * (0.6 + 0.08 * (i % 3)), 0.85, sin(a) * (0.6 + 0.08 * (i % 3)))))
-	b.omni(Vector3(0, 3.6, 0), Color("#c9a0ff"), 1.4, 8.0, false, "Lueur")
-	b.collide(Vector3(3.1, 0.9, 3.1), Vector3(0, 0.45, 0))
-	return b
-
+	return StyleAssetsAtrium.arbre()
 static func chariot() -> ModuleBuilder:
 	var b := ModuleBuilder.new("chariot_bagages")
 	b.box(Vector3(1.3, 0.1, 0.8), 0.04, "bois_sombre", Vector3(0, 0.3, 0))
@@ -539,18 +261,7 @@ static func banc() -> ModuleBuilder:
 	return b
 
 static func jardiniere() -> ModuleBuilder:
-	var b := ModuleBuilder.new("jardiniere")
-	b.add(StyleKit.lathe(P([[0.3, 0.0], [0.36, 0.1], [0.5, 0.65], [0.55, 0.75], [0.5, 0.78]]), 20, M("pierre_claire"), true, true))
-	b.add(StyleKit.torus(0.53, 0.03, M(GOLD), 24, 4), ModuleBuilder.at(Vector3(0, 0.72, 0)))
-	var bush := [[Vector3(0, 1.05, 0), 0.42], [Vector3(0.25, 0.95, 0.1), 0.3], [Vector3(-0.22, 0.98, -0.12), 0.32], [Vector3(0.05, 1.35, 0.05), 0.26]]
-	for p in bush:
-		b.add(StyleKit.sphere(p[1], M("feuillage"), 12, 6), ModuleBuilder.at(p[0]))
-	for i in 9:
-		var a := TAU * i / 9.0
-		b.add(StyleKit.lathe(P([[0.0, 0.0], [0.05, 0.05], [0.03, 0.35], [0.0, 0.4]]), 6, M("glycine"), false, false), ModuleBuilder.at(Vector3(cos(a) * 0.3, 1.1 + 0.15 * (i % 2), sin(a) * 0.3), Vector3(cos(a) * 20.0, 0, sin(a) * 20.0)))
-	b.collide(Vector3(1.0, 1.2, 1.0), Vector3(0, 0.6, 0))
-	return b
-
+	return StyleAssetsAtrium.jardiniere()
 ## Panneau indicateur de l'atrium (Chambres, Bibliothèque, Archives, Ascenseurs) : poteau doré et quatre flèches.
 static func panneau() -> ModuleBuilder:
 	var b := ModuleBuilder.new("panneau_directions")
