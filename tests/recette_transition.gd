@@ -5,7 +5,7 @@ extends Node
 ## Le script est ajouté par l'autoload App au-dessus de la scène principale (le Bureau des rêves).
 
 const BUREAU := "res://scenes/levels/bureau_des_reves.tscn"
-const FORET := "res://scenes/levels/foret_nocturne.tscn"
+const FORET := "res://scenes/levels/foret_de_la_peur.tscn"
 
 var _fail := 0
 var _ok := 0
@@ -66,17 +66,22 @@ func _run() -> void:
 	_press_e(cs)
 	check("lit : commandes gelées (endormissement)", not cs.player.control_enabled)
 	var arrived := await _wait_scene(FORET)
-	check("rêve : la forêt nocturne est chargée", arrived)
+	check("rêve : La Forêt de la peur est chargée", arrived)
 	await _frames(40)
 	var fo := get_tree().current_scene as Level
-	check("rêve : niveau courant", fo != null and fo.level_id == "foret-nocturne")
+	check("rêve : niveau courant", fo != null and fo.level_id == "foret-de-la-peur")
 	check("rêve : l'hôtel est déchargé", get_tree().root.get_children().filter(func(n): return n is Level).size() == 1)
 	check("rêve : arrivée sur « depart »", fo.spawn_id == "depart" and fo.player.global_position.distance_to(fo.get_node("Spawns/depart").global_position) < 0.3, str(fo.player.global_position))
 	check("rêve : joueur au sol", fo.player.is_on_floor())
-	check("rêve : ambiance « Forêt · nuit »", fo.rig.current_name() == "Forêt · nuit", fo.rig.current_name())
-	# --- se réveiller : la porte de la clairière ramène sur le lit du rêveur
-	await _aim(fo, Vector3(0.0, fo.player.global_position.y, 2.4), 0.0)
-	check("réveil : porte de la clairière visée", fo.focused != null and fo.focused.name == "Porte_du_reve")
+	check("rêve : ambiance « Forêt de la peur »", fo.rig.current_name() == "Forêt de la peur", fo.rig.current_name())
+	# --- on traverse la forêt jusqu'à la clairière (arrivée « clairiere ») puis on se réveille par la porte
+	fo.move_player_to("clairiere")
+	await _frames(30)
+	check("rêve : arrivée « clairiere » au sol", fo.player.is_on_floor(), str(fo.player.global_position))
+	var porte := fo.get_node("Gameplay/Portes/Porte_du_reve") as Node3D
+	var from := porte.global_position + Vector3(-2.9, -1.1, 0.0)           # au sol, à 2,9 m devant la porte (face à l'est)
+	await _aim(fo, from, -90.0)
+	check("réveil : porte de la clairière visée", fo.focused != null and fo.focused.name == "Porte_du_reve", str(fo.focused))
 	check("réveil : invite « Se réveiller »", fo._prompt.text.contains("réveiller"), fo._prompt.text)
 	_press_e(fo)
 	var back := await _wait_scene(BUREAU)
@@ -90,7 +95,7 @@ func _run() -> void:
 	check("pause : arbre en pause", get_tree().paused and App.paused_menu)
 	App.resume()
 	check("pause : reprise", not get_tree().paused)
-	check("sauvegarde : niveaux visités", GameSave.level("bureau-des-reves").get("visited") == true and GameSave.level("foret-nocturne").get("visited") == true)
+	check("sauvegarde : niveaux visités", GameSave.level("bureau-des-reves").get("visited") == true and GameSave.level("foret-de-la-peur").get("visited") == true)
 	# l'ancien couloir voxel reste accessible (F4)
 	App.open(App.SCENE_COULOIR)
 	check("ancien couloir voxel : toujours chargeable (F4)", await _wait_scene(App.SCENE_COULOIR))

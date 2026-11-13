@@ -5,13 +5,14 @@ extends Node
 ##   App.open(chemin_de_scène, {"spawn": "id_du_point_d_arrivée"})   fondu → chargement → fondu
 ##   App.launch                                                         paramètres reçus par la scène qui s'ouvre
 ##
-## Raccourcis de développement : F1 Bureau des rêves · F2 forêt · F4 ancien couloir voxel · L ambiance suivante · F3 infos · F11 plein écran.
+## Raccourcis de développement : F1 Bureau des rêves · F2 Forêt de la peur · F4 ancien couloir voxel · F5 ancienne forêt nocturne · L ambiance suivante · F3 infos · F11 plein écran.
 ## Recette automatique : godot … -- --recette=<chemin du script> (un script Node est ajouté au-dessus du jeu, voir tests/recette_transition.gd).
 
 const SCENE_BUREAU := "res://scenes/levels/bureau_des_reves.tscn"            # Bureau des rêves (3D stylisée)
 const SCENE_COULOIR := "res://scenes/levels/bureau_couloir.tscn"           # ancien couloir voxel (prototype, conservé)
-const SCENE_FORET := "res://scenes/levels/foret_nocturne.tscn"
-const DEV_SCENES := {KEY_F1: SCENE_BUREAU, KEY_F2: SCENE_FORET, KEY_F4: SCENE_COULOIR}
+const SCENE_FORET := "res://scenes/levels/foret_de_la_peur.tscn"                 # La Forêt de la peur (le rêve du lit)
+const SCENE_FORET_ANCIENNE := "res://scenes/levels/foret_nocturne.tscn"   # ancienne forêt nocturne (prototype, conservée)
+const DEV_SCENES := {KEY_F1: SCENE_BUREAU, KEY_F2: SCENE_FORET, KEY_F4: SCENE_COULOIR, KEY_F5: SCENE_FORET_ANCIENNE}
 const FADE_TIME := 0.45
 
 signal scene_opened(path: String)
@@ -234,5 +235,5 @@ func _process(_delta: float) -> void:
 		lines.append("ZQSD/WASD bouger · souris regarder · Maj courir · Espace sauter · E interagir")
 	else:
 		lines.append_array(_controls_help)
-	lines.append("V vue 1re/3e personne · F champ de vision · L ambiance · F1 Bureau des rêves · F2 forêt · F4 ancien couloir · F3 infos · F11 plein écran · Échap pause")
+	lines.append("V vue 1re/3e personne · F champ de vision · L ambiance · F1 Bureau des rêves · F2 Forêt de la peur · F4 ancien couloir · F5 ancienne forêt · F3 infos · F11 plein écran · Échap pause")
 	_hud.text = "\n".join(lines)

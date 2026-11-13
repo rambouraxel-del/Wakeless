@@ -23,6 +23,7 @@ run "Import du projet" 300 "$GODOT_BIN" --headless --import
 run "Compilation des scripts" 300 "$GODOT_BIN" --headless -s tools/check_scripts.gd
 run "Contrôles (cœur, assets, références, niveaux, physique)" 600 "$GODOT_BIN" --headless -s tests/run_checks.gd
 run "Bureau des rêves (modules, structure, parcours joué)" 600 "$GODOT_BIN" --headless -s tests/run_checks_bureau.gd
+run "La Forêt de la peur (structure, budgets, parcours joué)" 900 "$GODOT_BIN" --headless -s tests/run_checks_foret.gd
 run "Finition : chambre 107 et couloir (objets, lit, portes)" 300 "$GODOT_BIN" --headless -s tests/run_checks_finition_b.gd
 run "Forêt de la peur : kit organique provisoire (modules, budgets, collisions, nœuds nommés)" 300 "$GODOT_BIN" --headless -s tests/run_checks_foret_kit.gd
 run "Recette jouée : chambre, lit, rêve, réveil" 300 "$GODOT_BIN" --headless --path . -- --recette=res://tests/recette_transition.gd

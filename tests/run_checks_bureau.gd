@@ -85,11 +85,11 @@ func _level_static() -> void:
 	check("niveau : numéros uniques", numbers.size() == doors.size())
 	check("niveau : une seule porte ouvrable (chambre 107)", doors.filter(func(d): return not (d as HotelDoor).locked).size() == 1)
 	var bed := lv.get_node("Chambre/Lit_du_reveur") as DreamBed
-	check("lit : mène au rêve (forêt nocturne)", bed.dream_scene == "res://scenes/levels/foret_nocturne.tscn" and ResourceLoader.exists(bed.dream_scene))
+	check("lit : mène au rêve (La Forêt de la peur)", bed.dream_scene == "res://scenes/levels/foret_de_la_peur.tscn" and ResourceLoader.exists(bed.dream_scene))
 	check("lit : point de coucher", bed.get_node_or_null("Coucher") is Marker3D)
 	# la forêt renvoie au réveil dans la chambre
-	var fo := (load("res://scenes/levels/foret_nocturne.tscn") as PackedScene).instantiate()
-	var fd := fo.get_node("Portes/Porte_du_reve") as SceneDoor
+	var fo := (load("res://scenes/levels/foret_de_la_peur.tscn") as PackedScene).instantiate()
+	var fd := fo.get_node("Gameplay/Portes/Porte_du_reve") as PorteReveil
 	check("forêt : la porte réveille le joueur dans la chambre", fd.target_scene == LEVEL and fd.target_spawn == "reveil")
 	fo.free()
 	# budgets : triangles, lumières, ombres

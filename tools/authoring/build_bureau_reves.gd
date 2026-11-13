@@ -433,7 +433,7 @@ func _room_modules(g: Node3D) -> void:
 	bed.name = "Lit_du_reveur"
 	bed.position = Vector3(34.5, 0, -7.5)
 	bed.reach = 3.0
-	bed.dream_scene = "res://scenes/levels/foret_nocturne.tscn"
+	bed.dream_scene = "res://scenes/levels/foret_de_la_peur.tscn"
 	bed.dream_spawn = "depart"
 	g.add_child(bed)
 	var lie := Marker3D.new()
