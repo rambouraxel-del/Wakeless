@@ -57,6 +57,7 @@ func _initialize() -> void:
 	var lum := _group(lvl, "Lumieres")
 	_lights_atrium(lum)
 	_lights_couloir_chambre(lum)
+	_ambiance(_group(lvl, "Ambiance"))
 
 	_save()
 
@@ -439,6 +440,11 @@ func _lights_couloir_chambre(g: Node3D) -> void:
 		o.light_energy = spec[1]
 		o.omni_range = spec[2]
 		g.add_child(o)
+
+# ================================================================== ambiance : particules et mouvements discrets
+
+func _ambiance(g: Node3D) -> void:
+	pass
 
 # ================================================================== enregistrement
 
