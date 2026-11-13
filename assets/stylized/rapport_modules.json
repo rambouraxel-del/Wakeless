@@ -15,9 +15,9 @@
 		"triangles": 2024
 	},
 	"armoire": {
-		"collisions": 1,
+		"collisions": 2,
 		"lumieres": 0,
-		"triangles": 1844
+		"triangles": 4940
 	},
 	"balustrade_3m": {
 		"collisions": 1,
@@ -39,20 +39,40 @@
 		"lumieres": 0,
 		"triangles": 972
 	},
-	"bureau_ecriture": {
+	"banquette_fenetre": {
 		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1936
+	},
+	"bureau_ecriture": {
+		"collisions": 2,
 		"lumieres": 1,
-		"triangles": 2164
+		"triangles": 3964
 	},
 	"bureau_reception": {
 		"collisions": 6,
 		"lumieres": 2,
 		"triangles": 7042
 	},
+	"carton_nd": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 436
+	},
+	"chaise_bureau": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1574
+	},
 	"chariot_bagages": {
 		"collisions": 1,
 		"lumieres": 0,
 		"triangles": 3920
+	},
+	"chaussures_porte": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1404
 	},
 	"colonne": {
 		"collisions": 1,
@@ -64,6 +84,16 @@
 		"lumieres": 0,
 		"triangles": 2828
 	},
+	"console_horloge": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 1456
+	},
+	"console_vase": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1480
+	},
 	"escalier_grand": {
 		"collisions": 3,
 		"lumieres": 0,
@@ -72,12 +102,12 @@
 	"etagere_livres": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 8160
+		"triangles": 3892
 	},
 	"fauteuil": {
 		"collisions": 1,
 		"lumieres": 0,
-		"triangles": 2448
+		"triangles": 3768
 	},
 	"fenetre_chambre": {
 		"collisions": 0,
@@ -104,6 +134,11 @@
 		"lumieres": 0,
 		"triangles": 1292
 	},
+	"lampe_sur_pied": {
+		"collisions": 1,
+		"lumieres": 1,
+		"triangles": 536
+	},
 	"lanterne": {
 		"collisions": 0,
 		"lumieres": 1,
@@ -112,12 +147,17 @@
 	"lit_reveur": {
 		"collisions": 6,
 		"lumieres": 0,
-		"triangles": 9772
+		"triangles": 14862
 	},
 	"lustre_astronomique": {
 		"collisions": 0,
 		"lumieres": 2,
 		"triangles": 9716
+	},
+	"miroir_mural": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1284
 	},
 	"mobile_etoiles": {
 		"collisions": 0,
@@ -129,15 +169,25 @@
 		"lumieres": 0,
 		"triangles": 608
 	},
+	"pantoufles": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1032
+	},
 	"pilastre": {
 		"collisions": 1,
 		"lumieres": 0,
 		"triangles": 1776
 	},
+	"plateau_service": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1044
+	},
 	"porte_chambre": {
 		"collisions": 2,
 		"lumieres": 0,
-		"triangles": 3624
+		"triangles": 3832
 	},
 	"porte_double_entree": {
 		"collisions": 1,
@@ -147,31 +197,61 @@
 	"porte_hotel": {
 		"collisions": 2,
 		"lumieres": 0,
-		"triangles": 3696
+		"triangles": 3904
+	},
+	"porte_parapluie": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1002
+	},
+	"rideaux_fenetre": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 3112
 	},
 	"table_chevet": {
 		"collisions": 1,
 		"lumieres": 1,
-		"triangles": 988
+		"triangles": 2510
 	},
 	"table_globe": {
 		"collisions": 1,
 		"lumieres": 1,
 		"triangles": 1274
 	},
+	"tableau_ovale": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 678
+	},
+	"tableau_paysage": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1128
+	},
+	"tableau_vertical": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 446
+	},
+	"tapis_couloir": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 292
+	},
 	"tapis_rond": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 924
+		"triangles": 3292
 	},
 	"travee_couloir": {
 		"collisions": 4,
 		"lumieres": 0,
-		"triangles": 7340
+		"triangles": 8076
 	},
 	"travee_couloir_ouverte": {
 		"collisions": 6,
 		"lumieres": 0,
-		"triangles": 7248
+		"triangles": 7984
 	}
 }

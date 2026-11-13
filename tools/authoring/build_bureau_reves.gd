@@ -196,36 +196,24 @@ func _corridor_end() -> void:
 	var xe := CX0 + BAY * BAYS
 	_box(parts, Vector3(0.6, 11.6, 7.0), "mur_couloir", Vector3(xe + 0.3, 5.6, 0))
 	_box(parts, Vector3(0.12, 1.0, 6.0), "pierre_sombre", Vector3(xe - 0.05, 0.5, 0), 0.04)
+	_box(parts, Vector3(0.14, 0.16, 6.0), "bois_sombre", Vector3(xe - 0.07, 0.08, 0), 0.03)
+	_box(parts, Vector3(0.16, 0.12, 6.0), "or", Vector3(xe - 0.08, 1.02, 0), 0.04)
+	# pilastres de l'entrée du couloir (chaque travée ne porte que son pilastre côté est : plus de boîtes confondues)
+	parts.append_array(StyleAssetsChambre.corridor_start_parts(CX0))
 	_mesh("Couloir_Fond", parts)
 	_col("couloir_fond", Vector3(0.6, 12.0, 7.0), Vector3(xe + 0.3, 6.0, 0))
 
 # ================================================================== coque de la chambre
 
 func _room_shell() -> void:
-	var parts := []
 	var x0 := 26.85
 	var x1 := 35.85
 	var z0 := -11.5
 	var z1 := -3.5
 	var cx := (x0 + x1) * 0.5
 	var cz := (z0 + z1) * 0.5
-	_box(parts, Vector3(x1 - x0 + 1.0, 0.4, z1 - z0 + 0.5), "parquet", Vector3(cx, -0.2, cz - 0.25), 0.02)
-	_box(parts, Vector3(0.5, 5.6, z1 - z0 + 1.0), "mur_chambre", Vector3(x0 - 0.25, 2.8, cz - 0.5))
-	_box(parts, Vector3(0.5, 5.6, z1 - z0 + 1.0), "mur_chambre", Vector3(x1 + 0.25, 2.8, cz - 0.5))
-	_box(parts, Vector3(x1 - x0 + 1.0, 5.6, 0.5), "mur_chambre", Vector3(cx, 2.8, z0 - 0.25))
-	_box(parts, Vector3(x1 - x0 + 1.0, 0.4, z1 - z0 + 1.0), "voute_etoilee", Vector3(cx, 5.2, cz - 0.5), 0.03)
-	# lambris bas, cimaise dorée, corniche
-	for spec in [[Vector3(0.1, 1.0, z1 - z0), Vector3(x0 + 0.05, 0.5, cz)], [Vector3(0.1, 1.0, z1 - z0), Vector3(x1 - 0.05, 0.5, cz)], [Vector3(x1 - x0, 1.0, 0.1), Vector3(cx, 0.5, z0 + 0.05)]]:
-		_box(parts, spec[0], "bois_sombre", spec[1], 0.03)
-	for spec in [[Vector3(0.14, 0.08, z1 - z0), Vector3(x0 + 0.07, 1.04, cz)], [Vector3(0.14, 0.08, z1 - z0), Vector3(x1 - 0.07, 1.04, cz)], [Vector3(x1 - x0, 0.08, 0.14), Vector3(cx, 1.04, z0 + 0.07)]]:
-		_box(parts, spec[0], "or", spec[1], 0.03)
-	for spec in [[Vector3(0.3, 0.25, z1 - z0), Vector3(x0 + 0.15, 4.88, cz)], [Vector3(0.3, 0.25, z1 - z0), Vector3(x1 - 0.15, 4.88, cz)], [Vector3(x1 - x0, 0.25, 0.3), Vector3(cx, 4.88, z0 + 0.15)], [Vector3(x1 - x0, 0.25, 0.3), Vector3(cx, 4.88, z1 - 0.15)]]:
-		_box(parts, spec[0], "pierre_claire", spec[1], 0.08)
-	# rideaux de la fenêtre (nord)
-	for x in [cx - 1.75, cx + 1.75]:
-		_box(parts, Vector3(0.7, 4.2, 0.2), "velours", Vector3(x, 2.6, z0 + 0.2), 0.08)
-	_box(parts, Vector3(4.6, 0.08, 0.08), "or", Vector3(cx, 4.65, z0 + 0.25), 0.03)
-	_mesh("Chambre_Coque", parts)
+	# la coque (parquet, papier peint, lambris, corniche, plafond à poutres, flaque de lune) est modelée dans StyleAssetsChambre
+	_mesh("Chambre_Coque", StyleAssetsChambre.room_shell(x0, x1, z0, z1))
 	_col("chambre_sol", Vector3(x1 - x0 + 1.0, 0.4, z1 - z0 + 0.5), Vector3(cx, -0.2, cz - 0.25))
 	_col("chambre_ouest", Vector3(0.5, 6.0, z1 - z0 + 1.0), Vector3(x0 - 0.25, 3.0, cz - 0.5))
 	_col("chambre_est", Vector3(0.5, 6.0, z1 - z0 + 1.0), Vector3(x1 + 0.25, 3.0, cz - 0.5))
@@ -357,25 +345,89 @@ func _corridor_modules(g: Node3D) -> void:
 	_inst(deco, "jardiniere", Vector3(xe - 0.9, 0, 2.2), 0.0, "Jardiniere_fond_S")
 	_inst(deco, "chariot_bagages", Vector3(CX0 + 7.0, 0, 2.0), -80.0, "Chariot_couloir")
 	_inst(deco, "table_globe", Vector3(CX0 + 25.0, 0, 2.25), 0.0, "Table_globe_couloir")
+	# --- finition : chemin de tapis, tableaux, consoles, objets laissés devant les portes (variations déterministes par travée)
+	var fin := _group(g, "Finition")
+	for i in BAYS:
+		var cx := CX0 + BAY * (i + 0.5)
+		_inst(fin, "tapis_couloir", Vector3(cx, 0, 0), 0.0, "Tapis_%d" % (i + 1))
+	# plan des murs : [côté (-1 nord, +1 sud), côté de la porte (-1 gauche, +1 droite), élément]
+	var plan := [
+		[[-1, -1, "tv"], [-1, 1, "ch"], [1, -1, "pp"], [1, 1, "tp"]],
+		[[-1, -1, "tp"], [-1, 1, "to"], [1, -1, "tv"], [1, 1, "cv"]],
+		[[-1, -1, "cv"], [-1, 1, "tv"], [1, -1, "ch"], [1, 1, "to"]],
+		[[-1, -1, "tp"], [-1, 1, "to"], [1, -1, "tv"], [1, 1, "pp"]],
+		[[-1, -1, "cv"], [-1, 1, "tp"], [1, -1, "to"], [1, 1, "tv"]],
+		[[-1, -1, "to"], [-1, 1, "tv"], [1, -1, "ch"], [1, 1, "cv"]],
+		[[-1, -1, "pp"], [-1, 1, "tp"], [1, -1, "tv"], [1, 1, "ch"]],
+		[[-1, -1, "tv"], [-1, 1, "cv"], [1, -1, "tp"], [1, 1, "to"]],
+	]
+	var painting := {"tp": "tableau_paysage", "tv": "tableau_vertical", "to": "tableau_ovale"}
+	for i in BAYS:
+		var cx := CX0 + BAY * (i + 0.5)
+		for e in plan[i]:
+			var side: float = e[0]
+			var x: float = cx + 1.52 * e[1]
+			var yaw := 0.0 if side < 0.0 else 180.0
+			var nm := "%s_%d_%s%d" % [e[2], i + 1, "N" if side < 0.0 else "S", 1 if e[1] < 0 else 2]
+			match e[2]:
+				"cv":
+					_inst(fin, "console_vase", Vector3(x, 0, side * 2.8), yaw, "Console_" + nm)
+					_inst(fin, "tableau_ovale", Vector3(x, 2.15, side * 2.995), yaw, "Tableau_" + nm)
+				"ch":
+					_inst(fin, "console_horloge", Vector3(x, 0, side * 2.8), yaw, "Console_" + nm)
+					_inst(fin, "tableau_paysage", Vector3(x, 2.1, side * 2.995), yaw, "Tableau_" + nm).scale = Vector3(0.74, 0.74, 0.74)
+				"pp":
+					_inst(fin, "porte_parapluie", Vector3(x, 0, side * 2.8), yaw, "Parapluies_" + nm)
+					_inst(fin, "tableau_vertical", Vector3(x, 2.15, side * 2.995), yaw, "Tableau_" + nm)
+				"tp":
+					_inst(fin, "tableau_paysage", Vector3(x, 2.05, side * 2.995), yaw, "Tableau_" + nm).scale = Vector3(0.74, 0.74, 0.74)
+				_:
+					_inst(fin, painting[e[2]], Vector3(x, 2.05, side * 2.995), yaw, "Tableau_" + nm)
+	# objets devant les portes : [travée, côté, objet]  (souliers, plateau de room-service, carton « ne pas déranger »)
+	for e in [[0, 1, "sho"], [1, -1, "plat"], [1, 1, "nd"], [2, -1, "sho"], [4, 1, "plat"], [4, -1, "nd"], [5, -1, "sho"], [6, 1, "sho"], [7, -1, "plat"]]:
+		var cx: float = CX0 + BAY * (float(e[0]) + 0.5)
+		var side: float = e[1]
+		match e[2]:
+			"sho":
+				_inst(fin, "chaussures_porte", Vector3(cx - 0.35 * side, 0, side * 2.5), 0.0 if side > 0.0 else 180.0, "Souliers_%d_%s" % [e[0] + 1, "N" if side < 0.0 else "S"])
+			"plat":
+				_inst(fin, "plateau_service", Vector3(cx + 0.45 * side, 0, side * 2.45), 25.0, "Plateau_%d_%s" % [e[0] + 1, "N" if side < 0.0 else "S"])
+			"nd":
+				# accroché au levier (côté couloir) : repère de la porte, levier à 0,53 m du pivot, 1,1 m de haut
+				_inst(fin, "carton_nd", Vector3(cx + 0.53 * (1.0 if side < 0.0 else -1.0), 1.11, side * 2.95 - side * 0.2), 0.0 if side < 0.0 else 180.0, "Carton_ND_%d_%s" % [e[0] + 1, "N" if side < 0.0 else "S"])
 
 # ================================================================== chambre du rêveur
 
 func _room_modules(g: Node3D) -> void:
 	var cx := 31.35
 	_inst(g, "fenetre_chambre", Vector3(cx, 1.0, -11.5), 0.0, "Fenetre")
+	_inst(g, "rideaux_fenetre", Vector3(cx, 0, -11.5), 0.0, "Rideaux")
+	_inst(g, "banquette_fenetre", Vector3(cx, 0, -11.5), 0.0, "Banquette_fenetre")
 	_inst(g, "lit_reveur", Vector3(34.5, 0, -7.5), -90.0, "Lit")
 	_inst(g, "mobile_etoiles", Vector3(34.5, 2.85, -7.5), 0.0, "Mobile")
 	_inst(g, "table_chevet", Vector3(35.45, 0, -5.95), -90.0, "Chevet_S")
 	_inst(g, "table_chevet", Vector3(35.45, 0, -9.05), -90.0, "Chevet_N")
-	_inst(g, "armoire", Vector3(27.25, 0, -9.6), 90.0, "Armoire")
+	_inst(g, "armoire", Vector3(27.25, 0, -9.4), 90.0, "Armoire")
 	_inst(g, "etagere_livres", Vector3(27.12, 0, -5.9), 90.0, "Etagere")
-	_inst(g, "bureau_ecriture", Vector3(29.2, 0, -10.95), 0.0, "Bureau")
-	_inst(g, "fauteuil", Vector3(33.6, 0, -10.4), 205.0, "Fauteuil")
+	_inst(g, "bureau_ecriture", Vector3(28.3, 0, -11.1), 0.0, "Bureau")
+	_inst(g, "chaise_bureau", Vector3(28.45, 0, -10.2), 172.0, "Chaise_bureau")
+	_inst(g, "fauteuil", Vector3(33.7, 0, -10.2), -40.0, "Fauteuil")
+	_inst(g, "lampe_sur_pied", Vector3(34.85, 0, -10.95), 0.0, "Lampe_fauteuil")
 	_inst(g, "tapis_rond", Vector3(31.0, 0.0, -7.2), 0.0, "Tapis")
 	_inst(g, "banc_velours", Vector3(32.75, 0, -7.5), 90.0, "Banc_pied_de_lit")
+	_inst(g, "pantoufles", Vector3(33.95, 0, -6.2), -25.0, "Pantoufles")
 	_inst(g, "lanterne", Vector3(31.0, 5.0, -7.2), 0.0, "Lanterne")
 	_inst(g, "banniere", Vector3(26.9, 4.3, -7.6), 90.0, "Banniere")
-	_inst(g, "jardiniere", Vector3(35.3, 0, -10.9), 0.0, "Plante")
+	# mur de la porte (sud) : miroir sur sa console, tableau sur la pendulette (le dos des objets contre le papier peint à z = -3,56)
+	_inst(g, "console_vase", Vector3(28.6, 0, -3.56), 180.0, "Console_miroir")
+	_inst(g, "miroir_mural", Vector3(28.6, 2.5, -3.56), 180.0, "Miroir")
+	_inst(g, "console_horloge", Vector3(33.6, 0, -3.56), 180.0, "Console_pendulette")
+	_inst(g, "tableau_paysage", Vector3(33.6, 2.95, -3.56), 180.0, "Tableau_porte")
+	# autres murs : tableaux dans leurs cadres moulurés
+	_inst(g, "tableau_paysage", Vector3(34.3, 2.95, -11.5), 0.0, "Tableau_fauteuil")
+	_inst(g, "tableau_ovale", Vector3(28.1, 3.05, -11.5), 0.0, "Tableau_bureau")
+	_inst(g, "tableau_vertical", Vector3(35.84, 2.9, -4.55), -90.0, "Tableau_est")
+	_inst(g, "tableau_ovale", Vector3(26.86, 3.65, -5.9), 90.0, "Tableau_ouest")
 	# le lit : s'endormir pour entrer dans le rêve (forêt nocturne)
 	var bed := DreamBed.new()
 	bed.name = "Lit_du_reveur"

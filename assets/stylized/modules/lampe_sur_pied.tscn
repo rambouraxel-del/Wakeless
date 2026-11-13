@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lampe_sur_pied.res" id="1_ar2h1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8882o"]
+size = Vector3(0.4, 1.6, 0.4)
+
+[node name="LampeSurPied" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ar2h1")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_8882o")
+
+[node name="Lumiere1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+light_color = Color(1, 0.690196, 0.4, 1)
+light_energy = 1.2
+distance_fade_enabled = true
+distance_fade_begin = 32.0
+distance_fade_shadow = 18.0
+omni_range = 4.0
+omni_attenuation = 1.4
