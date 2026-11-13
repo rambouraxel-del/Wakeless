@@ -1,17 +1,17 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lanterne.res" id="1_ojuq4"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lanterne.res" id="1_k5sak"]
 
 [node name="Lanterne" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_ojuq4")
+mesh = ExtResource("1_k5sak")
 
 [node name="Lumiere" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0)
 light_color = Color(1, 0.690196, 0.4, 1)
-light_energy = 1.6
+light_energy = 2.0
 distance_fade_enabled = true
 distance_fade_begin = 32.0
 distance_fade_shadow = 18.0

@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/marbre_etoile.gdshader" id="1_4xt3p"]
+[ext_resource type="Shader" path="res://materials/stylized/marbre_etoile.gdshader" id="1_usbms"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_4xt3p")
+shader = ExtResource("1_usbms")
 shader_parameter/marble_dark = null
 shader_parameter/marble_light = null
 shader_parameter/vein_color = null

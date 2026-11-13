@@ -1,31 +1,31 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/escalier_grand.res" id="1_g62s0"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/escalier_grand.res" id="1_pmhrr"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8flw6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_s1kqj"]
 size = Vector3(0.3, 1.3, 10.3228)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lpg2b"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dmyki"]
 size = Vector3(0.3, 1.3, 10.3228)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kc8vb"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c0y6n"]
 size = Vector3(3, 0.4, 10.9228)
 
 [node name="EscalierGrand" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_g62s0")
+mesh = ExtResource("1_pmhrr")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 0.813733, -0.581238, 0, 0.581238, 0.813733, -1.62, 3.6, -4.2)
-shape = SubResource("BoxShape3D_8flw6")
+shape = SubResource("BoxShape3D_s1kqj")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 0.813733, -0.581238, 0, 0.581238, 0.813733, 1.62, 3.6, -4.2)
-shape = SubResource("BoxShape3D_lpg2b")
+shape = SubResource("BoxShape3D_dmyki")
 
 [node name="Boite3" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 0.813733, -0.581238, 0, 0.581238, 0.813733, 0, 2.85725, -4.31625)
-shape = SubResource("BoxShape3D_kc8vb")
+shape = SubResource("BoxShape3D_c0y6n")

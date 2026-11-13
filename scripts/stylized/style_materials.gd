@@ -51,10 +51,10 @@ static func _vista(moon: Vector2, seed: float, size: Vector2) -> ShaderMaterial:
 static func definitions() -> Dictionary:
 	var d := {}
 	# --- maçonnerie et enduits (palette 60/30/10 : indigo nuit en grands fonds, lavande poussiéreuse en tons moyens)
-	d["mur_violet"] = _surface("#575184", "#29254f", 0.9, {"gradient_top": 17.0, "variation": 0.09, "variation_scale": 0.3, "rim_strength": 0.04, "foot_dark": 0.5, "foot_height": 1.7, "dirt": 0.14, "grain": 0.04, "specular": 0.2})
-	d["mur_couloir"] = _surface("#4d4876", "#25214a", 0.9, {"gradient_top": 8.5, "variation": 0.08, "rim_strength": 0.04, "foot_dark": 0.45, "foot_height": 1.4, "dirt": 0.2, "grain": 0.05, "specular": 0.2})
-	d["mur_chambre"] = _surface("#524e78", "#2b2850", 0.92, {"gradient_top": 4.6, "variation": 0.07, "rim_strength": 0.03, "foot_dark": 0.4, "foot_height": 1.2, "dirt": 0.18, "grain": 0.06, "specular": 0.15})
-	d["pierre_claire"] = _surface("#a69db0", "#756e8e", 0.72, {"gradient_top": 17.0, "variation": 0.09, "variation_scale": 0.5, "rim_strength": 0.07, "rim_color": "#d6d0f0", "foot_dark": 0.3, "foot_height": 1.2, "dirt": 0.2, "grain": 0.04, "specular": 0.3})
+	d["mur_violet"] = _surface("#575184", "#29254f", 0.9, {"gradient_top": 17.0, "variation": 0.09, "variation_scale": 0.3, "rim_strength": 0.04, "foot_dark": 0.5, "foot_height": 1.7, "dirt": 0.07, "grain": 0.03, "specular": 0.2})
+	d["mur_couloir"] = _surface("#4d4876", "#25214a", 0.9, {"gradient_top": 8.5, "variation": 0.08, "rim_strength": 0.04, "foot_dark": 0.45, "foot_height": 1.4, "dirt": 0.1, "grain": 0.03, "specular": 0.2})
+	d["mur_chambre"] = _surface("#524e78", "#2b2850", 0.92, {"gradient_top": 4.6, "variation": 0.07, "rim_strength": 0.03, "foot_dark": 0.4, "foot_height": 1.2, "dirt": 0.09, "grain": 0.04, "specular": 0.15})
+	d["pierre_claire"] = _surface("#9c8fa6", "#6f6488", 0.72, {"gradient_top": 17.0, "variation": 0.08, "variation_scale": 0.5, "rim_strength": 0.08, "rim_color": "#e8c8b0", "foot_dark": 0.3, "foot_height": 1.2, "dirt": 0.1, "grain": 0.04, "specular": 0.3, "fake_reflect": 0.25, "reflect_color": "#ffc89a"})
 	d["pierre_sombre"] = _surface("#241f48", "#1b1738", 0.6, {"variation": 0.07, "rim_strength": 0.06, "dirt": 0.15, "specular": 0.45, "fake_reflect": 0.25, "reflect_color": "#8a8ccf"})
 	# --- métaux : l'or est un MÉTAL (reflet net, valeur sombre, creux), jamais un aplat jaune
 	d["or"] = _surface("#9a7a42", "#7e6234", 0.3, {"metallic": 0.85, "specular": 0.8, "variation": 0.08, "variation_scale": 1.4, "rim_color": "#ffd9a0", "rim_strength": 0.5, "rim_power": 6.0, "fake_reflect": 1.3, "reflect_color": "#ffc98a", "foot_dark": 0.35, "foot_height": 0.5, "dirt": 0.35})
@@ -77,9 +77,9 @@ static func definitions() -> Dictionary:
 	d["fleur_arbre"] = _surface("#bda8e6", "#9a86d4", 0.9, {"emission_color": "#7a64c8", "emission_energy": 0.12, "rim_strength": 0.22, "rim_color": "#e8dcff", "variation": 0.14})
 	d["ecorce"] = _surface("#33263e", "#33263e", 0.85, {"variation": 0.18, "variation_scale": 3.0, "wood": 0.6, "wood_freq": 16.0})
 	# --- lumières (verres émissifs : modérés, seule l'ampoule et le coeur de lune approchent le blanc)
-	d["verre_chaud"] = _glow("#6a4c30", "#ffa850", 0.7)
+	d["verre_chaud"] = _surface("#7a5428", "#7a5428", 0.35, {"emission_color": "#ff9438", "emission_energy": 0.6, "core_boost": 1.3, "rim_strength": 0.0, "specular": 0.6})
 	d["verre_lune"] = _glow("#3a3a60", "#aab0ff", 0.7)
-	d["lune"] = _glow("#4a4a70", "#c4c8f4", 0.95)
+	d["lune"] = _surface("#15152a", "#15152a", 0.6, {"emission_color": "#d8c4a4", "emission_energy": 0.55, "rim_color": "#9890e8", "rim_strength": 0.55, "rim_power": 1.6, "specular": 0.0})
 	d["etoile_or"] = _glow("#e8c47a", "#f0b050", 0.8)
 	# --- sols, voûtes, paysages
 	var ms := ShaderMaterial.new()

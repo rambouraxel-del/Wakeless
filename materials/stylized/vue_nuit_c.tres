@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/ciel_vue.gdshader" id="1_pm7qi"]
+[ext_resource type="Shader" path="res://materials/stylized/ciel_vue.gdshader" id="1_j7fba"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_pm7qi")
+shader = ExtResource("1_j7fba")
 shader_parameter/sky_top = null
 shader_parameter/sky_horizon = null
 shader_parameter/mist = null

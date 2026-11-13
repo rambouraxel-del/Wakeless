@@ -31,6 +31,7 @@ uniform float grain : hint_range(0.0, 0.3) = 0.0;       // grain d'enduit fin
 uniform float wood : hint_range(0.0, 1.0) = 0.0;        // veinage en bandes
 uniform vec3 wood_dir = vec3(0.0, 1.0, 0.0);            // direction du fil
 uniform float wood_freq = 9.0;
+uniform float core_boost : hint_range(0.0, 3.0) = 0.0;   // coeur plus lumineux au centre (verres)
 uniform float fake_reflect : hint_range(0.0, 2.0) = 0.0; // faux reflet d'environnement (métal, vernis)
 uniform vec4 reflect_color : source_color = vec4(1.0, 0.8, 0.5, 1.0);
 
@@ -98,7 +99,7 @@ void fragment() {
 	float n = vnoise(world_pos * variation_scale * 0.31) * 0.4 + vnoise(world_pos * variation_scale) * 0.4 + vnoise(world_pos * variation_scale * 3.1) * 0.2;
 	col *= 1.0 + (n - 0.5) * 2.0 * variation;
 	if (dirt > 0.0) {
-		float dn = vnoise(world_pos * vec3(1.3, 0.8, 1.3) + 7.0) * 0.6 + vnoise(world_pos * 4.7) * 0.4;
+		float dn = vnoise(world_pos * vec3(0.55, 0.35, 0.55) + 7.0) * 0.7 + vnoise(world_pos * 1.9) * 0.3;
 		col *= 1.0 - dirt * smoothstep(0.5, 0.85, dn) * (1.0 - g * 0.5);
 	}
 	if (grain > 0.0) {
@@ -138,6 +139,9 @@ void fragment() {
 	SPECULAR = specular;
 	float fres = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), rim_power);
 	emis += rim_color.rgb * fres * rim_strength;
+	if (core_boost > 0.0) {
+		emis += emission_color.rgb * emission_energy * core_boost * pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), 2.5);
+	}
 	if (fake_reflect > 0.0) {
 		vec3 rw = (INV_VIEW_MATRIX * vec4(reflect(-VIEW, NORMAL), 0.0)).xyz;
 		// environnement stylisé : plafond sombre, bande claire (fenêtres) à l'horizon, sol chaud faible

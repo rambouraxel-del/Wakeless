@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_n210u"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_gsnh4"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_n210u")
+shader = ExtResource("1_gsnh4")
 shader_parameter/base_color = Color(0.305882, 0.203922, 0.529412, 1)
 shader_parameter/top_color = Color(0.231373, 0.156863, 0.439216, 1)
 shader_parameter/gradient_bottom = null
@@ -30,6 +30,7 @@ shader_parameter/grain = null
 shader_parameter/wood = null
 shader_parameter/wood_dir = null
 shader_parameter/wood_freq = null
+shader_parameter/core_boost = null
 shader_parameter/fake_reflect = null
 shader_parameter/reflect_color = null
 shader_parameter/pool = null

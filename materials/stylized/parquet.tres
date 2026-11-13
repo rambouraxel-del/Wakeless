@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_nvwsl"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_4kybr"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_nvwsl")
+shader = ExtResource("1_4kybr")
 shader_parameter/base_color = Color(0.278431, 0.203922, 0.278431, 1)
 shader_parameter/top_color = Color(0.278431, 0.203922, 0.278431, 1)
 shader_parameter/gradient_bottom = null
@@ -30,6 +30,7 @@ shader_parameter/grain = null
 shader_parameter/wood = 0.9
 shader_parameter/wood_dir = Vector3(1, 0, 0)
 shader_parameter/wood_freq = 14.0
+shader_parameter/core_boost = null
 shader_parameter/fake_reflect = 0.35
 shader_parameter/reflect_color = Color(0.847059, 0.690196, 0.627451, 1)
 shader_parameter/pool = Vector4(31.35, -9.5, 1, 1.5)

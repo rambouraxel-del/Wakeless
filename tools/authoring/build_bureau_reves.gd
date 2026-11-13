@@ -421,7 +421,7 @@ func _lights_atrium(g: Node3D) -> void:
 	ilot.name = "Ilot_reception"
 	ilot.position = Vector3(0, 2.2, 0.8)
 	ilot.light_color = Color("#ffb066")
-	ilot.light_energy = 1.6
+	ilot.light_energy = 2.0
 	ilot.omni_range = 7.0
 	g.add_child(ilot)
 	# lueurs chaudes au pied des colonnes (dorures et marbre réchauffés, sans ombres)
@@ -432,7 +432,7 @@ func _lights_atrium(g: Node3D) -> void:
 		o.name = "Lueur_colonne_%d_%d" % [int(p.x), int(p.z)]
 		o.position = p
 		o.light_color = warm
-		o.light_energy = 0.6
+		o.light_energy = 0.8
 		o.omni_range = 4.5
 		g.add_child(o)
 # ================================================================== lumières du couloir et de la chambre

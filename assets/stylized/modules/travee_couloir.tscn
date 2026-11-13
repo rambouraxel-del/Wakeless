@@ -1,38 +1,38 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/travee_couloir.res" id="1_a0p56"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/travee_couloir.res" id="1_hxnoi"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ul7nb"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_7d754"]
 size = Vector3(4.5, 9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qo1il"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lnkby"]
 size = Vector3(4.5, 9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_srbgx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_u7x66"]
 size = Vector3(4.5, 0.4, 7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5bpom"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mmkq2"]
 size = Vector3(4.5, 0.4, 6)
 
 [node name="TraveeCouloir" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_a0p56")
+mesh = ExtResource("1_hxnoi")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -3.25)
-shape = SubResource("BoxShape3D_ul7nb")
+shape = SubResource("BoxShape3D_7d754")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 3.25)
-shape = SubResource("BoxShape3D_qo1il")
+shape = SubResource("BoxShape3D_lnkby")
 
 [node name="Boite3" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-shape = SubResource("BoxShape3D_srbgx")
+shape = SubResource("BoxShape3D_u7x66")
 
 [node name="Boite4" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2, 0)
-shape = SubResource("BoxShape3D_5bpom")
+shape = SubResource("BoxShape3D_mmkq2")

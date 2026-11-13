@@ -6,7 +6,7 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_sc
 
 uniform vec4 marble_dark : source_color = vec4(0.065, 0.06, 0.15, 1.0);
 uniform vec4 marble_light : source_color = vec4(0.15, 0.14, 0.30, 1.0);
-uniform vec4 vein_color : source_color = vec4(0.90, 0.84, 0.72, 1.0);
+uniform vec4 vein_color : source_color = vec4(0.86, 0.80, 0.68, 1.0);
 uniform vec4 gold : source_color = vec4(0.79, 0.63, 0.37, 1.0);
 uniform float gold_glow = 0.04;
 uniform float roughness : hint_range(0.0, 1.0) = 0.07;
@@ -94,8 +94,9 @@ void fragment() {
 	float g2 = max(fwidth(f2) / ps, 0.05);
 	float thick = 0.5 + 1.0 * vnoise(p * 0.8 + 5.0);
 	float vein = (1.0 - smoothstep(0.0, max(0.011 * thick * g1, fwidth(f1)), v1)) * 0.85 + (1.0 - smoothstep(0.0, max(0.006 * thick * g2, fwidth(f2)), v2)) * 0.5;
-	float vmask = smoothstep(0.38, 0.62, fbm(p * 0.22 + 20.0));      // veines par zones : le marbre respire
-	col = mix(col, vein_color.rgb * 0.8, clamp(vein * vmask, 0.0, 1.0) * 0.8);
+	float vmask = smoothstep(0.56, 0.74, fbm(p * 0.22 + 20.0));      // veines par zones : le marbre respire
+	col = mix(col, vein_color.rgb * 0.8, clamp(vein * vmask, 0.0, 1.0) * 0.36);
+	col += vec3(0.05, 0.05, 0.10) * smoothstep(0.35, 0.8, fbm(p * 0.28 + 40.0));   // nuage doux dans l'indigo
 	col += vec3(0.02, 0.02, 0.05) * smoothstep(0.55, 0.9, fbm(p * 2.2));
 	// joints de dalles
 	vec2 tp = p / tile;

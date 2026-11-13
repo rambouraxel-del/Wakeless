@@ -2,8 +2,8 @@ shader_type spatial;
 // Voûte nocturne : bleu nuit profond, étoiles fines au scintillement lent, quelques constellations très faibles.
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley;
 
-uniform vec4 base_color : source_color = vec4(0.05, 0.05, 0.14, 1.0);
-uniform vec4 glow_color : source_color = vec4(0.16, 0.15, 0.36, 1.0);
+uniform vec4 base_color : source_color = vec4(0.075, 0.075, 0.20, 1.0);
+uniform vec4 glow_color : source_color = vec4(0.20, 0.19, 0.44, 1.0);
 uniform vec4 star_color : source_color = vec4(0.95, 0.88, 0.72, 1.0);
 uniform float density = 0.06;
 uniform float scale = 1.6;
@@ -55,5 +55,5 @@ void fragment() {
 	}
 	ALBEDO = base_color.rgb;
 	ROUGHNESS = 0.9;
-	EMISSION = glow_color.rgb * 0.1 + star_color.rgb * (s * 1.1 + cons * 0.8 * constellations);
+	EMISSION = glow_color.rgb * 0.34 * (0.7 + 0.3 * clamp(wp.y * 0.1, 0.0, 1.0)) + star_color.rgb * (s * 1.7 + cons * 0.8 * constellations);
 }
