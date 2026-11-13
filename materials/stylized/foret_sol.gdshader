@@ -20,7 +20,7 @@ uniform vec4 path_pts[32];
 uniform int path_count = 0;
 uniform float path_width = 1.5;
 uniform float path_soft = 0.9;
-uniform float path_glow = 0.05;      // léger auto-éclairage : le chemin se lit même dans le bois noir
+uniform float path_glow = 0.08;      // léger auto-éclairage : le chemin se lit même dans le bois noir
 
 varying vec3 wpos;
 varying vec3 wnrm;

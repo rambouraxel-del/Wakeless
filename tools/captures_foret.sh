@@ -10,7 +10,7 @@ S=res://scenes/levels/foret_de_la_peur.tscn
 shot() { local n=$1; shift; [[ -n "$filt" && "$n" != $filt* ]] && return; bash tools/shot.sh $S "$out/$n.jpg" "$@"; }
 # --- L : vues larges
 shot L01_depart_lisiere        0 2.8 9      0 1.5 -22 70
-shot L02_lisiere_lune          8 2.4 -12    -10 7 -34 72
+shot L02_lisiere_lune          5 5.0 -2     -8 7 -34 72
 shot L03_marais_etang          -4 2.2 -31   -2 0 -46 72
 shot L04_bois_noir_entree      0 2.6 -64    0 2.5 -92 72
 shot L05_bois_noir_profond     0 3.2 -92    0 3.5 -112 70
