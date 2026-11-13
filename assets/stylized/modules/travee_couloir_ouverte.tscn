@@ -1,52 +1,52 @@
 [gd_scene load_steps=8 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/travee_couloir_ouverte.res" id="1_rjvtm"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/travee_couloir_ouverte.res" id="1_yqprn"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mng22"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_q3ift"]
 size = Vector3(4.5, 9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8s3lo"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_b1ul3"]
 size = Vector3(1.44, 9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tu12v"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dshri"]
 size = Vector3(1.44, 9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fvdvf"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_wqytv"]
 size = Vector3(1.62, 5.9, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_eicvw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytg40"]
 size = Vector3(4.5, 0.4, 7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_05ky6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5eplu"]
 size = Vector3(4.5, 0.4, 6)
 
 [node name="TraveeCouloirOuverte" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_rjvtm")
+mesh = ExtResource("1_yqprn")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 3.25)
-shape = SubResource("BoxShape3D_mng22")
+shape = SubResource("BoxShape3D_q3ift")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53, 4.5, -3.25)
-shape = SubResource("BoxShape3D_8s3lo")
+shape = SubResource("BoxShape3D_b1ul3")
 
 [node name="Boite3" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53, 4.5, -3.25)
-shape = SubResource("BoxShape3D_tu12v")
+shape = SubResource("BoxShape3D_dshri")
 
 [node name="Boite4" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.05, -3.25)
-shape = SubResource("BoxShape3D_fvdvf")
+shape = SubResource("BoxShape3D_wqytv")
 
 [node name="Boite5" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-shape = SubResource("BoxShape3D_eicvw")
+shape = SubResource("BoxShape3D_ytg40")
 
 [node name="Boite6" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2, 0)
-shape = SubResource("BoxShape3D_05ky6")
+shape = SubResource("BoxShape3D_5eplu")

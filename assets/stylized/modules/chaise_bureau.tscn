@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/chaise_bureau.res" id="1_2qn7x"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/chaise_bureau.res" id="1_v328y"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ms8lx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8crl"]
 size = Vector3(0.5, 0.95, 0.48)
 
 [node name="ChaiseBureau" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_2qn7x")
+mesh = ExtResource("1_v328y")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, 0)
-shape = SubResource("BoxShape3D_ms8lx")
+shape = SubResource("BoxShape3D_u8crl")

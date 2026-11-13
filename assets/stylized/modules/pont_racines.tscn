@@ -1,49 +1,49 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines.res" id="1_3fcqp"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_1.res" id="2_yph2o"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_2.res" id="3_javiw"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_3.res" id="4_vyarf"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_4.res" id="5_k6nak"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines.res" id="1_autsx"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_1.res" id="2_cm4jh"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_2.res" id="3_2061x"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_3.res" id="4_700v2"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/pont_racines_maillage_racine_4.res" id="5_jdk0b"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4nvia"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_30cyw"]
 size = Vector3(1.7, 0.2, 7)
 
 [node name="PontRacines" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_3fcqp")
+mesh = ExtResource("1_autsx")
 
 [node name="Racine_1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 3.2)
 metadata/pose_couchee = Vector3(-90, 0, 0)
 
 [node name="MaillageRacine1" type="MeshInstance3D" parent="Racine_1"]
-mesh = ExtResource("2_yph2o")
+mesh = ExtResource("2_cm4jh")
 
 [node name="Racine_2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 1.6)
 metadata/pose_couchee = Vector3(-90, 0, 0)
 
 [node name="MaillageRacine2" type="MeshInstance3D" parent="Racine_2"]
-mesh = ExtResource("3_javiw")
+mesh = ExtResource("3_2061x")
 
 [node name="Racine_3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
 metadata/pose_couchee = Vector3(-90, 0, 0)
 
 [node name="MaillageRacine3" type="MeshInstance3D" parent="Racine_3"]
-mesh = ExtResource("4_vyarf")
+mesh = ExtResource("4_700v2")
 
 [node name="Racine_4" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, -1.6)
 metadata/pose_couchee = Vector3(-90, 0, 0)
 
 [node name="MaillageRacine4" type="MeshInstance3D" parent="Racine_4"]
-mesh = ExtResource("5_k6nak")
+mesh = ExtResource("5_jdk0b")
 
 [node name="PontCollision" type="StaticBody3D" parent="."]
 
 [node name="Boite" type="CollisionShape3D" parent="PontCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-shape = SubResource("BoxShape3D_4nvia")
+shape = SubResource("BoxShape3D_30cyw")

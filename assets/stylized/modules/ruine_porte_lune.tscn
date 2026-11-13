@@ -1,77 +1,77 @@
 [gd_scene load_steps=11 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune.res" id="1_g017l"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_g.res" id="2_n5r5b"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_d.res" id="3_5k5ua"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune.res" id="1_5lpvp"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_g.res" id="2_hlsfo"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_d.res" id="3_hswpe"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ahyrc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1kit"]
 size = Vector3(0.65, 3.3, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qlqr7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4yc6x"]
 size = Vector3(0.65, 3.3, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cwaif"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4jyx6"]
 size = Vector3(3.7, 0.75, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yu8lo"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytuuw"]
 size = Vector3(1.4, 2.1, 0.9)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y6dhf"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_d7trq"]
 size = Vector3(1.4, 1.6, 0.9)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ph1cw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sw3rw"]
 size = Vector3(1.16, 3.1, 0.22)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hk1ws"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lsagi"]
 size = Vector3(1.16, 3.1, 0.22)
 
 [node name="RuinePorteLune" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_g017l")
+mesh = ExtResource("1_5lpvp")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.525, 1.65, 0)
-shape = SubResource("BoxShape3D_ahyrc")
+shape = SubResource("BoxShape3D_k1kit")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.525, 1.65, 0)
-shape = SubResource("BoxShape3D_qlqr7")
+shape = SubResource("BoxShape3D_4yc6x")
 
 [node name="Boite3" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
-shape = SubResource("BoxShape3D_cwaif")
+shape = SubResource("BoxShape3D_4jyx6")
 
 [node name="Boite4" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.55, 1.05, 0)
-shape = SubResource("BoxShape3D_yu8lo")
+shape = SubResource("BoxShape3D_ytuuw")
 
 [node name="Boite5" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55, 0.8, 0)
-shape = SubResource("BoxShape3D_y6dhf")
+shape = SubResource("BoxShape3D_d7trq")
 
 [node name="VantailG" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
 
 [node name="MaillageVantailG" type="MeshInstance3D" parent="VantailG"]
-mesh = ExtResource("2_n5r5b")
+mesh = ExtResource("2_hlsfo")
 
 [node name="Collision" type="StaticBody3D" parent="VantailG"]
 
 [node name="Boite" type="CollisionShape3D" parent="VantailG/Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.55, 0)
-shape = SubResource("BoxShape3D_ph1cw")
+shape = SubResource("BoxShape3D_sw3rw")
 
 [node name="VantailD" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
 
 [node name="MaillageVantailD" type="MeshInstance3D" parent="VantailD"]
-mesh = ExtResource("3_5k5ua")
+mesh = ExtResource("3_hswpe")
 
 [node name="Collision" type="StaticBody3D" parent="VantailD"]
 
 [node name="Boite" type="CollisionShape3D" parent="VantailD/Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.55, 0)
-shape = SubResource("BoxShape3D_hk1ws")
+shape = SubResource("BoxShape3D_lsagi")

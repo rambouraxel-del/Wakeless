@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fauteuil_hall.res" id="1_v7tpo"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fauteuil_hall.res" id="1_ic3nm"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wjfcl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_84r7l"]
 size = Vector3(1, 0.95, 0.95)
 
 [node name="FauteuilHall" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_v7tpo")
+mesh = ExtResource("1_ic3nm")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
-shape = SubResource("BoxShape3D_wjfcl")
+shape = SubResource("BoxShape3D_84r7l")

@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_lointain_a.res" id="1_xtero"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_lointain_a.res" id="1_63k77"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_pkwfw"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h3mal"]
 height = 6.5
 radius = 0.7
 
 [node name="ArbreLointainA" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_xtero")
+mesh = ExtResource("1_63k77")
 
 [node name="CollisionTronc" type="StaticBody3D" parent="."]
 
 [node name="Cylindre" type="CollisionShape3D" parent="CollisionTronc"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, 0)
-shape = SubResource("CylinderShape3D_pkwfw")
+shape = SubResource("CylinderShape3D_h3mal")

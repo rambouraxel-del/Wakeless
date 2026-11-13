@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/plafond_etoile.gdshader" id="1_q7qon"]
+[ext_resource type="Shader" path="res://materials/stylized/plafond_etoile.gdshader" id="1_6iftv"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_q7qon")
+shader = ExtResource("1_6iftv")
 shader_parameter/base_color = null
 shader_parameter/glow_color = null
 shader_parameter/star_color = null

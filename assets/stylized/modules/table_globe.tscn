@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/table_globe.res" id="1_opr31"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/table_globe.res" id="1_n7kaq"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bgx0i"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sk28y"]
 size = Vector3(1, 0.85, 1)
 
 [node name="TableGlobe" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_opr31")
+mesh = ExtResource("1_n7kaq")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
-shape = SubResource("BoxShape3D_bgx0i")
+shape = SubResource("BoxShape3D_sk28y")
 
 [node name="Lumiere1" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)

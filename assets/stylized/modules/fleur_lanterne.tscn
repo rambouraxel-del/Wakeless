@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne.res" id="1_agvy0"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne_corolle.res" id="2_pa7y6"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne.res" id="1_0pfbw"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne_corolle.res" id="2_20tw4"]
 
 [node name="FleurLanterne" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_agvy0")
+mesh = ExtResource("1_0pfbw")
 
 [node name="Lumiere" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
@@ -20,4 +20,4 @@ omni_range = 7.0
 omni_attenuation = 1.4
 
 [node name="Corolle" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_pa7y6")
+mesh = ExtResource("2_20tw4")

@@ -19,6 +19,16 @@
 		"lumieres": 0,
 		"triangles": 5371
 	},
+	"arbre_lointain_a": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 414
+	},
+	"arbre_lointain_b": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 414
+	},
 	"arbre_mort": {
 		"collisions": 0,
 		"lumieres": 0,

@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_brume.gdshader" id="1_1e12u"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_brume.gdshader" id="1_40ox0"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_1e12u")
+shader = ExtResource("1_40ox0")
 shader_parameter/fog_color = Color(0.113725, 0.231373, 0.266667, 1)
 shader_parameter/fog_color_hi = Color(0.227451, 0.4, 0.439216, 1)
 shader_parameter/density = 0.42
