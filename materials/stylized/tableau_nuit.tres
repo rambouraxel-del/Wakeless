@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/tableau_nuit.gdshader" id="1_jls7v"]
+[ext_resource type="Shader" path="res://materials/stylized/tableau_nuit.gdshader" id="1_kqr4k"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_jls7v")
+shader = ExtResource("1_kqr4k")
 shader_parameter/ciel_haut = null
 shader_parameter/ciel_bas = null
 shader_parameter/colline = null

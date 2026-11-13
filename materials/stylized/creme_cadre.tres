@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=4]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_8jrg3"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_a865e"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_8jrg3")
+shader = ExtResource("1_a865e")
 shader_parameter/base_color = Color(0.737255, 0.690196, 0.619608, 1)
 shader_parameter/top_color = Color(0.658824, 0.611765, 0.556863, 1)
 shader_parameter/gradient_bottom = null

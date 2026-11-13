@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tableau_ovale.res" id="1_paeho"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tableau_ovale.res" id="1_ncx03"]
 
 [node name="TableauOvale" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_paeho")
+mesh = ExtResource("1_ncx03")

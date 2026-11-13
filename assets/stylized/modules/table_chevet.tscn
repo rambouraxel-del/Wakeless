@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/table_chevet.res" id="1_gb31i"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/table_chevet.res" id="1_3tlc0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_s61q5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rmc6p"]
 size = Vector3(0.6, 0.72, 0.5)
 
 [node name="TableChevet" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_gb31i")
+mesh = ExtResource("1_3tlc0")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
-shape = SubResource("BoxShape3D_s61q5")
+shape = SubResource("BoxShape3D_rmc6p")
 
 [node name="Lumiere1" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 1.28, -0.05)

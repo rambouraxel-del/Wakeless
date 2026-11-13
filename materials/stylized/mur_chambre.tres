@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=4]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_kfwpi"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_ow142"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_kfwpi")
+shader = ExtResource("1_ow142")
 shader_parameter/base_color = Color(0.321569, 0.305882, 0.470588, 1)
 shader_parameter/top_color = Color(0.168627, 0.156863, 0.313726, 1)
 shader_parameter/gradient_bottom = null

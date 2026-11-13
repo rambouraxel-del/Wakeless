@@ -1,12 +1,18 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_brume.gdshader" id="1_qxxi3"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_brume.gdshader" id="1_0fhjr"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_qxxi3")
+shader = ExtResource("1_0fhjr")
 shader_parameter/fog_color = Color(0.0588235, 0.0509804, 0.14902, 1)
 shader_parameter/fog_color_hi = Color(0.14902, 0.164706, 0.321569, 1)
 shader_parameter/density = 0.55
+shader_parameter/scroll = null
 shader_parameter/noise_scale = 0.05
+shader_parameter/edge_fade = null
+shader_parameter/contact_fade = null
+shader_parameter/near_fade_start = null
+shader_parameter/near_fade_end = null
 shader_parameter/patchy = 0.4
+shader_parameter/use_depth = null

@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_de_lune.res" id="1_g78ay"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/arbre_de_lune.res" id="1_3bd34"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nh0pu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6nhl"]
 size = Vector3(3.1, 0.9, 3.1)
 
 [node name="ArbreDeLune" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_g78ay")
+mesh = ExtResource("1_3bd34")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
-shape = SubResource("BoxShape3D_nh0pu")
+shape = SubResource("BoxShape3D_v6nhl")
 
 [node name="Lueur" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)

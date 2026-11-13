@@ -1,7 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_rayon.gdshader" id="1_of2ss"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_rayon.gdshader" id="1_tmnl8"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_of2ss")
+shader = ExtResource("1_tmnl8")
+shader_parameter/ray_color = null
+shader_parameter/strength = null
+shader_parameter/near_fade_end = null

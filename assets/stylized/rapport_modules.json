@@ -4,10 +4,50 @@
 		"lumieres": 1,
 		"triangles": 740
 	},
+	"arbre_ancien": {
+		"collisions": 0,
+		"lumieres": 1,
+		"triangles": 11345
+	},
 	"arbre_de_lune": {
 		"collisions": 1,
 		"lumieres": 1,
 		"triangles": 15590
+	},
+	"arbre_echasses": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 5371
+	},
+	"arbre_mort": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 2914
+	},
+	"arbre_tordu_a": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 5256
+	},
+	"arbre_tordu_b": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 5256
+	},
+	"arbre_tordu_c": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 4507
+	},
+	"arbuste_a": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1292
+	},
+	"arbuste_b": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1182
 	},
 	"arcade": {
 		"collisions": 0,
@@ -54,6 +94,11 @@
 		"lumieres": 2,
 		"triangles": 8886
 	},
+	"cadre_porte_reve": {
+		"collisions": 3,
+		"lumieres": 0,
+		"triangles": 4441
+	},
 	"carton_nd": {
 		"collisions": 0,
 		"lumieres": 0,
@@ -64,10 +109,20 @@
 		"lumieres": 1,
 		"triangles": 5104
 	},
+	"cercle_pierres": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1540
+	},
 	"chaise_bureau": {
 		"collisions": 1,
 		"lumieres": 0,
 		"triangles": 1574
+	},
+	"champignons_lumineux": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 510
 	},
 	"chariot_bagages": {
 		"collisions": 1,
@@ -129,10 +184,30 @@
 		"lumieres": 0,
 		"triangles": 4449
 	},
+	"fleur_lanterne": {
+		"collisions": 0,
+		"lumieres": 1,
+		"triangles": 1096
+	},
+	"fleurs_blanches": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 364
+	},
+	"fougere": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 420
+	},
 	"glycine": {
 		"collisions": 0,
 		"lumieres": 0,
 		"triangles": 3434
+	},
+	"herbes_touffe": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 396
 	},
 	"horloge_celeste": {
 		"collisions": 0,
@@ -143,6 +218,11 @@
 		"collisions": 1,
 		"lumieres": 0,
 		"triangles": 2520
+	},
+	"jeune_fille_provisoire": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 8004
 	},
 	"lampe_sur_pied": {
 		"collisions": 1,
@@ -174,6 +254,11 @@
 		"lumieres": 0,
 		"triangles": 976
 	},
+	"nenuphars": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 516
+	},
 	"panneau_directions": {
 		"collisions": 1,
 		"lumieres": 0,
@@ -184,6 +269,16 @@
 		"lumieres": 0,
 		"triangles": 1032
 	},
+	"piedestal_lune": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1292
+	},
+	"pierres_plates": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 848
+	},
 	"pilastre": {
 		"collisions": 1,
 		"lumieres": 0,
@@ -193,6 +288,11 @@
 		"collisions": 1,
 		"lumieres": 0,
 		"triangles": 1044
+	},
+	"pont_racines": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 3736
 	},
 	"porte_chambre": {
 		"collisions": 2,
@@ -214,6 +314,16 @@
 		"lumieres": 0,
 		"triangles": 1002
 	},
+	"racines_arche": {
+		"collisions": 3,
+		"lumieres": 0,
+		"triangles": 1606
+	},
+	"racines_basses": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1464
+	},
 	"rameau_glycine": {
 		"collisions": 0,
 		"lumieres": 0,
@@ -224,10 +334,60 @@
 		"lumieres": 0,
 		"triangles": 3112
 	},
+	"rocher_a": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 844
+	},
+	"rocher_b": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1168
+	},
+	"rocher_c": {
+		"collisions": 2,
+		"lumieres": 0,
+		"triangles": 1492
+	},
 	"rosace_plafond": {
 		"collisions": 0,
 		"lumieres": 0,
 		"triangles": 5088
+	},
+	"roseaux": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 372
+	},
+	"ruine_arche": {
+		"collisions": 3,
+		"lumieres": 0,
+		"triangles": 2207
+	},
+	"ruine_colonne": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 720
+	},
+	"ruine_mur": {
+		"collisions": 2,
+		"lumieres": 0,
+		"triangles": 2513
+	},
+	"ruine_porte_lune": {
+		"collisions": 5,
+		"lumieres": 0,
+		"triangles": 3215
+	},
+	"silhouette_ombre": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 1024
+	},
+	"souche": {
+		"collisions": 0,
+		"lumieres": 0,
+		"triangles": 834
 	},
 	"table_chevet": {
 		"collisions": 1,
@@ -278,6 +438,11 @@
 		"collisions": 6,
 		"lumieres": 0,
 		"triangles": 7984
+	},
+	"tronc_couche": {
+		"collisions": 1,
+		"lumieres": 0,
+		"triangles": 1346
 	},
 	"vase_etoile": {
 		"collisions": 1,

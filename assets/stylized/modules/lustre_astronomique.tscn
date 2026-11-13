@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique.res" id="1_da4n2"]
-[ext_resource type="Script" path="res://scripts/stylized/rotator.gd" id="2_aqueh"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_a.res" id="3_actt5"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_b.res" id="4_r8je2"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_c.res" id="5_f87me"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique.res" id="1_0thx8"]
+[ext_resource type="Script" path="res://scripts/stylized/rotator.gd" id="2_wihcd"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_a.res" id="3_mxoin"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_b.res" id="4_2oef4"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lustre_astronomique_maillage_anneau_c.res" id="5_jmrn2"]
 
 [node name="LustreAstronomique" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_da4n2")
+mesh = ExtResource("1_0thx8")
 
 [node name="LumiereLune" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.5, 0)
@@ -34,30 +34,30 @@ omni_attenuation = 1.4
 
 [node name="AnneauA" type="Node3D" parent="."]
 transform = Transform3D(0.965926, -0.258819, 0, 0.0885213, 0.330366, -0.939693, 0.24321, 0.907673, 0.34202, 0, -6.5, 0)
-script = ExtResource("2_aqueh")
+script = ExtResource("2_wihcd")
 axis = Vector3(0, 1, 0)
 degrees_per_second = 5.0
 
 [node name="MaillageAnneauA" type="MeshInstance3D" parent="AnneauA"]
 cast_shadow = 0
-mesh = ExtResource("3_actt5")
+mesh = ExtResource("3_mxoin")
 
 [node name="AnneauB" type="Node3D" parent="."]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, -6.5, 0)
-script = ExtResource("2_aqueh")
+script = ExtResource("2_wihcd")
 axis = Vector3(0, 1, 0)
 degrees_per_second = -7.0
 
 [node name="MaillageAnneauB" type="MeshInstance3D" parent="AnneauB"]
 cast_shadow = 0
-mesh = ExtResource("4_r8je2")
+mesh = ExtResource("4_2oef4")
 
 [node name="AnneauC" type="Node3D" parent="."]
 transform = Transform3D(0.258819, 0.965926, 0, -0.907673, 0.24321, -0.34202, -0.330366, 0.0885213, 0.939693, 0, -6.5, 0)
-script = ExtResource("2_aqueh")
+script = ExtResource("2_wihcd")
 axis = Vector3(0, 1, 0)
 degrees_per_second = 3.5
 
 [node name="MaillageAnneauC" type="MeshInstance3D" parent="AnneauC"]
 cast_shadow = 0
-mesh = ExtResource("5_f87me")
+mesh = ExtResource("5_jmrn2")

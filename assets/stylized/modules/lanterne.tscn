@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lanterne.res" id="1_2d8cf"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/lanterne.res" id="1_ort0r"]
 
 [node name="Lanterne" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_2d8cf")
+mesh = ExtResource("1_ort0r")
 
 [node name="Lumiere" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0)

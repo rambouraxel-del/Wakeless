@@ -1,27 +1,27 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/bureau_ecriture.res" id="1_ac7ug"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/bureau_ecriture.res" id="1_bskcs"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mmkck"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_llns1"]
 size = Vector3(1.5, 0.85, 0.76)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j7brt"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_de7oi"]
 size = Vector3(1.3, 0.6, 0.35)
 
 [node name="BureauEcriture" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_ac7ug")
+mesh = ExtResource("1_bskcs")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
-shape = SubResource("BoxShape3D_mmkck")
+shape = SubResource("BoxShape3D_llns1")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.25)
-shape = SubResource("BoxShape3D_j7brt")
+shape = SubResource("BoxShape3D_de7oi")
 
 [node name="Lumiere1" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 1.32, 0.15)

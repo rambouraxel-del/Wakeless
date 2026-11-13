@@ -1,7 +1,15 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/foret_lueur.gdshader" id="1_2pbw3"]
+[ext_resource type="Shader" path="res://materials/stylized/foret_lueur.gdshader" id="1_mw6ff"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_2pbw3")
+shader = ExtResource("1_mw6ff")
+shader_parameter/core_color = null
+shader_parameter/halo_color = null
+shader_parameter/energy = null
+shader_parameter/halo_energy = null
+shader_parameter/core_size = null
+shader_parameter/pulse_amount = null
+shader_parameter/pulse_speed = null
+shader_parameter/intensity = null
