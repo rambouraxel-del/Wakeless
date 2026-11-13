@@ -143,7 +143,7 @@ static func _clairiere(g: Node3D, gy: Callable, moon: Vector3) -> void:
 	g.add_child(z)
 	_light(z, "Chaleur_arbre", Vector3(0.0, gy.call(0.0, -128.0) + 5.5, -128.0), Color("#ffd7a0"), 0.9, 18.0)
 	_light(z, "Lune_remplissage", Vector3(-3.0, gy.call(-3.0, -122.0) + 7.0, -122.0), Color("#aab8ff"), 0.45, 20.0)
-	_light(z, "Lueur_cercle", Vector3(0.0, gy.call(0.0, -131.0) + 0.8, -131.0), Color("#ffe6c0"), 0.55, 8.0)
+	_light(z, "Lueur_cercle", Vector3(0.0, gy.call(0.0, -131.0) + 0.8, -131.0), Color("#ffe6c0"), 0.8, 9.0)
 	for i in 3:
 		var lx: float = [-4.0, 4.5, 0.5][i]
 		var lz: float = [-120.0, -126.0, -136.0][i]
