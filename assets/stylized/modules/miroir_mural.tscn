@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/miroir_mural.res" id="1_hfnfp"]
+
+[node name="MiroirMural" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = ExtResource("1_hfnfp")

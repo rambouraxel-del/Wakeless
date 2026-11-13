@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/papier_peint.gdshader" id="1_tk4am"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tk4am")
+shader_parameter/base_color = null
+shader_parameter/motif_color = null
+shader_parameter/filet_color = null
+shader_parameter/cell = null
+shader_parameter/bas_y = null
+shader_parameter/haut_y = null
+shader_parameter/roughness = null

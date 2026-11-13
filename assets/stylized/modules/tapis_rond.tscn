@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tapis_rond.res" id="1_i7ugb"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tapis_rond.res" id="1_ojtdr"]
 
 [node name="TapisRond" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_i7ugb")
+mesh = ExtResource("1_ojtdr")
