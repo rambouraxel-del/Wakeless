@@ -1,22 +1,22 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/piedestal_lune.res" id="1_dfgcd"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/piedestal_lune_pierre.res" id="2_i77h0"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/piedestal_lune.res" id="1_ye7n0"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/piedestal_lune_pierre.res" id="2_xn002"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ap5qu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xup2a"]
 size = Vector3(1, 1.25, 1)
 
 [node name="PiedestalLune" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_dfgcd")
+mesh = ExtResource("1_ye7n0")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
-shape = SubResource("BoxShape3D_ap5qu")
+shape = SubResource("BoxShape3D_xup2a")
 
 [node name="Pierre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
-mesh = ExtResource("2_i77h0")
+mesh = ExtResource("2_xn002")

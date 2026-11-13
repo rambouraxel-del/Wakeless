@@ -5,8 +5,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_628su")
-shader_parameter/base_color = Color(0.368627, 0.290196, 0.345098, 1)
-shader_parameter/top_color = Color(0.290196, 0.227451, 0.313726, 1)
+shader_parameter/base_color = Color(0.208, 0.176, 0.239, 1)
+shader_parameter/top_color = Color(0.165, 0.137, 0.216, 1)
 shader_parameter/gradient_bottom = null
 shader_parameter/gradient_top = 14.0
 shader_parameter/variation = 0.16
@@ -15,7 +15,7 @@ shader_parameter/roughness = 0.9
 shader_parameter/metallic = null
 shader_parameter/specular = 0.15
 shader_parameter/rim_color = Color(0.439216, 0.533333, 0.8, 1)
-shader_parameter/rim_strength = 0.22
+shader_parameter/rim_strength = 0.34
 shader_parameter/emission_color = null
 shader_parameter/emission_energy = null
 shader_parameter/star_density = null

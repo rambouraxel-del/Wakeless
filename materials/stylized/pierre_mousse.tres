@@ -5,8 +5,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_40j27")
-shader_parameter/base_color = Color(0.368627, 0.360784, 0.407843, 1)
-shader_parameter/top_color = Color(0.321569, 0.309804, 0.376471, 1)
+shader_parameter/base_color = Color(0.221, 0.216, 0.253, 1)
+shader_parameter/top_color = Color(0.193, 0.186, 0.233, 1)
 shader_parameter/gradient_bottom = null
 shader_parameter/gradient_top = 5.0
 shader_parameter/variation = 0.14

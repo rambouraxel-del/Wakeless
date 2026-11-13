@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tronc_couche.res" id="1_bh32b"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/tronc_couche.res" id="1_ms8wx"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_de5mo"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryvho"]
 size = Vector3(6, 0.9, 0.72)
 
 [node name="TroncCouche" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_bh32b")
+mesh = ExtResource("1_ms8wx")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.02)
-shape = SubResource("BoxShape3D_de5mo")
+shape = SubResource("BoxShape3D_ryvho")

@@ -5,8 +5,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_m2yev")
-shader_parameter/base_color = Color(0.454902, 0.439216, 0.494118, 1)
-shader_parameter/top_color = Color(0.396078, 0.384314, 0.439216, 1)
+shader_parameter/base_color = Color(0.273, 0.264, 0.306, 1)
+shader_parameter/top_color = Color(0.238, 0.231, 0.272, 1)
 shader_parameter/gradient_bottom = null
 shader_parameter/gradient_top = 6.0
 shader_parameter/variation = 0.12

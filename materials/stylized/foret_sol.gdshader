@@ -3,8 +3,8 @@ shader_type spatial;
 // aucune UV). Un chemin optionnel (polyligne en x,z) y est tassé, plus clair, légèrement chaud-gris, au bord adouci.
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
 
-uniform vec4 earth_dark : source_color = vec4(0.060, 0.062, 0.085, 1.0);
-uniform vec4 earth_mid : source_color = vec4(0.105, 0.120, 0.120, 1.0);
+uniform vec4 earth_dark : source_color = vec4(0.085, 0.090, 0.135, 1.0);
+uniform vec4 earth_mid : source_color = vec4(0.125, 0.140, 0.150, 1.0);
 uniform vec4 moss_dark : source_color = vec4(0.085, 0.130, 0.110, 1.0);
 uniform vec4 moss_light : source_color = vec4(0.165, 0.227, 0.204, 1.0);
 uniform vec4 leaf_tint : source_color = vec4(0.100, 0.075, 0.130, 1.0);

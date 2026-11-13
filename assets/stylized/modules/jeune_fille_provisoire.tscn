@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jeune_fille_provisoire_maillage_debout.res" id="1_pe81m"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jeune_fille_provisoire_maillage_assise.res" id="2_qhmiy"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jeune_fille_provisoire_maillage_debout.res" id="1_v8sou"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/jeune_fille_provisoire_maillage_assise.res" id="2_qjvmy"]
 
 [node name="JeuneFilleProvisoire" type="Node3D"]
 
 [node name="Debout" type="Node3D" parent="."]
 
 [node name="MaillageDebout" type="MeshInstance3D" parent="Debout"]
-mesh = ExtResource("1_pe81m")
+mesh = ExtResource("1_v8sou")
 
 [node name="Assise" type="Node3D" parent="."]
 visible = false
 
 [node name="MaillageAssise" type="MeshInstance3D" parent="Assise"]
-mesh = ExtResource("2_qhmiy")
+mesh = ExtResource("2_qjvmy")
