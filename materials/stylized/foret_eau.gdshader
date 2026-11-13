@@ -13,17 +13,17 @@ uniform vec4 moon_color : source_color = vec4(0.72, 0.80, 1.0, 1.0);
 uniform vec4 edge_color : source_color = vec4(0.18, 0.45, 0.52, 1.0);
 uniform vec3 moon_dir = vec3(-0.4, 0.6, -0.5);
 uniform float moon_size = 0.045;
-uniform float moon_strength = 2.2;
-uniform float reflect_strength : hint_range(0.0, 2.0) = 0.9;
+uniform float moon_strength = 1.6;
+uniform float reflect_strength : hint_range(0.0, 2.0) = 0.5;
 uniform float fresnel_power = 3.2;
 uniform float ripple_scale = 0.9;
 uniform float ripple_speed = 0.06;
 uniform float ripple_height = 0.55;
 uniform float opacity : hint_range(0.0, 1.0) = 0.93;
 uniform float edge_width = 0.55;
-uniform float edge_strength = 0.7;
+uniform float edge_strength = 0.45;
 uniform bool use_depth = true;
-uniform float glint = 0.8;
+uniform float glint = 0.45;
 
 varying vec3 wpos;
 
