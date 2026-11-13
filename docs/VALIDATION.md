@@ -1,5 +1,13 @@
 # Validation
 
+## La Forêt de la peur (branche `claude/foret-de-la-peur`)
+
+`tools/check.sh` (Godot 4.3, sans carte graphique) : **OK**. Socle 190/190 · Bureau des rêves 547/547 · Finition 36/36 ·
+**Forêt de la peur 119/119** (structure, budgets, parcours joué en physique, eau infranchissable sans pont, 3 fleurs →
+pont, pierre de lune → porte, jeune fille guide puis assise, apaisement, talus non gravissables, props posés au sol) ·
+**Kit organique 293/293** · Recette jouée chambre → lit → forêt → réveil 23/23.
+Mesures : 534 652 triangles, 24 lumières d'ambiance. **Non mesuré** : images par seconde et rendu GPU (Forward+).
+
 ## Finition esthétique du Bureau des rêves (branche `claude/bureau-des-reves-finition`)
 
 Même environnement (Claude Code Cloud, **sans carte graphique**, Godot 4.3-stable). Commande : `tools/check.sh`.

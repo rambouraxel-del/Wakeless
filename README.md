@@ -9,6 +9,10 @@ en est un jeu **entièrement indépendant** : aucune génération procédurale, 
 **Nouveau : le Bureau des rêves en 3D stylisée** (douce, arrondie, cohérente avec Star-Faced One) — scène de démarrage.
 Détails : [docs/BUREAU_DES_REVES.md](docs/BUREAU_DES_REVES.md).
 
+**Nouveau : la Forêt de la peur** (branche `claude/foret-de-la-peur`) — premier monde onirique jouable : on s'y
+endort depuis le lit de la chambre 107. Plan : [docs/FORET_DE_LA_PEUR.md](docs/FORET_DE_LA_PEUR.md) · captures :
+[docs/captures/foret/INDEX.md](docs/captures/foret/INDEX.md).
+
 **Finition esthétique** (branche `claude/bureau-des-reves-finition`) : palette nuit désaturée, lumière chaude contre
 clair de lune, architecture moulurée, chambre 107 habitée. Galerie avant / après :
 [docs/captures/finition/INDEX.md](docs/captures/finition/INDEX.md) · direction : [docs/FINITION_DIRECTION.md](docs/FINITION_DIRECTION.md).
@@ -34,7 +38,7 @@ Personnage : **Star-Faced One** (`assets/characters/star_faced_one/`, 11 animati
 1. Télécharger **Godot 4.3 (ou plus récent 4.x) — version standard, pas « .NET »** : <https://godotengine.org/download/macos/>
    puis glisser `Godot.app` dans Applications (au premier lancement : clic droit → Ouvrir).
 2. Récupérer le projet : `git clone https://github.com/rambouraxel-del/Wakeless`, puis
-   `git checkout claude/bureau-des-reves-finition` (ou bouton **Code → Download ZIP** sur la branche).
+   `git checkout claude/foret-de-la-peur` (ou bouton **Code → Download ZIP** sur la branche).
 3. Dans Godot : **Importer** → choisir le fichier `project.godot` → **Importer et éditer** (la première ouverture importe les
    ressources, quelques secondes).
 4. **F5** (ou ▶ en haut à droite) : le jeu démarre dans l'atrium du Bureau des rêves. Pour lancer un niveau précis : ouvrir la scène puis **F6**.

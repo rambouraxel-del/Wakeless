@@ -66,3 +66,33 @@ rocher, ≤ 14 matériaux de forêt au total.
 - Budget de la scène : ≤ 600 000 triangles, ≤ 40 lumières (≤ 1 à ombres), draw calls surveillés (MultiMesh pour les
   plantes répétées).
 - Rendu des captures : logiciel (pas de GPU) ; performances GPU **non mesurables** dans le cloud.
+
+## État livré (prototype)
+
+- **Scène** `scenes/levels/foret_de_la_peur.tscn`, construite par `tools/authoring/build_foret_peur.gd` (coordonnées
+  écrites à la main ; relief cuit en maillage + collision). Entrée : lit de la chambre 107. Touches de développement :
+  F2 = cette forêt, F5 = l'ancienne forêt nocturne (conservée).
+- **Repères** : `depart` (0, 3.6) devant le cadre de porte (0, 8.6) ; jeune fille sur sa souche (−6.2, −23.6), 17 étapes
+  de guide ; étang (y −0.05), passerelle z −34.4 → −43.1, îlot (0, −45.4) ; fleurs-lanternes (−13.5, −40.5),
+  (13.5, −41.5), (−2.2, −46) ; pont de racines (2 modules, 14 m) jusqu'à z −60.9 ; impasses à feux follets (13, −78) et
+  (13.2, −99.6) ; ruine latérale et piédestal (−18.5, −88.5) ; porte de lune z −108 ; clairière (0, −128), porte
+  « Se réveiller » (8.5, −127.5). Points d'arrivée : `depart`, `marais`, `bois_noir`, `clairiere`.
+- **Gameplay** (`scripts/level/foret/`) : jeune fille (rassurer → guide → assise → « S'asseoir près d'elle », signal
+  `apaisement`) ; 3 fleurs-lanternes → pont de racines ; pierre de lune → porte de ruine ; silhouettes d'ombre qui se
+  dissolvent ; feux follets qui reculent dans les impasses.
+- **Ambiance** (`tools/authoring/foret_ambiance.gd`, `scripts/stylized/ambiance/foret_*.gd`) : préréglage `foret_peur`,
+  zones interpolées selon la position du joueur (lisière → marais → bois noir → clairière), sol / chemin / eau / brume
+  en shaders, lucioles, spores, feux follets (CPUParticles3D).
+- **Budget mesuré** : 534 652 triangles, 24 lumières d'ambiance ; arbres pleins près du chemin, `arbre_lointain_*`
+  (414 triangles) pour les murs de forêt, fondu de visibilité à 70 m.
+
+## À refaire ou enrichir dans Blender
+
+1. **La jeune fille** (priorité) : modèle, visage, chevelure et cape réels, rig et animations (assise, se lever,
+   marcher, s'asseoir, réagir) — le module actuel n'a que deux poses figées.
+2. **Arbres** : troncs sculptés (écorce, contreforts, racines qui s'enfoncent), houppiers à feuillage en cartes ou
+   masses sculptées, variantes de silhouette ; **arbre ancien** de la clairière (aujourd'hui un nuage lavande assez plat).
+3. **Racines, troncs couchés, souches, rochers moussus** : vraies formes sculptées, mousse peinte.
+4. **Ruines et porte de lune** : pierre taillée, gravures, usure.
+5. **Plantes** (fougères, herbes, roseaux, champignons, nénuphars) en cartes alpha ou modèles légers, avec vent.
+6. Remplacement : même id de module, même origine au sol, mêmes nœuds nommés (voir en tête de `style_assets_foret.gd`).
