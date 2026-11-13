@@ -1242,19 +1242,19 @@ static func escalier() -> ModuleBuilder:
 # ================================================================== végétal
 
 ## Grappe conique retombante : petites sphères décroissantes en spirale, deux teintes de glycine, courte tige.
-static func _grappe(b: ModuleBuilder, top: Vector3, length: float, R: float, k: int, n := 8) -> void:
+static func _grappe(b: ModuleBuilder, top: Vector3, length: float, R: float, k: int, n := 14) -> void:
 	var clair := M("fleur_lavande")
 	var fonce := M("glycine")
-	tube(b, top + Vector3(0, 0.1, 0), top, 0.012, 0.012, M("ecorce"), 4)
+	tube(b, top + Vector3(0.03, 0.22, 0), top, 0.011, 0.007, M("ecorce"), 5)
 	for i in n:
 		var t := float(i) / (n - 1)
-		var r := R * (1.0 - 0.72 * t)
-		var sw := sin(float(i + k) * 2.1) * 0.05 * (1.0 - t)
-		var cw := cos(float(i + k) * 2.1) * 0.05 * (1.0 - t)
+		var r := R * (1.0 - 0.6 * t)
+		var sw := sin(float(i + k) * 2.1) * 0.032 * (1.0 - t)
+		var cw := cos(float(i + k) * 2.1) * 0.032 * (1.0 - t)
 		var mat := clair if (i + k) % 2 == 0 else fonce
-		_ball(b, top + Vector3(sw, -t * length - r, cw), r, mat, 7, 4, 1.15)
+		_ball(b, top + Vector3(sw, -t * length - r, cw), r, mat, 8, 4, 1.15)
 		if i % 3 == 1 and i < n - 2:
-			_ball(b, top + Vector3(-sw * 1.8, -t * length - r * 1.4, -cw * 1.8), r * 0.75, fonce if mat == clair else clair, 7, 4, 1.1)
+			_ball(b, top + Vector3(-sw * 1.8, -t * length - r * 1.4, -cw * 1.8), r * 0.75, fonce if mat == clair else clair, 8, 3, 1.1)
 
 ## Feuille effilée (extrusion mince), pointe vers +x, base à p.
 static var _leaf_cache: ArrayMesh = null
@@ -1266,7 +1266,9 @@ static func _leaf(b: ModuleBuilder, p: Vector3, yaw_deg: float, roll_deg: float,
 ## Grappes de glycine suspendues (attache à y = 0, ~1,4 m de long) : cinq grappes coniques et quelques feuilles.
 static func glycine() -> ModuleBuilder:
 	var b := ModuleBuilder.new("glycine")
-	var cl := [[Vector3(0, 0, 0), 1.3, 0.12], [Vector3(0.27, 0.02, 0.1), 0.95, 0.1], [Vector3(-0.25, 0.0, -0.08), 1.1, 0.105], [Vector3(0.05, 0.02, -0.27), 0.75, 0.09], [Vector3(-0.1, 0.0, 0.26), 0.9, 0.095]]
+	var cl := [[Vector3(0, 0, 0), 1.45, 0.055], [Vector3(0.3, 0.02, 0.08), 1.1, 0.05], [Vector3(-0.28, 0.0, -0.06), 1.25, 0.052]]
+	tube(b, Vector3(-0.42, 0.14, 0.0), Vector3(0.0, 0.2, 0.0), 0.02, 0.016, M("ecorce"), 5)
+	tube(b, Vector3(0.0, 0.2, 0.0), Vector3(0.42, 0.13, 0.04), 0.016, 0.01, M("ecorce"), 5)
 	var k := 0
 	for c in cl:
 		_grappe(b, c[0], c[1], c[2], k)
@@ -1293,7 +1295,7 @@ static func rameau_glycine() -> ModuleBuilder:
 	var xs := [-1.1, -0.35, 0.45, 1.15]
 	for i in xs.size():
 		var L := 0.6 + 0.35 * hash01(i, 11)
-		_grappe(b, Vector3(float(xs[i]), 0.0, 0.2), L, 0.09 + 0.02 * hash01(i, 4), i * 2, 8)
+		_grappe(b, Vector3(float(xs[i]), 0.0, 0.2), L * 1.3, 0.05 + 0.008 * hash01(i, 4), i * 2, 12)
 	b.cast_shadows = false
 	return b
 

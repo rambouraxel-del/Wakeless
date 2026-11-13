@@ -102,7 +102,7 @@
 	"glycine": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 2960
+		"triangles": 3434
 	},
 	"horloge_celeste": {
 		"collisions": 0,
@@ -162,7 +162,7 @@
 	"rameau_glycine": {
 		"collisions": 0,
 		"lumieres": 0,
-		"triangles": 2652
+		"triangles": 4068
 	},
 	"rosace_plafond": {
 		"collisions": 0,
