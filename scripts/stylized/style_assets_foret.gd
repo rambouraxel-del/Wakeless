@@ -47,11 +47,11 @@ static func ids() -> PackedStringArray:
 
 static func make(id: String) -> ModuleBuilder:
 	match id:
-		"arbre_tordu_a": return _tree(id, {"seed": 3, "h": 9.5, "br": 0.52, "limbs": 3, "masses": 4, "lean": Vector2(0.16, 0.03), "sway": 0.07, "roots": 5, "fork": 0.5})
-		"arbre_tordu_b": return _tree(id, {"seed": 11, "h": 11.5, "br": 0.58, "limbs": 3, "masses": 6, "lean": Vector2(-0.1, 0.14), "sway": 0.1, "roots": 5, "fork": 0.46})
-		"arbre_tordu_c": return _tree(id, {"seed": 23, "h": 13.5, "br": 0.62, "limbs": 2, "masses": 3, "lean": Vector2(0.05, -0.18), "sway": 0.12, "roots": 6, "fork": 0.55, "mass_k": 1.2})
-		"arbre_echasses": return _tree(id, {"seed": 37, "h": 10.0, "br": 0.5, "limbs": 3, "masses": 5, "lean": Vector2(0.06, 0.06), "sway": 0.05, "stilts": 7, "fork": 0.58})
-		"arbre_mort": return _tree(id, {"seed": 53, "h": 8.5, "br": 0.46, "limbs": 3, "masses": 0, "lean": Vector2(-0.14, 0.1), "sway": 0.09, "roots": 4, "fork": 0.5, "dead": true})
+		"arbre_tordu_a": return _tree(id, {"seed": 3, "h": 9.5, "br": 0.68, "limbs": 3, "masses": 4, "lean": Vector2(0.16, 0.03), "sway": 0.07, "roots": 5, "fork": 0.5})
+		"arbre_tordu_b": return _tree(id, {"seed": 11, "h": 11.5, "br": 0.74, "limbs": 3, "masses": 5, "lean": Vector2(-0.1, 0.14), "sway": 0.1, "roots": 5, "fork": 0.46})
+		"arbre_tordu_c": return _tree(id, {"seed": 23, "h": 12.0, "br": 0.82, "limbs": 2, "masses": 3, "lean": Vector2(0.05, -0.18), "sway": 0.12, "roots": 6, "fork": 0.55, "mass_k": 1.2})
+		"arbre_echasses": return _tree(id, {"seed": 37, "h": 10.0, "br": 0.62, "limbs": 3, "masses": 5, "lean": Vector2(0.06, 0.06), "sway": 0.05, "stilts": 7, "fork": 0.58})
+		"arbre_mort": return _tree(id, {"seed": 53, "h": 8.5, "br": 0.6, "limbs": 3, "masses": 0, "lean": Vector2(-0.14, 0.1), "sway": 0.09, "roots": 4, "fork": 0.5, "dead": true})
 		"arbre_ancien": return _ancien(id)
 		"tronc_couche": return _tronc_couche(id)
 		"souche": return _souche(id)
@@ -319,6 +319,22 @@ static func _box_body(nm: String, size: Vector3, pos: Vector3) -> StaticBody3D:
 static func _dir(a: float) -> Vector3:
 	return Vector3(cos(a), 0.0, sin(a))
 
+## Masse de feuillage : lobe principal + deux lobes satellites (silhouette en nuage, ombrage lisse).
+static func _mass(b: ModuleBuilder, c: Vector3, R: float, mat: Material, seed: int, i: int, big := 0) -> void:
+	var lon := 18 if big > 0 else 16
+	var lat := 10 if big > 0 else 9
+	_blob(b, c, Vector3(R, R * 0.74, R), mat, seed, 0.14, lon, lat, Vector3(0, 40.0 * i, 0))
+	for k in 2:
+		var a := _h(seed, 5 + k) * TAU
+		var off := _dir(a) * R * (0.72 + 0.1 * k) + Vector3(0, R * (-0.18 + 0.36 * k), 0)
+		var rs := R * (0.58 - 0.06 * k)
+		_blob(b, c + off, Vector3(rs, rs * 0.78, rs), mat, seed + 17 + k, 0.14, 12 if big > 0 else 10, 7 if big > 0 else 6, Vector3(0, a * 57.3, 0))
+
+## Plaque de mousse posée sur le dessus d'un tube (centre `p`, rayon du tube `r`, direction `d` du tube).
+static func _moss(b: ModuleBuilder, p: Vector3, r: float, d: Vector3, seed: int) -> void:
+	var yaw := atan2(-d.z, d.x) * 57.2958
+	_blob(b, p + Vector3(0, r * 0.5, 0), Vector3(r * 1.5, r * 0.7, r * 1.0), M("mousse"), seed, 0.2, 14, 8, Vector3(0, yaw, 0))
+
 ## Arbre tordu : tronc évasé qui sinue, fourche en 2-4 charpentières, branches latérales, 3-6 masses lisses de feuillage
 ## aux extrémités, grosses racines, mousse sur les racines et dans la fourche.
 static func _tree(id: String, o: Dictionary) -> ModuleBuilder:
@@ -344,7 +360,7 @@ static func _tree(id: String, o: Dictionary) -> ModuleBuilder:
 		var y := lerpf(y0 - (0.0 if stilts > 0 else 0.2), fork_t * h, t)
 		pts.append(Vector3(lean.x * h * t * t * 0.5 + sway * sin(t * PI * 1.4 + ph) * t, y, lean.y * h * t * t * 0.5 + sway * cos(t * PI * 1.1 + ph) * t))
 		rad.append(br * (0.66 + 0.34 * (1.0 - t)) * (1.0 + (0.0 if stilts > 0 else 0.55 * pow(1.0 - t, 5.0))))
-	_tube(b, pts, rad, bark, {"per": 3, "segs": 14, "cap0": true})
+	_tube(b, pts, rad, bark, {"per": 3, "segs": 14, "cap0": stilts > 0})
 	var base: Vector3 = pts[0]
 	var F: Vector3 = pts[nt]
 	var top_r: float = rad[nt]
@@ -358,16 +374,16 @@ static func _tree(id: String, o: Dictionary) -> ModuleBuilder:
 		var rp: Array
 		var rr: Array
 		if stilts > 0:
-			rp = [base + d * br * 0.2 + Vector3(0, 0.5, 0), base + d * br * 1.6 + Vector3(0, 0.9, 0) + side * wob * 0.3, base + d * 2.0 + Vector3(0, 0.15, 0) + side * wob, base + d * (2.8 + 0.6 * _h(sd, 70 + i)) + Vector3(0, -0.15, 0) + side * wob * 1.4]
-			rr = [br * 0.5, br * 0.36, br * 0.26, br * 0.2]
+			var g := Vector3(base.x, 0.0, base.z)
+			rp = [g + d * br * 0.2 + Vector3(0, 2.3, 0), g + d * 1.1 + Vector3(0, 2.65, 0) + side * wob * 0.3, g + d * 1.9 + Vector3(0, 1.3, 0) + side * wob, g + d * (2.5 + 0.5 * _h(sd, 70 + i)) + Vector3(0, -0.12, 0) + side * wob * 1.2]
+			rr = [br * 0.5, br * 0.4, br * 0.3, br * 0.24]
 		else:
 			var len := 1.0 + 0.5 * _h(sd, 70 + i)
-			rp = [base + d * br * 0.5 + Vector3(0, br * 1.5, 0), base + d * br * 1.6 * len + Vector3(0, br * 0.75, 0) + side * wob * 0.4, base + d * br * 2.6 * len + Vector3(0, br * 0.28, 0) + side * wob * 0.8, base + d * br * 3.8 * len + Vector3(0, -0.12, 0) + side * wob]
-			rr = [br * 0.62, br * 0.42, br * 0.3, br * 0.2]
+			rp = [base + d * br * 0.5 + Vector3(0, br * 1.5, 0), base + d * br * 1.5 * len + Vector3(0, br * 0.8, 0) + side * wob * 0.4, base + d * br * 2.3 * len + Vector3(0, br * 0.34, 0) + side * wob * 0.8, base + d * br * 3.1 * len + Vector3(0, -0.1, 0) + side * wob]
+			rr = [br * 0.78, br * 0.55, br * 0.4, br * 0.3]
 		_tube(b, rp, rr, bark, {"per": 2, "segs": 9})
-		if i < 2 and not dead:
-			var mc: Vector3 = rp[1] + Vector3(0, rr[1] * 0.7, 0)
-			_blob(b, mc, Vector3(rr[1] * 1.5, rr[1] * 0.38, rr[1] * 1.5), moss, sd * 7 + i, 0.15, 10, 5)
+		if i < 3 and not dead and stilts == 0:
+			_moss(b, rp[1], rr[1], d, sd * 7 + i)
 	# --- charpentières
 	var nl: int = o.get("limbs", 3)
 	var tips: Array = []
@@ -407,8 +423,12 @@ static func _tree(id: String, o: Dictionary) -> ModuleBuilder:
 		var tip: Vector3 = tips[i]
 		var R := h * 0.155 * mk * (0.85 + 0.3 * _h(sd, 130 + i))
 		var mat := M("feuillage_bleu" if tip.y > maxy * 0.9 else "feuillage_sombre")
-		_blob(b, tip + Vector3(0, R * 0.4, 0), Vector3(R, R * 0.74, R), mat, sd * 13 + i, 0.16, 18, 10, Vector3(0, 40.0 * i, 0))
-	_cyl(b, br * 0.95, fork_t * h, base + Vector3(0, 0.0, 0))
+		_mass(b, tip + Vector3(0, R * 0.4, 0), R, mat, sd * 13 + i, i)
+	_cyl(b, br * 0.95, fork_t * h, Vector3(base.x, 0.0, base.z))
+	if stilts > 0:
+		for i in stilts:
+			var rf: Vector3 = Vector3(base.x, 0.0, base.z) + _dir(ph + TAU * float(i) / stilts + (_h(sd, 40 + i) - 0.5) * 0.6) * (2.5 + 0.5 * _h(sd, 70 + i))
+			_cyl(b, 0.3, 1.2, rf, "CollisionRacine%d" % (i + 1))
 	return b
 
 ## Arbre ancien de la clairière (≈ 18 m) : tronc massif à contreforts, six grosses masses doucement lumineuses.
@@ -425,7 +445,7 @@ static func _ancien(id: String) -> ModuleBuilder:
 		var t := float(k) / 5.0
 		pts.append(Vector3(0.9 * sin(t * 2.4) * t, t * 8.0 - (0.3 if k == 0 else 0.0), 0.7 * cos(t * 2.0 + 0.5) * t))
 		rad.append(br * (0.7 + 0.3 * (1.0 - t)) * (1.0 + 0.5 * pow(1.0 - t, 4.0)))
-	_tube(b, pts, rad, bark, {"per": 3, "segs": 18, "cap0": true})
+	_tube(b, pts, rad, bark, {"per": 3, "segs": 18})
 	var base: Vector3 = pts[0]
 	var F: Vector3 = pts[5]
 	var top_r: float = rad[5]
@@ -445,7 +465,7 @@ static func _ancien(id: String) -> ModuleBuilder:
 		var a := 0.9 + TAU * float(i) / 4.0
 		var d := _dir(a)
 		var side := Vector3(-d.z, 0, d.x) * (1.0 if i % 2 == 0 else -1.0)
-		var L := 8.5 + 1.2 * _h(sd, 100 + i)
+		var L := 7.4 + 1.0 * _h(sd, 100 + i)
 		var lp := [F - Vector3(0, 0.4, 0), F + d * L * 0.2 + Vector3(0, L * 0.3, 0), F + d * L * 0.5 + side * L * 0.2 + Vector3(0, L * 0.55, 0), F + d * L * 0.9 - side * L * 0.08 + Vector3(0, L * 0.78, 0)]
 		_tube(b, lp, [top_r * 0.82, top_r * 0.55, top_r * 0.32, top_r * 0.15], bark, {"per": 3, "segs": 11})
 		tips.append(lp[3])
@@ -459,7 +479,7 @@ static func _ancien(id: String) -> ModuleBuilder:
 	for i in mini(6, tips.size()):
 		var tip: Vector3 = tips[i]
 		var R := 3.6 * (0.85 + 0.3 * _h(sd, 130 + i))
-		_blob(b, tip + Vector3(0, R * 0.4, 0), Vector3(R, R * 0.72, R), M("feuillage_bleu"), sd * 13 + i, 0.16, 20, 11, Vector3(0, 40.0 * i, 0))
+		_mass(b, tip + Vector3(0, R * 0.4, 0), R, M("feuillage_bleu"), sd * 13 + i, i, 1)
 	b.omni(Vector3(0, 11.0, 0), Color("#78e0ff"), 1.3, 15.0, false, "Lueur")
 	_cyl(b, br * 1.15, 8.0, base)
 	return b
@@ -476,7 +496,7 @@ static func _tronc_couche(id: String) -> ModuleBuilder:
 	for i in 4:
 		var a := TAU * float(i) / 4.0 + 0.4
 		var d := Vector3(0, sin(a), cos(a))
-		_tube(b, [Vector3(-2.85, 0.44, 0.1), Vector3(-3.25, 0.44, 0.1) + d * 0.45 + Vector3(0, 0.1, 0), Vector3(-3.55, 0.3, 0.1) + d * 0.9 * Vector3(1, 1, 1)], [0.2, 0.13, 0.06], bark, {"per": 2, "segs": 7})
+		_tube(b, [Vector3(-2.85, 0.44, 0.1), Vector3(-3.25, 0.44, 0.1) + d * Vector3(1.0, 0.45, 1.0) * 0.4 + Vector3(0, 0.1, 0), Vector3(-3.5, 0.34, 0.1) + d * Vector3(1.0, 0.4, 1.0) * 0.8], [0.2, 0.13, 0.06], bark, {"per": 2, "segs": 7})
 	# moignons de branches sur les flancs
 	_tube(b, [Vector3(0.6, 0.5, 0.2), Vector3(0.9, 0.65, 0.65), Vector3(1.1, 0.7, 1.05)], [0.13, 0.1, 0.06], bark, {"per": 2, "segs": 7})
 	_tube(b, [Vector3(-1.4, 0.4, -0.2), Vector3(-1.5, 0.55, -0.7), Vector3(-1.65, 0.62, -1.1)], [0.12, 0.09, 0.05], bark, {"per": 2, "segs": 7})
@@ -586,16 +606,20 @@ static func _cercle_pierres(id: String) -> ModuleBuilder:
 	var b := ModuleBuilder.new(id)
 	var rock := M("pierre_mousse")
 	var moss := M("mousse")
-	var n := 8
+	var n := 7
 	for i in n:
 		var a := TAU * float(i) / n + 0.2
 		var c := _dir(a) * (3.8 + 0.25 * (_h(i, 1) - 0.5))
-		var hgt := 1.0 + 0.55 * _h(i, 2)
-		var rx := 0.5 + 0.12 * _h(i, 3)
-		var lean := Vector3((_h(i, 4) - 0.5) * 10.0, 0.0, (_h(i, 5) - 0.5) * 10.0)
-		_blob(b, c + Vector3(0, hgt * 0.8, 0), Vector3(rx, hgt, rx * 0.8), rock, 400 + i, 0.17, 12, 7, lean + Vector3(0, a * 57.3, 0))
-		_blob(b, c + Vector3(0, hgt * 1.7, 0), Vector3(rx * 0.7, 0.12, rx * 0.6), moss, 430 + i, 0.2, 9, 4)
-		_cyl(b, rx * 0.8, hgt * 1.7, c, "CollisionPierre%d" % (i + 1))
+		var hgt := 1.0 + 0.5 * _h(i, 2)
+		var rx := 0.5 + 0.1 * _h(i, 3)
+		var yaw := Vector3(0, -a * 57.3 + 90.0, 0)
+		var lean := Vector3((_h(i, 4) - 0.5) * 8.0, 0.0, (_h(i, 5) - 0.5) * 8.0)
+		# menhir : bloc haut bosselé, légèrement penché, deux gros cailloux au pied, mousse en couronne basse
+		_blob(b, c + Vector3(0, hgt * 0.85, 0), Vector3(rx * 1.05, hgt * 0.98, rx * 0.62), rock, 400 + i, 0.3, 10, 6, yaw + lean * 1.6)
+		_blob(b, c + Vector3(rx * 0.9, 0.16, rx * 0.2) * Basis.from_euler(Vector3(0, a, 0)), Vector3(rx * 0.55, 0.28, rx * 0.5), rock, 440 + i, 0.25, 6, 4, yaw)
+		_blob(b, c + Vector3(-rx * 0.8, 0.12, -rx * 0.3) * Basis.from_euler(Vector3(0, a, 0)), Vector3(rx * 0.45, 0.22, rx * 0.4), rock, 450 + i, 0.25, 6, 4, yaw)
+		_blob(b, c + Vector3(0, hgt * 1.7, 0), Vector3(rx * 0.55, 0.12, rx * 0.35), moss, 430 + i, 0.3, 8, 4, yaw + lean)
+		_cyl(b, rx * 0.85, hgt * 1.5, c, "CollisionPierre%d" % (i + 1))
 	return b
 
 # ================================================================== plantes
@@ -926,7 +950,7 @@ static func _pont(id: String) -> ModuleBuilder:
 	var py := 0.22
 	var n := 4
 	for k in n:
-		var z0 := 3.5 - 1.75 * k
+		var z0 := 3.2 - 1.6 * k
 		var parts: Array = []
 		var pivot := Node3D.new()
 		pivot.name = "Racine_%d" % (k + 1)
@@ -935,13 +959,13 @@ static func _pont(id: String) -> ModuleBuilder:
 		for s in 3:
 			var x := (s - 1) * 0.52
 			var r := 0.4 if s == 1 else 0.32
-			var pts := [Vector3(x, 0.0, 0.15), Vector3(x + 0.04 * (k % 2 * 2 - 1), 0.05, -0.65), Vector3(x - 0.03, 0.08, -1.3), Vector3(x, 0.0, -2.0)]
+			var pts := [Vector3(x, 0.0, 0.0), Vector3(x + 0.04 * (k % 2 * 2 - 1), 0.05, -0.5), Vector3(x - 0.03, 0.08, -1.0), Vector3(x, 0.0, -1.5)]
 			parts.append([_tube_mesh(pts, [r * 0.95, r, r * 0.96, r * 0.9], bark, {"per": 2, "segs": 9, "cap0": true, "capn": 2}), Transform3D.IDENTITY])
 		for s in 2:
 			var sg := -1.0 if s == 0 else 1.0
-			var pts := [Vector3(-0.5 * sg, 0.28, 0.1), Vector3(0.45 * sg, 0.4, -0.6), Vector3(-0.4 * sg, 0.4, -1.3), Vector3(0.1 * sg, 0.26, -1.9)]
+			var pts := [Vector3(-0.5 * sg, 0.28, 0.1), Vector3(0.45 * sg, 0.4, -0.45), Vector3(-0.4 * sg, 0.4, -1.0), Vector3(0.1 * sg, 0.26, -1.5)]
 			parts.append([_tube_mesh(pts, [0.1, 0.11, 0.1, 0.08], bark, {"per": 3, "segs": 6}), Transform3D.IDENTITY])
-		parts.append([_blob_mesh(Vector3(0.1, 0.46, -0.9), Vector3(0.45, 0.08, 0.5), moss, 1000 + k, 0.2, 10, 4), Transform3D.IDENTITY])
+		parts.append([_blob_mesh(Vector3(0.1, 0.46, -0.7), Vector3(0.45, 0.08, 0.4), moss, 1000 + k, 0.2, 10, 4), Transform3D.IDENTITY])
 		pivot.add_child(_mesh_node("MaillageRacine%d" % (k + 1), parts))
 		b.extras.append(pivot)
 	# talus fixes aux deux rives
@@ -956,35 +980,41 @@ static func _silhouette(id: String) -> ModuleBuilder:
 	var b := ModuleBuilder.new(id)
 	b.cast_shadows = false
 	var m := M("ombre_foret")
-	# longue robe qui se délite vers le sol, buste étroit, cou long, tête allongée, bras pendants trop longs
-	_tube(b, [Vector3(0, 0.0, 0), Vector3(0, 0.7, 0.02), Vector3(0.0, 1.5, 0.0), Vector3(0, 2.05, 0.04)], [0.34, 0.26, 0.2, 0.12], m, {"per": 3, "segs": 12, "cap0": true})
-	_tube(b, [Vector3(0, 1.95, 0.04), Vector3(0, 2.3, 0.08), Vector3(0, 2.48, 0.1)], [0.09, 0.06, 0.06], m, {"per": 2, "segs": 10, "cap1": false})
-	_blob(b, Vector3(0, 2.62, 0.12), Vector3(0.14, 0.2, 0.15), m, 1020, 0.05, 12, 8)
+	# haute (≈ 2,9 m), mince, un peu penchée : longue robe qui se délite en lambeaux, cou long, tête ovale, bras trop longs
+	_tube(b, [Vector3(0, 0.0, 0), Vector3(0.02, 0.8, 0.0), Vector3(0.0, 1.55, 0.02), Vector3(0.0, 2.05, 0.05)], [0.24, 0.18, 0.15, 0.1], m, {"per": 3, "segs": 12, "cap0": true})
+	_tube(b, [Vector3(0, 1.95, 0.05), Vector3(0, 2.3, 0.1), Vector3(0.0, 2.5, 0.14)], [0.07, 0.045, 0.045], m, {"per": 2, "segs": 10, "cap1": false})
+	_blob(b, Vector3(0, 2.68, 0.16), Vector3(0.12, 0.21, 0.13), m, 1020, 0.05, 12, 8)
 	for s in [-1.0, 1.0]:
-		_tube(b, [Vector3(0.14 * s, 1.95, 0.0), Vector3(0.3 * s, 1.4, 0.04), Vector3(0.34 * s, 0.7, 0.1), Vector3(0.32 * s, 0.1, 0.1)], [0.06, 0.05, 0.04, 0.025], m, {"per": 3, "segs": 8})
+		_tube(b, [Vector3(0.1 * s, 1.98, 0.03), Vector3(0.2 * s, 1.5, 0.08), Vector3(0.23 * s, 0.9, 0.12), Vector3(0.2 * s, 0.35, 0.16)], [0.05, 0.04, 0.032, 0.014], m, {"per": 3, "segs": 8})
 	# deux minuscules points pâles
 	for s in [-1.0, 1.0]:
-		_blob(b, Vector3(0.05 * s, 2.64, 0.265), Vector3(0.011, 0.011, 0.011), M("fleur_blanche"), 1030, 0.0, 6, 4)
+		_blob(b, Vector3(0.05 * s, 2.7, 0.285), Vector3(0.012, 0.012, 0.012), M("fleur_blanche"), 1030, 0.0, 6, 4)
 	return b
 
 # ------------------------------------------------------------------ la jeune fille (provisoire)
 
-static func _fille_commun(parts: Array, head: Vector3, head_tilt: float) -> void:
+static func _pt(parts: Array, mesh: ArrayMesh) -> void:
+	parts.append([mesh, Transform3D.IDENTITY])
+
+## Tête (grosse, douce, traits réduits à deux petits points), cheveux, frange, nattes, écharpe chaude (l'accent), joues à peine teintées.
+static func _fille_tete(parts: Array, head: Vector3, tilt: float) -> void:
 	var skin := M("lin_creme")
 	var hair := M("bois_sombre")
 	var scarf := M("chaud_fille")
-	# tête (grosse, douce, sans traits), cheveux, frange, deux nattes
-	parts.append([_blob_mesh(head, Vector3(0.118, 0.128, 0.118), skin, 1040, 0.02, 16, 10, Vector3(head_tilt, 0, 0)), Transform3D.IDENTITY])
-	var hb := Basis.from_euler(Vector3(deg_to_rad(head_tilt), 0, 0))
-	parts.append([_blob_mesh(head + hb * Vector3(0, 0.02, -0.03), Vector3(0.138, 0.14, 0.135), hair, 1041, 0.04, 16, 10, Vector3(head_tilt, 0, 0)), Transform3D.IDENTITY])
-	parts.append([_blob_mesh(head + hb * Vector3(0, 0.085, 0.07), Vector3(0.115, 0.05, 0.065), hair, 1042, 0.06, 12, 6, Vector3(head_tilt - 15.0, 0, 0)), Transform3D.IDENTITY])
+	var hb := Basis.from_euler(Vector3(deg_to_rad(tilt), 0, 0))
+	_pt(parts, _blob_mesh(head, Vector3(0.122, 0.132, 0.118), skin, 1040, 0.0, 18, 11, Vector3(tilt, 0, 0)))
+	_pt(parts, _blob_mesh(head + hb * Vector3(0, 0.03, -0.05), Vector3(0.136, 0.14, 0.126), hair, 1041, 0.0, 18, 11, Vector3(tilt, 0, 0)))
+	_pt(parts, _blob_mesh(head + hb * Vector3(0, 0.092, 0.05), Vector3(0.12, 0.05, 0.07), hair, 1042, 0.0, 14, 7, Vector3(tilt - 14.0, 0, 0)))
+	_pt(parts, _blob_mesh(head + hb * Vector3(0, -0.12, -0.085), Vector3(0.112, 0.17, 0.07), hair, 1043, 0.03, 14, 8, Vector3(tilt, 0, 0)))
 	for s in [-1.0, 1.0]:
-		var p0 := head + hb * Vector3(0.1 * s, -0.04, -0.04)
-		parts.append([_tube_mesh([p0, p0 + Vector3(0.05 * s, -0.16, -0.05), p0 + Vector3(0.06 * s, -0.34, -0.07)], [0.03, 0.028, 0.02], hair, {"per": 2, "segs": 6}), Transform3D.IDENTITY])
-	# écharpe chaude : l'accent
-	var neck := head + hb * Vector3(0, -0.13, 0.0)
-	parts.append([StyleKit.torus(0.095, 0.034, scarf, 14, 6), Transform3D(Basis(), neck)])
-	parts.append([_tube_mesh([neck + Vector3(0.06, -0.02, 0.08), neck + Vector3(0.1, -0.14, 0.1), neck + Vector3(0.1, -0.3, 0.07)], [0.03, 0.032, 0.026], scarf, {"per": 2, "segs": 6, "flat": 0.5}), Transform3D.IDENTITY])
+		var p0 := head + hb * Vector3(0.105 * s, -0.05, -0.03)
+		_pt(parts, _tube_mesh([p0, p0 + hb * Vector3(0.045 * s, -0.12, 0.0), p0 + hb * Vector3(0.05 * s, -0.26, -0.03)], [0.034, 0.03, 0.022], hair, {"per": 2, "segs": 8}))
+		_pt(parts, _blob_mesh(head + hb * Vector3(0.04 * s, -0.005, 0.108), Vector3(0.011, 0.015, 0.007), hair, 1044, 0.0, 6, 4, Vector3(tilt, 0, 0)))
+		_pt(parts, _blob_mesh(head + hb * Vector3(0.068 * s, -0.04, 0.092), Vector3(0.015, 0.009, 0.006), scarf, 1045, 0.0, 6, 4, Vector3(tilt, 0, 0)))
+	var neck := head + hb * Vector3(0, -0.1, 0.01)
+	parts.append([StyleKit.torus(0.098, 0.048, scarf, 20, 8), Transform3D(Basis.from_euler(Vector3(deg_to_rad(tilt * 0.5), 0, 0)), neck)])
+	_pt(parts, _blob_mesh(neck + Vector3(-0.05, -0.03, 0.115), Vector3(0.028, 0.028, 0.024), scarf, 1046, 0.1, 8, 5))
+	_pt(parts, _tube_mesh([neck + Vector3(-0.05, -0.04, 0.12), neck + Vector3(-0.07, -0.13, 0.13), neck + Vector3(-0.06, -0.2, 0.12)], [0.026, 0.028, 0.024], scarf, {"per": 2, "segs": 8, "flat": 0.4, "wdir": Vector3(1, 0, 0)}))
 
 static func _fille(id: String) -> ModuleBuilder:
 	var b := ModuleBuilder.new(id)
@@ -992,39 +1022,39 @@ static func _fille(id: String) -> ModuleBuilder:
 	var cape := M("feuillage_sombre")
 	var skin := M("lin_creme")
 	var hair := M("bois_sombre")
-	# ---------------- debout (≈ 1,35 m)
+	# ---------------- debout (≈ 1,35 m), mains jointes devant elle
 	var p: Array = []
-	p.append([StyleKit.lathe(PackedVector2Array([Vector2(0.27, 0.38), Vector2(0.25, 0.5), Vector2(0.19, 0.72), Vector2(0.12, 0.92), Vector2(0.095, 1.0), Vector2(0.115, 1.08), Vector2(0.07, 1.14)]), 16, dress, false, true), Transform3D.IDENTITY])
+	var prof := PackedVector2Array([Vector2(0.3, 0.4), Vector2(0.29, 0.45), Vector2(0.26, 0.56), Vector2(0.21, 0.7), Vector2(0.16, 0.84), Vector2(0.125, 0.95), Vector2(0.108, 1.03), Vector2(0.12, 1.08), Vector2(0.1, 1.12), Vector2(0.05, 1.14)])
+	_pt(p, StyleKit.lathe(prof, 22, dress, false, true))
+	p.append([StyleKit.torus(0.292, 0.022, dress, 22, 6), Transform3D(Basis(), Vector3(0, 0.425, 0))])
+	_pt(p, StyleKit.lathe(PackedVector2Array([Vector2(0.046, 1.08), Vector2(0.042, 1.16)]), 10, skin, false, false))
 	for s in [-1.0, 1.0]:
-		p.append([_tube_mesh([Vector3(0.05 * s, 0.42, 0.0), Vector3(0.055 * s, 0.2, 0.02), Vector3(0.055 * s, 0.05, 0.02)], [0.035, 0.03, 0.028], skin, {"per": 2, "segs": 6}), Transform3D.IDENTITY])
-		p.append([_blob_mesh(Vector3(0.055 * s, 0.03, 0.05), Vector3(0.045, 0.035, 0.07), hair, 1050, 0.05, 8, 5), Transform3D.IDENTITY])
-		p.append([_tube_mesh([Vector3(0.1 * s, 1.07, 0.0), Vector3(0.15 * s, 0.88, 0.04), Vector3(0.15 * s, 0.7, 0.1)], [0.04, 0.036, 0.03], dress, {"per": 2, "segs": 7}), Transform3D.IDENTITY])
-		p.append([_blob_mesh(Vector3(0.15 * s, 0.67, 0.12), Vector3(0.03, 0.035, 0.03), skin, 1051, 0.05, 8, 5), Transform3D.IDENTITY])
-	# cape sur le dos et capuche
-	p.append([_blob_mesh(Vector3(0, 0.78, -0.07), Vector3(0.2, 0.42, 0.11), cape, 1052, 0.05, 14, 9, Vector3(-6, 0, 0)), Transform3D.IDENTITY])
-	p.append([_blob_mesh(Vector3(0, 1.12, -0.07), Vector3(0.18, 0.1, 0.12), cape, 1053, 0.05, 12, 6), Transform3D.IDENTITY])
-	_fille_commun(p, Vector3(0, 1.2, 0.0), 0.0)
-	var deb := _mesh_node("MaillageDebout", p)
+		_pt(p, _tube_mesh([Vector3(0.055 * s, 0.44, 0.0), Vector3(0.058 * s, 0.22, 0.01), Vector3(0.058 * s, 0.07, 0.01)], [0.036, 0.032, 0.03], skin, {"per": 2, "segs": 8}))
+		_pt(p, _blob_mesh(Vector3(0.058 * s, 0.04, 0.035), Vector3(0.05, 0.04, 0.08), hair, 1050, 0.05, 10, 6))
+		_pt(p, _tube_mesh([Vector3(0.105 * s, 1.07, 0.0), Vector3(0.14 * s, 0.9, 0.05), Vector3(0.07 * s, 0.77, 0.14)], [0.047, 0.043, 0.036], dress, {"per": 3, "segs": 9}))
+		_pt(p, _blob_mesh(Vector3(0.035 * s, 0.75, 0.165), Vector3(0.034, 0.034, 0.034), skin, 1051, 0.05, 8, 6))
+	_pt(p, _blob_mesh(Vector3(0, 0.82, -0.085), Vector3(0.2, 0.4, 0.1), cape, 1052, 0.05, 16, 10, Vector3(-6, 0, 0)))
+	_pt(p, StyleKit.lathe(PackedVector2Array([Vector2(0.215, 0.84), Vector2(0.2, 0.9), Vector2(0.17, 0.99), Vector2(0.14, 1.06), Vector2(0.115, 1.1), Vector2(0.1, 1.12)]), 20, cape, false, false))
+	_fille_tete(p, Vector3(0, 1.26, 0.0), 0.0)
 	var nd := Node3D.new()
 	nd.name = "Debout"
-	nd.add_child(deb)
+	nd.add_child(_mesh_node("MaillageDebout", p))
 	b.extras.append(nd)
-	# ---------------- assise, recroquevillée : genoux remontés, bras autour, tête penchée
+	# ---------------- assise, recroquevillée : genoux remontés, bras autour, tête penchée (pieds et jupe à y = 0)
 	var q: Array = []
-	q.append([_blob_mesh(Vector3(0, 0.17, 0.0), Vector3(0.27, 0.17, 0.27), dress, 1060, 0.05, 14, 8), Transform3D.IDENTITY])
-	q.append([_tube_mesh([Vector3(0, 0.2, -0.06), Vector3(0, 0.38, -0.04), Vector3(0, 0.52, 0.0)], [0.14, 0.12, 0.09], dress, {"per": 3, "segs": 10, "cap0": true}), Transform3D.IDENTITY])
+	_pt(q, _blob_mesh(Vector3(0, 0.15, 0.02), Vector3(0.29, 0.15, 0.3), dress, 1060, 0.05, 16, 8))
+	_pt(q, _tube_mesh([Vector3(0, 0.18, -0.07), Vector3(0, 0.36, -0.05), Vector3(0, 0.5, 0.0)], [0.15, 0.125, 0.095], dress, {"per": 3, "segs": 12, "cap0": true}))
 	for s in [-1.0, 1.0]:
-		q.append([_tube_mesh([Vector3(0.09 * s, 0.17, 0.0), Vector3(0.1 * s, 0.34, 0.2), Vector3(0.1 * s, 0.34, 0.3)], [0.07, 0.065, 0.06], dress, {"per": 3, "segs": 8}), Transform3D.IDENTITY])
-		q.append([_blob_mesh(Vector3(0.07 * s, 0.03, 0.31), Vector3(0.045, 0.035, 0.07), hair, 1061, 0.05, 8, 5), Transform3D.IDENTITY])
-		q.append([_tube_mesh([Vector3(0.1 * s, 0.52, 0.0), Vector3(0.18 * s, 0.46, 0.2), Vector3(0.08 * s, 0.42, 0.36)], [0.04, 0.036, 0.03], dress, {"per": 2, "segs": 7}), Transform3D.IDENTITY])
-		q.append([_blob_mesh(Vector3(0.05 * s, 0.42, 0.38), Vector3(0.03, 0.03, 0.035), skin, 1062, 0.05, 8, 5), Transform3D.IDENTITY])
-	q.append([_blob_mesh(Vector3(0, 0.34, -0.1), Vector3(0.27, 0.34, 0.2), cape, 1063, 0.06, 14, 9, Vector3(10, 0, 0)), Transform3D.IDENTITY])
-	q.append([_blob_mesh(Vector3(0, 0.6, -0.08), Vector3(0.17, 0.1, 0.12), cape, 1064, 0.05, 12, 6), Transform3D.IDENTITY])
-	_fille_commun(q, Vector3(0, 0.66, 0.14), 28.0)
-	var ass := _mesh_node("MaillageAssise", q)
+		_pt(q, _tube_mesh([Vector3(0.09 * s, 0.17, 0.02), Vector3(0.1 * s, 0.33, 0.2), Vector3(0.1 * s, 0.35, 0.3)], [0.075, 0.07, 0.065], dress, {"per": 3, "segs": 10}))
+		_pt(q, _blob_mesh(Vector3(0.075 * s, 0.035, 0.31), Vector3(0.05, 0.04, 0.08), hair, 1061, 0.05, 10, 6))
+		_pt(q, _tube_mesh([Vector3(0.11 * s, 0.5, 0.0), Vector3(0.17 * s, 0.44, 0.2), Vector3(0.06 * s, 0.42, 0.36)], [0.045, 0.042, 0.035], dress, {"per": 2, "segs": 8}))
+		_pt(q, _blob_mesh(Vector3(0.04 * s, 0.42, 0.385), Vector3(0.034, 0.034, 0.036), skin, 1062, 0.05, 8, 6))
+	_pt(q, _blob_mesh(Vector3(0, 0.34, -0.1), Vector3(0.28, 0.34, 0.2), cape, 1063, 0.06, 16, 10, Vector3(10, 0, 0)))
+	_pt(q, StyleKit.lathe(PackedVector2Array([Vector2(0.2, 0.34), Vector2(0.19, 0.4), Vector2(0.165, 0.47), Vector2(0.13, 0.52), Vector2(0.11, 0.54)]), 18, cape, false, false))
+	_fille_tete(q, Vector3(0, 0.68, 0.14), 30.0)
 	var na := Node3D.new()
 	na.name = "Assise"
-	na.add_child(ass)
+	na.add_child(_mesh_node("MaillageAssise", q))
 	na.visible = false
 	b.extras.append(na)
 	return b

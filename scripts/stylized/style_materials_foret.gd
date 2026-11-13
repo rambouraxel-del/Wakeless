@@ -34,16 +34,16 @@ static func _s(base: String, top: String, rough: float, extra := {}) -> ShaderMa
 
 static func add(d: Dictionary) -> void:
 	# --- bois
-	d["ecorce_foret"] = _s("#3b3b58", "#2f2c48", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 2.2, "wood": 0.5, "wood_freq": 13.0, "rim_strength": 0.22, "rim_power": 3.0, "rim_color": "#7088cc", "specular": 0.15})
-	d["ecorce_morte"] = _s("#80839a", "#6c6f88", 0.95, {"gradient_top": 8.0, "variation": 0.18, "variation_scale": 2.0, "wood": 0.7, "wood_freq": 9.0, "rim_strength": 0.2, "rim_power": 3.0, "rim_color": "#b8c4f0", "specular": 0.1})
+	d["ecorce_foret"] = _s("#5e4a58", "#4a3a50", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 2.2, "wood": 0.5, "wood_freq": 13.0, "rim_strength": 0.22, "rim_power": 3.0, "rim_color": "#7088cc", "specular": 0.15})
+	d["ecorce_morte"] = _s("#a39ca4", "#8e8896", 0.95, {"gradient_top": 8.0, "variation": 0.18, "variation_scale": 2.0, "wood": 0.7, "wood_freq": 9.0, "rim_strength": 0.2, "rim_power": 3.0, "rim_color": "#b8c4f0", "specular": 0.1})
 	# --- végétal
-	d["mousse"] = _s("#3c6a5c", "#5a8c72", 0.95, {"gradient_top": 6.0, "variation": 0.2, "variation_scale": 3.0, "rim_strength": 0.26, "rim_power": 2.6, "rim_color": "#a0e8d0", "specular": 0.05})
-	d["feuillage_sombre"] = _s("#223c4a", "#335c62", 0.92, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.9, "rim_strength": 0.2, "rim_power": 2.6, "rim_color": "#78c4cc", "specular": 0.05})
-	d["feuillage_bleu"] = _s("#2c5468", "#4a8498", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.8, "emission_color": "#3a8cb4", "emission_energy": 0.07, "rim_strength": 0.28, "rim_power": 2.4, "rim_color": "#a4eaf4", "specular": 0.05})
+	d["mousse"] = _s("#547c4c", "#6a9458", 0.95, {"gradient_top": 6.0, "variation": 0.2, "variation_scale": 3.0, "rim_strength": 0.26, "rim_power": 2.6, "rim_color": "#a0e8d0", "specular": 0.05})
+	d["feuillage_sombre"] = _s("#3a6a4c", "#4e8660", 0.92, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.9, "rim_strength": 0.2, "rim_power": 2.6, "rim_color": "#78c4cc", "specular": 0.05})
+	d["feuillage_bleu"] = _s("#4a8a7c", "#6cb09c", 0.9, {"gradient_top": 14.0, "variation": 0.16, "variation_scale": 0.8, "emission_color": "#3a8cb4", "emission_energy": 0.07, "rim_strength": 0.28, "rim_power": 2.4, "rim_color": "#a4eaf4", "specular": 0.05})
 	d["plante_sombre"] = _s("#24433f", "#3a6c5c", 0.9, {"gradient_top": 2.0, "variation": 0.14, "variation_scale": 2.0, "rim_strength": 0.24, "rim_power": 2.6, "rim_color": "#84d8bc", "specular": 0.08})
 	# --- pierre
-	d["pierre_mousse"] = _s("#4c5066", "#40475a", 0.88, {"gradient_top": 5.0, "variation": 0.14, "variation_scale": 1.5, "dirt": 0.25, "rim_strength": 0.16, "rim_power": 3.0, "rim_color": "#90a4d8", "specular": 0.2})
-	d["pierre_ruine"] = _s("#6e7089", "#5c5e79", 0.85, {"gradient_top": 6.0, "variation": 0.12, "variation_scale": 1.2, "dirt": 0.3, "rim_strength": 0.18, "rim_power": 3.0, "rim_color": "#b4bcec", "specular": 0.25})
+	d["pierre_mousse"] = _s("#5e5c68", "#524f60", 0.88, {"gradient_top": 5.0, "variation": 0.14, "variation_scale": 1.5, "dirt": 0.25, "rim_strength": 0.16, "rim_power": 3.0, "rim_color": "#90a4d8", "specular": 0.2})
+	d["pierre_ruine"] = _s("#74707e", "#656270", 0.85, {"gradient_top": 6.0, "variation": 0.12, "variation_scale": 1.2, "dirt": 0.3, "rim_strength": 0.18, "rim_power": 3.0, "rim_color": "#b4bcec", "specular": 0.25})
 	# --- lueurs (champignons, nénuphars, fleurs) : cyan froid, un cœur plus lumineux
 	d["champi_lueur"] = _s("#1d5c6c", "#2a7a88", 0.5, {"emission_color": "#4fe6ff", "emission_energy": 1.1, "core_boost": 1.0, "rim_strength": 0.4, "rim_power": 2.2, "rim_color": "#c4fbff", "specular": 0.3})
 	d["nenuphar_lueur"] = _s("#1f4a48", "#2a625c", 0.6, {"emission_color": "#36c4d4", "emission_energy": 0.5, "rim_strength": 0.3, "rim_power": 2.4, "rim_color": "#a0f0f0", "specular": 0.25})
