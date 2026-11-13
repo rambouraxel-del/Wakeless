@@ -1,34 +1,34 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/casier_cles.res" id="1_ddx03"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/casier_cles.res" id="1_uy5ei"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_10xy7"]
-size = Vector3(3.7, 2.3, 0.6)
+[sub_resource type="BoxShape3D" id="BoxShape3D_dymjl"]
+size = Vector3(2.9, 1.3, 0.5)
 
 [node name="CasierCles" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_ddx03")
+mesh = ExtResource("1_uy5ei")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.28)
-shape = SubResource("BoxShape3D_10xy7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0.25)
+shape = SubResource("BoxShape3D_dymjl")
 
 [node name="LumiereCasier" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 1.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.2)
 light_color = Color(1, 0.690196, 0.4, 1)
 distance_fade_enabled = true
 distance_fade_begin = 32.0
 distance_fade_shadow = 18.0
-omni_range = 4.5
+omni_range = 4.0
 omni_attenuation = 1.4
 
 [node name="Plaque_101" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "101"
@@ -36,8 +36,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_102" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "102"
@@ -45,8 +45,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_103" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "103"
@@ -54,8 +54,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_104" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "104"
@@ -63,8 +63,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_105" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "105"
@@ -72,8 +72,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_106" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "106"
@@ -81,8 +81,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_107" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "107"
@@ -90,8 +90,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_108" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47, 1.54, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12, 0.73, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "108"
@@ -99,8 +99,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_109" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "109"
@@ -108,8 +108,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_110" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "110"
@@ -117,8 +117,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_111" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "111"
@@ -126,8 +126,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_112" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "112"
@@ -135,8 +135,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_113" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "113"
@@ -144,8 +144,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_114" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "114"
@@ -153,8 +153,8 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_115" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "115"
@@ -162,82 +162,10 @@ font_size = 22
 outline_size = 0
 
 [node name="Plaque_116" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47, 1.96, 0.1585)
-pixel_size = 0.0014
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12, 1.09, 0.1265)
+pixel_size = 0.0012
 double_sided = false
 modulate = Color(0.227451, 0.141176, 0.188235, 1)
 text = "116"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_117" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "117"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_118" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "118"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_119" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "119"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_120" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "120"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_121" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "121"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_122" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "122"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_123" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "123"
-font_size = 22
-outline_size = 0
-
-[node name="Plaque_124" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47, 2.38, 0.1585)
-pixel_size = 0.0014
-double_sided = false
-modulate = Color(0.227451, 0.141176, 0.188235, 1)
-text = "124"
 font_size = 22
 outline_size = 0

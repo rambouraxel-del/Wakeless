@@ -7,7 +7,7 @@
 	"arbre_de_lune": {
 		"collisions": 1,
 		"lumieres": 1,
-		"triangles": 15038
+		"triangles": 12678
 	},
 	"arcade": {
 		"collisions": 0,
@@ -52,7 +52,7 @@
 	"casier_cles": {
 		"collisions": 1,
 		"lumieres": 1,
-		"triangles": 8928
+		"triangles": 5104
 	},
 	"chariot_bagages": {
 		"collisions": 1,
@@ -72,7 +72,7 @@
 	"escalier_grand": {
 		"collisions": 3,
 		"lumieres": 0,
-		"triangles": 14324
+		"triangles": 13968
 	},
 	"etagere_livres": {
 		"collisions": 1,

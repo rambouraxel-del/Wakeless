@@ -17,7 +17,7 @@ static func add(d: Dictionary) -> void:
 	mv.shader = load(StyleMaterials.DIR + "marbre_veine.gdshader")
 	d["marbre_comptoir"] = mv
 	# --- végétal : fleurs étagées, glycines, feuilles
-	d["fleur_lavande"] = StyleMaterials._surface("#b9a4f0", "#a28ae2", 0.85, {"emission_color": "#7a58d8", "emission_energy": 0.28, "rim_strength": 0.3, "rim_color": "#f0e4ff"})
-	d["fleur_rose"] = StyleMaterials._surface("#e8b0c6", "#d89cb4", 0.85, {"emission_color": "#c0587e", "emission_energy": 0.26, "rim_strength": 0.3, "rim_color": "#fff0f4"})
+	d["fleur_lavande"] = StyleMaterials._surface("#b9a4f0", "#a28ae2", 0.85, {"emission_color": "#7a58d8", "emission_energy": 0.1, "rim_strength": 0.25, "rim_color": "#f0e4ff"})
+	d["fleur_rose"] = StyleMaterials._surface("#e8b0c6", "#d89cb4", 0.85, {"emission_color": "#c0587e", "emission_energy": 0.1, "rim_strength": 0.25, "rim_color": "#fff0f4"})
 	# --- petites lumières décoratives (modérées)
-	d["lueur_douce"] = StyleMaterials._glow("#ffe0b0", "#ffb066", 0.9)
+	d["lueur_douce"] = StyleMaterials._glow("#ffc67a", "#ff9a3c", 0.8)

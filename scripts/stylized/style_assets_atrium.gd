@@ -265,7 +265,7 @@ static func line_between(a: Vector3, b: Vector3, thick: float, depth: float, mat
 	return [fbox(Vector3(len, thick, depth), mat), Transform3D(basis, (a + b) * 0.5)]
 
 ## Constellation : étoiles reliées par des filets. pts : Array de Vector2 (plan local x, y) ; links : paires d'index.
-static func constellation(pts: Array, links: Array, star_r: float, scale: float, origin: Transform3D, parts: Array, star_mat := "etoile_or", line_mat := "or_vieilli") -> void:
+static func constellation(pts: Array, links: Array, star_r: float, scale: float, origin: Transform3D, parts: Array, star_mat := "or_vieilli", line_mat := "or_vieilli") -> void:
 	for l in links:
 		var pa: Vector2 = pts[l[0]] * scale
 		var pb: Vector2 = pts[l[1]] * scale
@@ -316,13 +316,13 @@ static func pilaster_parts(h: float, base_h := 1.25, cap_h := 0.8) -> Array:
 	parts.append([fbox(Vector3(1.08, 0.12, 0.56), stone), ModuleBuilder.at(Vector3(0, h - 0.06, 0.26))])
 	var my := h - 0.17 - (cap_h - 0.34) * 0.5
 	parts.append([_small_crescent(), ModuleBuilder.at(Vector3(-0.12, my, 0.5), Vector3(0, 0, 90))])
-	parts.append([star_mesh(0.09, "etoile_or", 0.03), ModuleBuilder.at(Vector3(0.14, my, 0.5))])
+	parts.append([star_mesh(0.09, "or_vieilli", 0.03), ModuleBuilder.at(Vector3(0.14, my, 0.5))])
 	return parts
 
 static var _cres_cache: ArrayMesh = null
 static func _small_crescent() -> ArrayMesh:
 	if _cres_cache == null:
-		_cres_cache = StyleKit.extrude(StyleKit.crescent_outline(0.12, 0.55, 8), 0.03, M("etoile_or"), 0.0)
+		_cres_cache = StyleKit.extrude(StyleKit.crescent_outline(0.12, 0.55, 8), 0.03, M("or_vieilli"), 0.0)
 	return _cres_cache
 
 # ================================================================== habillage des murs de l'atrium
@@ -481,14 +481,14 @@ static func dress_walls(parts: Array) -> void:
 			var model := constellation_model(constel_i)
 			constel_i += 1
 			var pts: Array = model[0]
-			var sc := Vector2(span_c, 0.62)
+			var sc := Vector2(span_c, 0.55)
 			# la constellation est dessinée dans le repère local (x le long du mur) : conversion t -> u
 			var origin := wall_xf(w, cx, 17.6 - 0.31, 0.045)
 			var scaled := []
 			for q in pts:
 				var qq: Vector2 = q
 				scaled.append(Vector2((qq.x - 0.5) * sc.x * float(w["sg"]) * 1.0, qq.y * sc.y))
-			constellation(scaled, model[1], 0.07, 1.0, origin, parts)
+			constellation(scaled, model[1], 0.045, 1.0, origin, parts)
 		# --- corniche haute à denticules (sous le plafond)
 		var xf_top := wall_xf(w, mid, 0.0)
 		parts.append([strip(span, PROF_CORNICE_TOP, M("moulure_pierre")), xf_top])
@@ -525,11 +525,6 @@ static func _frame_into(parts: Array, cache: Dictionary, w: Dictionary, ta: floa
 	parts.append([cache[key][0], xf])
 	parts.append([cache[key][1], xf])
 	parts.append([cache[key][2], xf * Transform3D(Basis.IDENTITY, Vector3(0, 0, 0.025))])
-	if not low:
-		parts.append([star_mesh(0.2, "etoile_or", 0.04), xf * Transform3D(Basis.IDENTITY, Vector3(0, 0, 0.05))])
-		# petit filet d'or de part et d'autre de l'étoile
-		parts.append([flat_quad(0.5, 0.025, M("or_vieilli")), xf * Transform3D(Basis.IDENTITY, Vector3(-0.52, 0, 0.04))])
-		parts.append([flat_quad(0.5, 0.025, M("or_vieilli")), xf * Transform3D(Basis.IDENTITY, Vector3(0.52, 0, 0.04))])
 
 ## Grand médaillon doré (mur sud) : anneaux, étoile à huit branches, croissant.
 static func _medallion(parts: Array, w: Dictionary, t: float, v: float) -> void:
@@ -542,7 +537,7 @@ static func _medallion(parts: Array, w: Dictionary, t: float, v: float) -> void:
 	parts.append([StyleKit.extrude(StyleKit.crescent_outline(0.5, 0.55), 0.06, M("lune"), 0.01), xf * Transform3D(Basis(Vector3.BACK, PI * 0.5), Vector3(0, 0.05, 0.1))])
 	for i in 12:
 		var a := TAU * i / 12.0
-		parts.append([star_mesh(0.1, "etoile_or", 0.04), xf * Transform3D(Basis.IDENTITY, Vector3(cos(a) * 1.9, sin(a) * 1.9, 0.08))])
+		parts.append([star_mesh(0.1, "or_vieilli", 0.04), xf * Transform3D(Basis.IDENTITY, Vector3(cos(a) * 1.9, sin(a) * 1.9, 0.08))])
 
 # ================================================================== galeries : rives, consoles, sous-faces
 
@@ -580,8 +575,8 @@ static func dress_galleries(parts: Array) -> void:
 			var cxf := wall_xf(r, float(c), 4.97, 0.0) * Transform3D(Basis(Vector3.UP, -PI * 0.5), Vector3.ZERO)
 			parts.append([console_mesh, cxf])
 			parts.append([bead, cxf * Transform3D(Basis.IDENTITY, Vector3(0.18, -1.1, 0.0))])
-			parts.append([star_mesh(0.1, "etoile_or", 0.03), cxf * Transform3D(Basis.IDENTITY, Vector3(0.3, -0.45, 0.22))])
-			parts.append([star_mesh(0.1, "etoile_or", 0.03), cxf * Transform3D(Basis.IDENTITY, Vector3(0.3, -0.45, -0.22))])
+			parts.append([star_mesh(0.1, "or_vieilli", 0.03), cxf * Transform3D(Basis.IDENTITY, Vector3(0.3, -0.45, 0.22))])
+			parts.append([star_mesh(0.1, "or_vieilli", 0.03), cxf * Transform3D(Basis.IDENTITY, Vector3(0.3, -0.45, -0.22))])
 			parts.append([fbox(Vector3(0.54, 0.05, 0.5), M("or_vieilli")), cxf * Transform3D(Basis.IDENTITY, Vector3(0.26, 0.03, 0.0))])
 		# sous-face à caissons
 		var g: Array = r["gal"]
@@ -619,7 +614,6 @@ static func dress_galleries(parts: Array) -> void:
 			parts.append([frame_sweep(hw2, hh2, PROF_COFFER, M("moulure_pierre")), xfc])
 			parts.append([frame_sweep(hw2, hh2, [[0.035, 0.07], [0.035, 0.095], [0.0, 0.095]], M("or_vieilli")), xfc])
 			parts.append([flat_quad(hw2 * 2.0 + 0.02, hh2 * 2.0 + 0.02, M("enduit_panneau")), xfc * Transform3D(Basis.IDENTITY, Vector3(0, 0, 0.02))])
-			parts.append([star_mesh(0.14, "etoile_or", 0.03), xfc * Transform3D(Basis.IDENTITY, Vector3(0, 0, 0.05))])
 
 # ================================================================== plafond : caissons, constellations
 
@@ -674,7 +668,7 @@ static func rosace_plafond() -> ModuleBuilder:
 		var a := TAU * i / 16.0
 		var d := Vector3(cos(a), 0, sin(a))
 		b.add(ray, Transform3D(Basis(Vector3.UP, -a), d * 1.85 + Vector3(0, -0.5, 0)))
-		b.add(star_mesh(0.1, "etoile_or", 0.03), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), d * 2.78 + Vector3(0, -0.31, 0)) * Transform3D(Basis.IDENTITY, Vector3.ZERO))
+		b.add(star_mesh(0.1, "or_vieilli", 0.03), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), d * 2.78 + Vector3(0, -0.31, 0)) * Transform3D(Basis.IDENTITY, Vector3.ZERO))
 		b.add(petal, Transform3D(Basis(Vector3.UP, -a) * Basis(Vector3.RIGHT, PI * 0.5), d * 0.62 + Vector3(0, -0.745, 0)))
 	b.cast_shadows = false
 	return b
@@ -682,47 +676,34 @@ static func rosace_plafond() -> ModuleBuilder:
 ## Casier à clés derrière le comptoir (face vers +z, adossé à z = 0) : 24 crochets numérotés 101–124 ; le 107 est vide.
 static func casier_cles() -> ModuleBuilder:
 	var b := ModuleBuilder.new("casier_cles")
-	var W := 3.5
-	var H := 2.3
-	b.box(Vector3(W, 0.95, 0.5), 0.05, "boiserie_prune", Vector3(0, 0.475, 0.25))
-	b.box(Vector3(W + 0.12, 0.1, 0.56), 0.04, "moulure_pierre", Vector3(0, 0.98, 0.27))
-	b.add(StyleKit.rounded_box(Vector3(W + 0.1, 0.05, 0.55), 0.02, M("or_vieilli"), 1), ModuleBuilder.at(Vector3(0, 1.05, 0.27)))
-	# portes du bas : quatre panneaux moulurés
+	var W := 2.7
+	var H := 1.38
+	b.box(Vector3(W, 0.5, 0.45), 0.04, "boiserie_prune", Vector3(0, 0.25, 0.225))
+	b.box(Vector3(W + 0.1, 0.07, 0.5), 0.03, "moulure_pierre", Vector3(0, 0.535, 0.25))
 	for i in 4:
-		var x := (i - 1.5) * 0.85
-		b.add(frame_sweep(0.3, 0.35, PROF_PANEL, M("boiserie_prune")), ModuleBuilder.at(Vector3(x, 0.5, 0.51)))
-		b.add(frame_sweep(0.255, 0.305, [[0.02, 0.03], [0.02, 0.05], [0.0, 0.05]], M("or_vieilli")), ModuleBuilder.at(Vector3(x, 0.5, 0.51)))
-		b.add(StyleKit.sphere(0.035, M("or_vieilli"), 8, 4), ModuleBuilder.at(Vector3(x + (0.2 if i % 2 == 0 else -0.2), 0.72, 0.56)))
-	# fond tendu de velours et cadre
-	var top := 1.05 + (H - 1.05)
-	b.add(fbox(Vector3(W, H - 1.05, 0.12), M("tapis")), ModuleBuilder.at(Vector3(0, (1.05 + H) * 0.5, 0.06)))
+		var x := (i - 1.5) * 0.66
+		b.add(frame_sweep(0.24, 0.17, PROF_PANEL, M("boiserie_prune")), ModuleBuilder.at(Vector3(x, 0.26, 0.46)))
+		b.add(StyleKit.sphere(0.025, M("or_vieilli"), 6, 3), ModuleBuilder.at(Vector3(x + (0.17 if i % 2 == 0 else -0.17), 0.3, 0.5)))
+	b.add(fbox(Vector3(W, H - 0.57, 0.1), M("tapis")), ModuleBuilder.at(Vector3(0, (0.57 + H) * 0.5, 0.05)))
 	for sx in [-1.0, 1.0]:
-		b.box(Vector3(0.14, H - 0.95, 0.22), 0.04, "boiserie_prune", Vector3(sx * (W * 0.5 + 0.0), (0.95 + H) * 0.5, 0.11))
-	b.box(Vector3(W + 0.28, 0.16, 0.4), 0.05, "boiserie_prune", Vector3(0, H + 0.06, 0.18))
-	b.add(StyleKit.rounded_box(Vector3(W + 0.34, 0.05, 0.44), 0.02, M("or_vieilli"), 1), ModuleBuilder.at(Vector3(0, H + 0.17, 0.19)))
-	# fronton : croissant et étoile
-	b.add(StyleKit.extrude(StyleKit.arch_outline(1.5, 0.62, 20), 0.1, M("boiserie_prune"), 0.02), ModuleBuilder.at(Vector3(0, H + 0.17, 0.12)))
-	b.add(StyleKit.extrude(StyleKit.arch_frame_outline(1.3, 0.55, 0.04, 20), 0.12, M("or_vieilli"), 0.0), ModuleBuilder.at(Vector3(0, H + 0.17, 0.12)))
-	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.26, 0.55), 0.04, M("etoile_or"), 0.008), ModuleBuilder.at(Vector3(-0.12, H + 0.5, 0.2), Vector3(0, 0, 90)))
-	b.add(star_mesh(0.13, "etoile_or", 0.04), ModuleBuilder.at(Vector3(0.14, H + 0.5, 0.2)))
-	# étagères à crochets : 3 rangées de 8
+		b.box(Vector3(0.1, H - 0.5, 0.18), 0.03, "boiserie_prune", Vector3(sx * (W * 0.5), (0.5 + H) * 0.5, 0.09))
+	b.box(Vector3(W + 0.2, 0.1, 0.3), 0.04, "boiserie_prune", Vector3(0, H + 0.03, 0.14))
+	b.add(StyleKit.rounded_box(Vector3(W + 0.24, 0.03, 0.34), 0.012, M("or_vieilli"), 1), ModuleBuilder.at(Vector3(0, H + 0.1, 0.15)))
 	var key_mesh := _key_mesh()
-	for row in 3:
-		var y := 1.34 + row * 0.42
-		b.box(Vector3(W - 0.1, 0.035, 0.1), 0.012, GOLD, Vector3(0, y + 0.1, 0.17), Vector3.ZERO, 1)
+	for row in 2:
+		var y := 0.98 + row * 0.36
 		for col in 8:
 			var num := 101 + row * 8 + col
-			var x := (col - 3.5) * 0.42
-			b.add(StyleKit.sphere(0.028, M("or_vieilli"), 8, 4), ModuleBuilder.at(Vector3(x, y, 0.19)))
-			b.add(StyleKit.cylinder(0.01, 0.07, M("or_vieilli"), 6), ModuleBuilder.at(Vector3(x, y - 0.03, 0.23), Vector3(90, 0, 0)))
-			# plaquette numérotée
-			b.add(fbox(Vector3(0.17, 0.09, 0.015), M("draps")), ModuleBuilder.at(Vector3(x, y + 0.2, 0.15)))
-			var lb := b.label(str(num), Vector3(x, y + 0.2, 0.1585), 22, Color("#3a2430"), Vector3.ZERO, 0.0014)
+			var x := (col - 3.5) * 0.32
+			b.add(StyleKit.sphere(0.024, M("or_vieilli"), 6, 3), ModuleBuilder.at(Vector3(x, y, 0.16)))
+			b.add(StyleKit.cylinder(0.009, 0.06, M("or_vieilli"), 5), ModuleBuilder.at(Vector3(x, y - 0.02, 0.19), Vector3(90, 0, 0)))
+			b.add(fbox(Vector3(0.15, 0.07, 0.012), M("draps")), ModuleBuilder.at(Vector3(x, y - 0.25, 0.12)))
+			var lb := b.label(str(num), Vector3(x, y - 0.25, 0.1265), 22, Color("#3a2430"), Vector3.ZERO, 0.0012)
 			lb.name = "Plaque_%d" % num
 			if num != 107:
-				b.add(key_mesh, ModuleBuilder.at(Vector3(x, y - 0.03, 0.245), Vector3(0, 0, 0)))
-	b.omni(Vector3(0, 1.9, 1.4), Color("#ffb066"), 1.0, 4.5, false, "LumiereCasier")
-	b.collide(Vector3(W + 0.2, H, 0.6), Vector3(0, H * 0.5, 0.28))
+				b.add(key_mesh, ModuleBuilder.at(Vector3(x, y - 0.02, 0.205), Vector3.ZERO, Vector3(0.72, 0.72, 0.72)))
+	b.omni(Vector3(0, 1.5, 1.2), Color("#ffb066"), 1.0, 4.0, false, "LumiereCasier")
+	b.collide(Vector3(W + 0.2, 1.3, 0.5), Vector3(0, 0.65, 0.25))
 	b.cast_shadows = false
 	return b
 
@@ -749,8 +730,8 @@ static func vase_etoile() -> ModuleBuilder:
 	b.add(StyleKit.torus(0.13, 0.018, M("or_vieilli"), 16, 6), ModuleBuilder.at(Vector3(0, 1.38, 0)))
 	for sx in [-1.0, 1.0]:
 		b.add(StyleKit.torus(0.13, 0.02, M("or_vieilli"), 14, 5), ModuleBuilder.at(Vector3(sx * 0.2, 1.3, 0), Vector3(90, 0, 0)))
-	b.add(star_mesh(0.14, "etoile_or", 0.03), ModuleBuilder.at(Vector3(0, 1.0, 0.345)))
-	b.add(star_mesh(0.14, "etoile_or", 0.03), ModuleBuilder.at(Vector3(0, 1.0, -0.345), Vector3(0, 180, 0)))
+	b.add(star_mesh(0.14, "or_vieilli", 0.03), ModuleBuilder.at(Vector3(0, 1.0, 0.345)))
+	b.add(star_mesh(0.14, "or_vieilli", 0.03), ModuleBuilder.at(Vector3(0, 1.0, -0.345), Vector3(0, 180, 0)))
 	# gerbe de fleurs séchées
 	for i in 9:
 		var a := TAU * i / 9.0
@@ -776,7 +757,7 @@ static func fauteuil_hall() -> ModuleBuilder:
 		for sz in [-1.0, 1.0]:
 			b.add(StyleKit.lathe(P([[0.04, 0.0], [0.06, 0.05], [0.04, 0.14], [0.065, 0.24], [0.04, 0.34]]), 10, M("boiserie_prune"), true, true), ModuleBuilder.at(Vector3(sx * 0.42, 0.0, sz * 0.37)))
 			b.add(StyleKit.sphere(0.035, M("or_vieilli"), 8, 4), ModuleBuilder.at(Vector3(sx * 0.42, 0.1, sz * 0.37)))
-	b.add(star_mesh(0.1, "etoile_or", 0.03), ModuleBuilder.at(Vector3(0, 1.0, -0.23), Vector3(-6, 0, 0)))
+	b.add(star_mesh(0.1, "or_vieilli", 0.03), ModuleBuilder.at(Vector3(0, 1.0, -0.23), Vector3(-6, 0, 0)))
 	b.collide(Vector3(1.0, 0.95, 0.95), Vector3(0, 0.48, 0))
 	b.cast_shadows = false
 	return b
@@ -796,9 +777,9 @@ static func tapis_hall() -> ModuleBuilder:
 		var a := deg_to_rad(30.0 + 15.0 * i)
 		var p := Vector3(cos(a) * rm, 0.034, sin(a) * rm)
 		if i % 2 == 0:
-			b.add(star_mesh(0.18, "etoile_or", 0.01), Transform3D(Basis(Vector3.UP, -a) * Basis(Vector3.RIGHT, -PI * 0.5), p))
+			b.add(star_mesh(0.18, "or_vieilli", 0.01), Transform3D(Basis(Vector3.UP, -a) * Basis(Vector3.RIGHT, -PI * 0.5), p))
 		else:
-			b.add(StyleKit.extrude(StyleKit.crescent_outline(0.15, 0.55), 0.01, M("etoile_or"), 0.0), Transform3D(Basis(Vector3.UP, -a) * Basis(Vector3.RIGHT, -PI * 0.5), p))
+			b.add(StyleKit.extrude(StyleKit.crescent_outline(0.15, 0.55), 0.01, M("or_vieilli"), 0.0), Transform3D(Basis(Vector3.UP, -a) * Basis(Vector3.RIGHT, -PI * 0.5), p))
 	b.cast_shadows = false
 	return b
 
@@ -849,7 +830,7 @@ static func colonne(id: String, h: float) -> ModuleBuilder:
 		var r := 0.47
 		var basis := Basis(Vector3.UP, -a + PI * 0.5)
 		var p := Vector3(cos(a) * r, top + 0.34, sin(a) * r)
-		var shape: ArrayMesh = _small_crescent() if i % 2 == 0 else star_mesh(0.075, "etoile_or", 0.025)
+		var shape: ArrayMesh = _small_crescent() if i % 2 == 0 else star_mesh(0.075, "or_vieilli", 0.025)
 		b.add(shape, Transform3D(basis * Basis(Vector3.BACK, PI * 0.5 if i % 2 == 0 else 0.0), p))
 	b.box(Vector3(1.1, 0.2, 1.1), 0.05, "moulure_pierre", Vector3(0, h - 0.1, 0))
 	b.box(Vector3(1.14, 0.04, 1.14), 0.015, GOLD, Vector3(0, h - 0.24, 0), Vector3.ZERO, 1)
@@ -875,8 +856,8 @@ static func arcade() -> ModuleBuilder:
 	var top := H + 0.0
 	# clé de voûte (trapèze) et étoile
 	b.add(StyleKit.extrude(P([[-0.2, top - 0.2], [0.2, top - 0.2], [0.3, top + 0.5], [-0.3, top + 0.5]]), 0.78, M("moulure_pierre"), 0.035))
-	b.add(star_mesh(0.14, "etoile_or", 0.04), ModuleBuilder.at(Vector3(0, top + 0.16, 0.4)))
-	b.add(star_mesh(0.14, "etoile_or", 0.04), ModuleBuilder.at(Vector3(0, top + 0.16, -0.4)))
+	b.add(star_mesh(0.14, "or_vieilli", 0.04), ModuleBuilder.at(Vector3(0, top + 0.16, 0.4)))
+	b.add(star_mesh(0.14, "or_vieilli", 0.04), ModuleBuilder.at(Vector3(0, top + 0.16, -0.4)))
 	# cabochons dorés le long de l'archivolte
 	var cab := StyleKit.sphere(0.035, M("or_vieilli"), 6, 3)
 	for i in 9:
@@ -927,7 +908,7 @@ static func fenetre(id: String, w: float, h: float, vista: String) -> ModuleBuil
 	# clé de voûte étoilée au sommet
 	var top := h + 0.48
 	b.add(StyleKit.extrude(P([[-0.28, top - 0.55], [0.28, top - 0.55], [0.4, top + 0.35], [-0.4, top + 0.35]]), 0.5, M("moulure_pierre"), 0.04), ModuleBuilder.at(Vector3(0, 0, 0.28)))
-	b.add(star_mesh(0.2, "etoile_or", 0.04), ModuleBuilder.at(Vector3(0, top - 0.1, 0.55)))
+	b.add(star_mesh(0.2, "or_vieilli", 0.04), ModuleBuilder.at(Vector3(0, top - 0.1, 0.55)))
 	# appui mouluré sur consoles
 	b.box(Vector3(w + 0.8, 0.2, 0.6), 0.06, "moulure_pierre", Vector3(0, -0.06, 0.3))
 	b.box(Vector3(w + 0.9, 0.05, 0.64), 0.02, "or_vieilli", Vector3(0, 0.07, 0.3), Vector3.ZERO, 1)
@@ -1211,7 +1192,6 @@ static func escalier() -> ModuleBuilder:
 		var hh := slope / 14.0 - 0.14
 		b.add(frame_sweep(1.15, hh, PROF_COFFER, M("moulure_pierre")), Transform3D(ub, uc))
 		b.add(frame_sweep(1.15, hh, [[0.035, 0.07], [0.035, 0.095], [0.0, 0.095]], M("or_vieilli")), Transform3D(ub, uc))
-		b.add(star_mesh(0.12, "etoile_or", 0.03), Transform3D(ub, uc + (-nn) * 0.05))
 	# contremarches sombres, tapis (marche et contremarche) et tringles d'or
 	var riser := fbox(Vector3(w - 0.08, rise - 0.045, 0.03), M("pierre_sombre"))
 	var c_tread := fbox(Vector3(1.7, 0.022, run + 0.03), M("velours_escalier"))
@@ -1229,7 +1209,9 @@ static func escalier() -> ModuleBuilder:
 		var x: float = side * (w * 0.5 + 0.12)
 		var c0 := Vector3(x, H * 0.5 + 0.05, -Lz * 0.5)
 		var rot := Vector3(ang, 0, 0)
-		b.box(Vector3(0.26, 0.5, slope + 0.2), 0.06, "boiserie_prune", c0, rot)
+		b.box(Vector3(0.26, 0.5, slope + 0.2), 0.06, "enduit_panneau", c0, rot)
+		for fy in [-0.22, 0.2]:
+			b.add(fbox(Vector3(0.012, 0.022, slope + 0.2), M("or_vieilli")), ModuleBuilder.at(c0 + nrm * fy + Vector3(side * 0.134, 0, 0), rot))
 		b.add(StyleKit.rounded_box(Vector3(0.32, 0.07, slope + 0.2), 0.03, M("moulure_pierre"), 1), ModuleBuilder.at(c0 + nrm * 0.285, rot))
 		b.add(fbox(Vector3(0.1, 0.02, slope + 0.2), M("or_vieilli")), ModuleBuilder.at(c0 + nrm * 0.325, rot))
 		b.box(Vector3(0.17, 0.11, slope + 0.2), 0.05, GOLD, Vector3(x, H * 0.5 + 1.05, -Lz * 0.5), rot, 3)
@@ -1249,7 +1231,7 @@ static func escalier() -> ModuleBuilder:
 			var p := Vector3(x, rise * steps * end + 0.0, -Lz * end)
 			b.add(post, ModuleBuilder.at(p))
 			b.add(StyleKit.torus(0.13, 0.025, M(GOLD), 16, 4), ModuleBuilder.at(p + Vector3(0, 1.17, 0)))
-			b.add(StyleKit.sphere(0.115, M("lueur_douce"), 14, 7), ModuleBuilder.at(p + Vector3(0, 1.3, 0)))
+			b.add(StyleKit.sphere(0.08, M("lueur_douce"), 12, 6), ModuleBuilder.at(p + Vector3(0, 1.27, 0)))
 			b.add(StyleKit.sphere(0.03, M(GOLD), 6, 3), ModuleBuilder.at(p + Vector3(0, 1.45, 0)))
 		b.collide(Vector3(0.3, 1.3, slope), Vector3(x, H * 0.5 + 0.6, -Lz * 0.5), Vector3(ang, 0, 0))
 	var thick := 0.4
@@ -1326,7 +1308,7 @@ static func arbre() -> ModuleBuilder:
 	b.add(StyleKit.torus(1.5, 0.03, gold, 40, 5), ModuleBuilder.at(Vector3(0, 0.2, 0)))
 	for i in 12:
 		var a := TAU * i / 12.0
-		var shape: ArrayMesh = star_mesh(0.14, "etoile_or", 0.03) if i % 2 == 0 else _small_crescent()
+		var shape: ArrayMesh = star_mesh(0.14, "or_vieilli", 0.03) if i % 2 == 0 else _small_crescent()
 		b.add(shape, Transform3D(Basis(Vector3.UP, PI * 0.5 - a) * Basis(Vector3.BACK, 0.0 if i % 2 == 0 else PI * 0.5), Vector3(cos(a) * 1.5, 0.46, sin(a) * 1.5)))
 	b.add(StyleKit.cylinder(1.4, 0.84, M("ecorce"), 32))
 	# racines apparentes
@@ -1351,28 +1333,19 @@ static func arbre() -> ModuleBuilder:
 			if k > 0:
 				tube(b, prev, p, 0.15 - 0.06 * (t - 1.0 / 12.0), 0.15 - 0.06 * t, M("ecorce"), 7)
 			prev = p
-	# branches (trois tronçons chacune) et grappes étagées
-	var tips := []
-	for i in 8:
-		var a := TAU * i / 8.0 + 0.4
-		var d := Vector3(cos(a), 0, sin(a))
-		var y0 := 2.5 + 0.18 * float(i % 4)
-		var pts := [Vector3(0, y0, 0) + d * 0.08, d * 0.6 + Vector3(0, y0 + 0.35, 0), d * (1.15 + 0.2 * hash01(i, 9)) + Vector3(0, y0 + 0.75, 0), d * (1.6 + 0.35 * hash01(i, 8)) + Vector3(0, y0 + 0.95 + 0.25 * hash01(i, 6), 0)]
-		var rr := [0.1, 0.075, 0.05, 0.025]
+	# branches (trois tronçons) menant à six masses fleuries
+	var masses := [[Vector3(0, 4.75, 0), 1.0], [Vector3(1.55, 4.05, 0.3), 0.85], [Vector3(-1.4, 4.1, 0.7), 0.85], [Vector3(0.3, 4.1, -1.5), 0.85], [Vector3(-0.2, 4.0, 1.5), 0.8], [Vector3(-1.2, 4.0, -1.0), 0.8], [Vector3(1.1, 4.2, -1.1), 0.8]]
+	for i in masses.size():
+		var m: Vector3 = masses[i][0]
+		var y0 := 2.5 + 0.2 * float(i % 4)
+		var d := Vector3(m.x, 0, m.z)
+		var pts := [Vector3(0, y0, 0) + d.normalized() * 0.08, d * 0.4 + Vector3(0, y0 + 0.5, 0), d * 0.75 + Vector3(0, (y0 + m.y - 0.4) * 0.5 + 0.2, 0), m - Vector3(0, 0.45, 0)]
+		var rr := [0.11, 0.08, 0.055, 0.03]
 		for k in 3:
 			tube(b, pts[k], pts[k + 1], rr[k], rr[k + 1], M("ecorce"), 6)
-		tips.append(pts[3])
-		if i % 4 == 0:
-			tips.append((pts[2] as Vector3) + Vector3(0, -0.05, 0))
-	var topc := Vector3(0, 3.45, 0)
-	for k in 3:
-		tube(b, topc, topc + Vector3(cos(k * 2.1) * 0.5, 0.7, sin(k * 2.1) * 0.5), 0.07, 0.025, M("ecorce"), 6)
-		tips.append(topc + Vector3(cos(k * 2.1) * 0.5, 0.75, sin(k * 2.1) * 0.5))
-	var n := 0
-	for t in tips:
-		var tp: Vector3 = t
-		_bloom_cluster(b, tp + Vector3(0, 0.05, 0), 0.9 + 0.35 * hash01(n, 12), n)
-		n += 1
+		_bloom_mass(b, m, float(masses[i][1]), i)
+	for i in 3:
+		tube(b, Vector3(0, 3.45, 0), Vector3(cos(i * 2.1) * 0.3, 4.3, sin(i * 2.1) * 0.3), 0.07, 0.03, M("ecorce"), 6)
 	# pétales tombés dans la vasque
 	for i in 12:
 		var a := TAU * i / 12.0 + 0.3
@@ -1397,6 +1370,31 @@ static func _bloom_cluster(b: ModuleBuilder, c: Vector3, scale: float, k: int) -
 			_ball(b, Vector3(c.x + cos(a) * R * j, y - 0.06 * hash01(i, k), c.z + sin(a) * R * j), rs, m, 7, 4, 0.9)
 	_ball(b, c + Vector3(0, 0.1 * scale, 0), 0.14 * scale, mats[(k + 1) % 3], 7, 4, 0.9)
 	_ball(b, c + Vector3(0, -0.72 * scale, 0), 0.07 * scale, mats[(k + 2) % 3], 7, 4, 1.2)
+
+## Masse fleurie : ellipsoïde plein recouvert de petites fleurs qui se chevauchent (lavande en haut, rose lunaire en bas),
+## quelques grappes retombantes sur les bords.
+static func _bloom_mass(b: ModuleBuilder, c: Vector3, R: float, k: int) -> void:
+	var lav := M("fleur_lavande")
+	var ros := M("fleur_rose")
+	var arb := M("fleur_arbre")
+	b.add(_unit_sphere(arb, 10, 5), Transform3D(Basis.IDENTITY.scaled(Vector3(R * 0.82, R * 0.62, R * 0.82)), c))
+	var n := 15
+	for i in n:
+		var t := (i + 0.5) / n
+		var yy := 0.95 - 1.55 * t
+		var rad := sqrt(maxf(1.0 - yy * yy, 0.0))
+		var a := i * 2.399963 + k * 0.7
+		var dir := Vector3(cos(a) * rad, yy, sin(a) * rad)
+		var mat: Material = lav if yy > 0.25 else (arb if yy > -0.2 else ros)
+		if (i + k) % 5 == 0:
+			mat = ros if mat == lav else lav
+		_ball(b, c + Vector3(dir.x * R * 0.9, dir.y * R * 0.68, dir.z * R * 0.9), 0.27 * R + 0.04, mat, 7, 4, 0.85)
+	for j in 2:
+		var a := TAU * j / 2.0 + k * 1.3
+		var top := c + Vector3(cos(a) * R * 0.78, -R * 0.38, sin(a) * R * 0.78)
+		for q in 4:
+			var rq := 0.08 - 0.012 * q
+			_ball(b, top + Vector3(0, -q * 0.15, 0), rq, ros if q % 2 == 0 else lav, 6, 3, 1.1)
 
 ## Jardinière ronde sur socle : vasque de pierre à bord doré, buisson fleuri en grappes étagées.
 static func jardiniere() -> ModuleBuilder:

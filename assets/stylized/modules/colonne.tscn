@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/colonne.res" id="1_bqhkq"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/colonne.res" id="1_wumux"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_sclj4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jo8tb"]
 size = Vector3(0.8, 5.75, 0.8)
 
 [node name="Colonne" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_bqhkq")
+mesh = ExtResource("1_wumux")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.875, 0)
-shape = SubResource("BoxShape3D_sclj4")
+shape = SubResource("BoxShape3D_jo8tb")

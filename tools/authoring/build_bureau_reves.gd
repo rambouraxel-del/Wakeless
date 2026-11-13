@@ -258,7 +258,7 @@ func _atrium_modules(g: Node3D) -> void:
 	# réception et arbre de lune
 	_inst(g, "bureau_reception", Vector3(0, 0, 0.5), 0.0, "Reception")
 	_inst(g, "arbre_de_lune", Vector3(0, 0, -4.2), 0.0, "Arbre_de_lune")
-	_inst(g, "casier_cles", Vector3(0, 0, -1.55), 0.0, "Casier_cles")
+	_inst(g, "casier_cles", Vector3(0, 0, 1.1), 0.0, "Casier_cles")
 	_inst(g, "tapis_hall", Vector3(0, 0, 0.5), 0.0, "Tapis_reception")
 	_inst(g, "rosace_plafond", Vector3(0, 20.0, 0), 0.0, "Rosace")
 	for sx in [-1.0, 1.0]:
