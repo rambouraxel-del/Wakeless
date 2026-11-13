@@ -1379,24 +1379,22 @@ static func _bloom_mass(b: ModuleBuilder, c: Vector3, R: float, k: int) -> void:
 	var lav := M("fleur_lavande")
 	var ros := M("fleur_rose")
 	var arb := M("fleur_arbre")
-	b.add(_unit_sphere(arb, 10, 5), Transform3D(Basis.IDENTITY.scaled(Vector3(R * 0.82, R * 0.62, R * 0.82)), c))
-	var n := 15
-	for i in n:
-		var t := (i + 0.5) / n
-		var yy := 0.95 - 1.55 * t
+	# trois lobes lisses qui se chevauchent
+	b.add(_unit_sphere(lav, 16, 8), Transform3D(Basis(Vector3.UP, k * 0.5).scaled(Vector3(R * 0.95, R * 0.74, R * 0.95)), c + Vector3(0, 0.08 * R, 0)))
+	b.add(_unit_sphere(arb, 12, 6), Transform3D(Basis(Vector3.UP, k).scaled(Vector3(R * 0.62, R * 0.5, R * 0.62)), c + Vector3(cos(k * 2.0) * R * 0.55, -0.12 * R, sin(k * 2.0) * R * 0.55)))
+	b.add(_unit_sphere(ros, 12, 6), Transform3D(Basis(Vector3.UP, k * 2.0).scaled(Vector3(R * 0.58, R * 0.46, R * 0.58)), c + Vector3(-cos(k * 2.0 + 0.8) * R * 0.5, -0.22 * R, -sin(k * 2.0 + 0.8) * R * 0.5)))
+	# petites touffes lisses qui cassent la surface
+	for i in 5:
+		var a := i * 2.399963 + k * 0.9
+		var yy := 0.75 - 0.32 * i
 		var rad := sqrt(maxf(1.0 - yy * yy, 0.0))
-		var a := i * 2.399963 + k * 0.7
-		var dir := Vector3(cos(a) * rad, yy, sin(a) * rad)
-		var mat: Material = lav if yy > 0.25 else (arb if yy > -0.2 else ros)
-		if (i + k) % 5 == 0:
-			mat = ros if mat == lav else lav
-		_ball(b, c + Vector3(dir.x * R * 0.9, dir.y * R * 0.68, dir.z * R * 0.9), 0.27 * R + 0.04, mat, 7, 4, 0.85)
+		var mat: Material = ros if (i + k) % 2 == 0 else lav
+		b.add(_unit_sphere(mat, 10, 5), Transform3D(Basis(Vector3.UP, a).scaled(Vector3(0.17 * R, 0.13 * R, 0.17 * R)), c + Vector3(cos(a) * rad * R * 0.9, yy * R * 0.68, sin(a) * rad * R * 0.9)))
 	for j in 2:
 		var a := TAU * j / 2.0 + k * 1.3
-		var top := c + Vector3(cos(a) * R * 0.78, -R * 0.38, sin(a) * R * 0.78)
-		for q in 4:
-			var rq := 0.08 - 0.012 * q
-			_ball(b, top + Vector3(0, -q * 0.15, 0), rq, ros if q % 2 == 0 else lav, 6, 3, 1.1)
+		var top := c + Vector3(cos(a) * R * 0.75, -R * 0.4, sin(a) * R * 0.75)
+		for q in 3:
+			b.add(_unit_sphere(ros if q % 2 == 0 else lav, 10, 5), Transform3D(Basis.IDENTITY.scaled(Vector3(0.075 - 0.015 * q, 0.09 - 0.015 * q, 0.075 - 0.015 * q)), top + Vector3(0, -q * 0.15, 0)))
 
 ## Jardinière ronde sur socle : vasque de pierre à bord doré, buisson fleuri en grappes étagées.
 static func jardiniere() -> ModuleBuilder:
