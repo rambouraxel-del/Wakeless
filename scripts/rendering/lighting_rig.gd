@@ -29,6 +29,7 @@ var interior_max := 99.0
 ## Matériaux de nuages à teinter selon l'ambiance (renseignés par VoxelClouds).
 var cloud_materials: Array[ShaderMaterial] = []
 var sky_material: ShaderMaterial
+var _default_sky_shader: Shader
 
 func _ready() -> void:
 	add_to_group("lighting_rig")
@@ -133,6 +134,12 @@ func apply_preset_dict(p: Dictionary) -> void:
 	sun.light_energy = float(p["sun_energy"])
 	sun.visible = float(p["sun_energy"]) > 0.001          # intérieur clos : pas de soleil ni d'ombres directionnelles inutiles
 	sun.rotation_degrees = Vector3(-float(p["sun_angle"]), float(p["sun_heading"]), 0.0)
+	# clé facultative « sky_shader » : ciel dédié (ex. Forêt de la peur) ; sans elle, le ciel commun
+	if _default_sky_shader == null:
+		_default_sky_shader = sky_material.shader
+	var wanted: Shader = load(String(p["sky_shader"])) if p.has("sky_shader") else _default_sky_shader
+	if sky_material.shader != wanted:
+		sky_material.shader = wanted
 	sky_material.set_shader_parameter("sky_top", Color.html(p["sky_top"]))
 	sky_material.set_shader_parameter("sky_horizon", Color.html(p["sky_horizon"]))
 	sky_material.set_shader_parameter("ground_bottom", Color.html(p["ground_bottom"]))
@@ -145,6 +152,7 @@ func apply_preset_dict(p: Dictionary) -> void:
 	sky_material.set_shader_parameter("moon_amount", night)
 	sky_material.set_shader_parameter("sun_glow", 0.0 if night > 0.5 else 0.8)
 	sky_material.set_shader_parameter("sun_size", 0.001 if night > 0.5 else 0.028)
+	sky_material.set_shader_parameter("moon_size", float(p.get("moon_size", 0.055)))
 	sky_material.set_shader_parameter("star_amount", float(p.get("stars", 0.0)))
 	sky_material.set_shader_parameter("cloud_light", Color.html(p.get("cloud_light", "#ffffff")))
 	sky_material.set_shader_parameter("cloud_shadow", Color.html(p.get("cloud_shadow", "#b4bfd2")))

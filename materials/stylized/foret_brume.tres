@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized/foret_brume.gdshader" id="1_wtf62"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wtf62")
+shader_parameter/fog_color = null
+shader_parameter/fog_color_hi = null
+shader_parameter/density = null
+shader_parameter/scroll = null
+shader_parameter/noise_scale = null
+shader_parameter/edge_fade = null
+shader_parameter/contact_fade = null
+shader_parameter/near_fade_start = null
+shader_parameter/near_fade_end = null
+shader_parameter/patchy = null
+shader_parameter/use_depth = null
