@@ -1,20 +1,20 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Script" path="res://scripts/level/hotel_door.gd" id="1_e5mm5"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel.res" id="2_ig4pe"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel_maillage_battant.res" id="3_3j8pv"]
+[ext_resource type="Script" path="res://scripts/level/hotel_door.gd" id="1_isvmn"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel.res" id="2_i5m8g"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_hotel_maillage_battant.res" id="3_4a450"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7mq73"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_q7uvn"]
 size = Vector3(0.3, 3.3, 0.4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hnuri"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sqi0p"]
 size = Vector3(0.3, 3.3, 0.4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_c8kln"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_0q1xc"]
 size = Vector3(1.46, 3, 0.14)
 
 [node name="PorteHotel" type="Node3D"]
-script = ExtResource("1_e5mm5")
+script = ExtResource("1_isvmn")
 locked = true
 locked_message = "Fermée à clé."
 number = ""
@@ -27,17 +27,17 @@ enabled = true
 gesture = &"interact"
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_ig4pe")
+mesh = ExtResource("2_i5m8g")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.65, 0.15)
-shape = SubResource("BoxShape3D_7mq73")
+shape = SubResource("BoxShape3D_q7uvn")
 
 [node name="Boite2" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 1.65, 0.15)
-shape = SubResource("BoxShape3D_hnuri")
+shape = SubResource("BoxShape3D_sqi0p")
 
 [node name="Numero" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53, 0.285)
@@ -51,10 +51,10 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0.06)
 
 [node name="MaillageBattant" type="MeshInstance3D" parent="Battant"]
-mesh = ExtResource("3_3j8pv")
+mesh = ExtResource("3_4a450")
 
 [node name="Collision" type="StaticBody3D" parent="Battant"]
 
 [node name="Boite" type="CollisionShape3D" parent="Battant/Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.73, 1.5, 0)
-shape = SubResource("BoxShape3D_c8kln")
+shape = SubResource("BoxShape3D_0q1xc")

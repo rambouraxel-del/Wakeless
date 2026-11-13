@@ -393,18 +393,18 @@ func _room_modules(g: Node3D) -> void:
 # ================================================================== lumières d'ambiance (clair de lune)
 
 func _lights_atrium(g: Node3D) -> void:
-	var moon := Color("#b9a8ff")
+	var moon := Color("#a9b0ff")
 	# rayons de lune tombant des grandes fenêtres du nord et du sud (sans ombres : efficaces)
-	for spec in [[Vector3(-9.5, 13.0, -11.0), Vector3(-50, 0, 0)], [Vector3(9.5, 13.0, -11.0), Vector3(-50, 0, 0)],
-			[Vector3(-9.5, 13.0, 11.0), Vector3(-50, 180, 0)], [Vector3(9.5, 13.0, 11.0), Vector3(-50, 180, 0)]]:
+	for spec in [[Vector3(-9.5, 11.0, -11.5), Vector3(-58, 180, 0)], [Vector3(9.5, 11.0, -11.5), Vector3(-58, 180, 0)],
+			[Vector3(-9.5, 11.0, 11.5), Vector3(-58, 0, 0)], [Vector3(9.5, 11.0, 11.5), Vector3(-58, 0, 0)]]:
 		var s := SpotLight3D.new()
 		s.name = "Clair_de_lune_%d_%d" % [int(spec[0].x), int(spec[0].z)]
 		s.position = spec[0]
 		s.rotation_degrees = spec[1]
 		s.light_color = moon
-		s.light_energy = 2.2
-		s.spot_range = 22.0
-		s.spot_angle = 24.0
+		s.light_energy = 3.2
+		s.spot_range = 24.0
+		s.spot_angle = 17.0
 		s.spot_angle_attenuation = 0.5
 		g.add_child(s)
 	# lueur froide des fenêtres de l'étage (remplissage des galeries)
@@ -413,24 +413,32 @@ func _lights_atrium(g: Node3D) -> void:
 		o.name = "Lueur_fenetres_%d" % int(p.x)
 		o.position = p
 		o.light_color = moon
-		o.light_energy = 1.0
+		o.light_energy = 0.6
 		o.omni_range = 11.0
 		g.add_child(o)
+	# îlot chaud principal : la réception (lampes, sphère armillaire)
+	var ilot := OmniLight3D.new()
+	ilot.name = "Ilot_reception"
+	ilot.position = Vector3(0, 2.2, 0.8)
+	ilot.light_color = Color("#ffb066")
+	ilot.light_energy = 1.6
+	ilot.omni_range = 7.0
+	g.add_child(ilot)
 	# lueurs chaudes au pied des colonnes (dorures et marbre réchauffés, sans ombres)
-	var warm := Color("#ffae62")
+	var warm := Color("#ffb066")
 	for p in [Vector3(-12.0, 1.4, -8.6), Vector3(-3.0, 1.4, -8.6), Vector3(3.0, 1.4, -8.6), Vector3(12.0, 1.4, -8.6),
 			Vector3(-10.6, 1.4, -3.5), Vector3(-10.6, 1.4, 2.5), Vector3(-10.6, 1.4, 8.5), Vector3(10.6, 1.4, -3.5), Vector3(10.6, 1.4, 2.5), Vector3(10.6, 1.4, 8.5)]:
 		var o := OmniLight3D.new()
 		o.name = "Lueur_colonne_%d_%d" % [int(p.x), int(p.z)]
 		o.position = p
 		o.light_color = warm
-		o.light_energy = 0.9
+		o.light_energy = 0.6
 		o.omni_range = 4.5
 		g.add_child(o)
 # ================================================================== lumières du couloir et de la chambre
 
 func _lights_couloir_chambre(g: Node3D) -> void:
-	var moon := Color("#b9a8ff")
+	var moon := Color("#a9b0ff")
 	# fond du couloir et chambre : lune
 	for spec in [[Vector3(CX0 + BAY * BAYS - 1.5, 5.0, 0.0), 1.4, 10.0, "Lune_fond_couloir"], [Vector3(31.35, 2.6, -10.3), 1.3, 7.0, "Lune_chambre"]]:
 		var o := OmniLight3D.new()
@@ -444,7 +452,12 @@ func _lights_couloir_chambre(g: Node3D) -> void:
 # ================================================================== ambiance : particules et mouvements discrets
 
 func _ambiance(g: Node3D) -> void:
-	pass
+	var fx = load("res://scripts/stylized/ambiance/ambiance_fx.gd")
+	# poussière dorée dans les rayons de lune de l'atrium (110) et de la chambre, près de la fenêtre (40)
+	g.add_child(fx.dust("Poussiere_atrium", Vector3(0, 4.2, 0), Vector3(9.0, 3.6, 8.5), 110, Color(1.0, 0.82, 0.5, 0.55), 0.07))
+	g.add_child(fx.dust("Poussiere_chambre", Vector3(31.35, 1.9, -10.1), Vector3(1.5, 1.4, 1.1), 40, Color(0.85, 0.88, 1.0, 0.45), 0.04, 0.01, 14.0))
+	# pétales de l'arbre de lune : rose lunaire, chute lente
+	g.add_child(fx.petals("Petales_arbre", Vector3(0, 5.3, -4.2), 1.5, 24, Color("#d9a6b5")))
 
 # ================================================================== enregistrement
 

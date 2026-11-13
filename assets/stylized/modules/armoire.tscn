@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/armoire.res" id="1_vlr5c"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/armoire.res" id="1_uim5j"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gewc2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_r0qdc"]
 size = Vector3(1.45, 2.45, 0.66)
 
 [node name="Armoire" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_vlr5c")
+mesh = ExtResource("1_uim5j")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22, 0)
-shape = SubResource("BoxShape3D_gewc2")
+shape = SubResource("BoxShape3D_r0qdc")

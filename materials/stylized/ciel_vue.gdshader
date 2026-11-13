@@ -4,15 +4,15 @@ shader_type spatial;
 // (position de la lune, graine des silhouettes) : aucune image.
 render_mode unshaded, cull_disabled, depth_draw_opaque, fog_disabled;
 
-uniform vec4 sky_top : source_color = vec4(0.07, 0.05, 0.22, 1.0);
-uniform vec4 sky_horizon : source_color = vec4(0.42, 0.28, 0.70, 1.0);
-uniform vec4 mist : source_color = vec4(0.55, 0.42, 0.85, 1.0);
-uniform vec4 silhouette : source_color = vec4(0.13, 0.09, 0.28, 1.0);
-uniform vec4 window_light : source_color = vec4(1.0, 0.78, 0.45, 1.0);
+uniform vec4 sky_top : source_color = vec4(0.035, 0.04, 0.13, 1.0);
+uniform vec4 sky_horizon : source_color = vec4(0.20, 0.19, 0.40, 1.0);
+uniform vec4 mist : source_color = vec4(0.32, 0.31, 0.55, 1.0);
+uniform vec4 silhouette : source_color = vec4(0.07, 0.07, 0.17, 1.0);
+uniform vec4 window_light : source_color = vec4(0.85, 0.55, 0.28, 1.0);
 uniform vec2 moon_pos = vec2(0.7, 0.75);
 uniform float moon_size = 0.07;
 uniform float seed = 1.0;
-uniform float brightness = 1.0;
+uniform float brightness = 0.9;
 // taille du plan en mètres (pour garder des proportions justes quelle que soit la fenêtre)
 uniform vec2 plane_size = vec2(4.0, 8.0);
 
@@ -32,17 +32,17 @@ void fragment() {
 	// étoiles
 	vec2 sc = floor(m * 90.0);
 	float s = hash2(sc);
-	if (s > 0.985) {
+	if (s > 0.988) {
 		vec2 f = fract(m * 90.0) - 0.5;
-		col += vec3(0.9, 0.85, 1.0) * (1.0 - smoothstep(0.0, 0.35, length(f))) * smoothstep(0.3, 0.8, uv.y) * 1.2;
+		col += vec3(0.9, 0.85, 1.0) * (1.0 - smoothstep(0.0, 0.35, length(f))) * smoothstep(0.3, 0.8, uv.y) * (0.5 + 0.5 * hash2(sc + 5.0));
 	}
 	// lune et halo
 	vec2 mp = vec2(moon_pos.x * plane_size.x / plane_size.y, moon_pos.y);
 	float d = length(m - mp);
-	col += vec3(0.75, 0.68, 1.0) * exp(-d * 9.0) * 0.6;
-	float disc = 1.0 - smoothstep(moon_size - 0.004, moon_size, d);
+	col += vec3(0.62, 0.66, 1.0) * (exp(-d * 7.0) * 0.28 + exp(-d * 22.0) * 0.30);
+	float disc = 1.0 - smoothstep(moon_size - 0.012, moon_size + 0.004, d);
 	float shade = smoothstep(moon_size * 0.6, moon_size * 1.1, length(m - mp - vec2(moon_size * 0.55, moon_size * 0.25)));
-	col = mix(col, vec3(0.98, 0.95, 1.0), disc * shade);
+	col = mix(col, vec3(0.80, 0.82, 0.96), disc * mix(0.72, 1.0, shade));
 	// nuages en bandes
 	float cl = noise1(m.x * 3.0 + seed) * 0.5 + noise1(m.x * 7.0 - seed) * 0.25;
 	float band = smoothstep(0.03, 0.0, abs(uv.y - (0.42 + cl * 0.12))) * 0.6;
@@ -50,7 +50,16 @@ void fragment() {
 	// silhouettes lointaines (collines) puis proches (tours)
 	float far = 0.18 + noise1(m.x * 2.5 + seed * 3.0) * 0.1;
 	if (uv.y < far) {
-		col = mix(silhouette.rgb * 1.6, mist.rgb, 0.45);
+		col = mix(silhouette.rgb * 1.6, mist.rgb, 0.5);
+	}
+	// rangée de tours lointaines, presque fondues dans la brume
+	{
+		float fx = m.x * 5.0 + seed * 3.7;
+		float fi = floor(fx);
+		float fh = 0.12 + hash(fi + 40.0) * 0.2;
+		if (uv.y < fh && abs(fract(fx) - 0.5) < 0.34) {
+			col = mix(silhouette.rgb, mist.rgb, 0.68);
+		}
 	}
 	float tx = m.x * 9.0;
 	float ti = floor(tx);
@@ -59,10 +68,11 @@ void fragment() {
 	float inside = step(abs(fract(tx) - 0.5), tw * 0.5);
 	float roof = th + 0.06 * (1.0 - abs(fract(tx) - 0.5) / max(tw * 0.5, 0.01)) * step(0.6, hash(ti + 2.0));
 	if (uv.y < roof && inside > 0.5) {
-		col = silhouette.rgb;
+		// perspective atmosphérique : le pied des tours se fond dans la brume
+		col = mix(silhouette.rgb, mist.rgb, 0.12 + 0.5 * smoothstep(th, 0.0, uv.y));
 		vec2 wcell = floor(vec2(fract(tx) * 6.0, uv.y * 60.0));
-		if (hash2(wcell + ti) > 0.82 && uv.y < th - 0.01) {
-			col = window_light.rgb;
+		if (hash2(wcell + ti) > 0.88 && uv.y < th - 0.01) {
+			col = window_light.rgb * 0.75;
 		}
 	}
 	// brume au ras de l'horizon

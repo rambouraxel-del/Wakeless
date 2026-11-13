@@ -22,6 +22,22 @@ uniform float star_density = 0.0;
 uniform float star_scale = 6.0;
 uniform vec4 star_color : source_color = vec4(1.0, 0.82, 0.45, 1.0);
 uniform float star_glow = 0.6;
+// --- finition matières (valeurs par défaut neutres : sans effet)
+uniform float rim_power = 3.0;                 // plus grand = liseré plus fin
+uniform float foot_dark : hint_range(0.0, 1.0) = 0.0;   // assombrissement du bas (occlusion de pied de mur)
+uniform float foot_height = 1.4;
+uniform float dirt : hint_range(0.0, 1.0) = 0.0;        // salissure en taches douces
+uniform float grain : hint_range(0.0, 0.3) = 0.0;       // grain d'enduit fin
+uniform float wood : hint_range(0.0, 1.0) = 0.0;        // veinage en bandes
+uniform vec3 wood_dir = vec3(0.0, 1.0, 0.0);            // direction du fil
+uniform float wood_freq = 9.0;
+uniform float fake_reflect : hint_range(0.0, 2.0) = 0.0; // faux reflet d'environnement (métal, vernis)
+uniform vec4 reflect_color : source_color = vec4(1.0, 0.8, 0.5, 1.0);
+
+uniform vec4 pool = vec4(0.0);          // flaque de lune au sol : centre xz, demi-tailles
+uniform float pool_rot = 0.0;
+uniform float pool_strength = 0.0;
+uniform vec4 moon_color : source_color = vec4(0.66, 0.69, 1.0, 1.0);
 
 varying vec3 world_pos;
 varying vec3 world_nrm;
@@ -54,6 +70,22 @@ float star4(vec2 uv, float size) {
 	return 1.0 - smoothstep(size * 0.25, size, d);
 }
 
+float moon_pool(vec2 p, vec2 c, float rot, vec2 hs) {
+	vec2 q = p - c;
+	float cs = cos(rot);
+	float sn = sin(rot);
+	q = vec2(cs * q.x - sn * q.y, sn * q.x + cs * q.y);
+	vec2 a = abs(q) / hs;
+	float edge = 1.0 - smoothstep(0.6, 1.0, max(a.x, a.y));
+	// ombre des meneaux de la fenêtre dans le rayon
+	float sx = hs.x * 0.8;
+	float sy = hs.y * 0.55;
+	float bx = abs(fract(q.x / sx + 0.5) - 0.5) * sx;
+	float by = abs(fract(q.y / sy + 0.5) - 0.5) * sy;
+	float bars = (1.0 - smoothstep(0.03, 0.10, bx)) + (1.0 - smoothstep(0.03, 0.10, by));
+	return edge * (1.0 - 0.7 * clamp(bars, 0.0, 1.0)) * (0.65 + 0.35 * (1.0 - a.y * 0.6));
+}
+
 void vertex() {
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	world_nrm = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
@@ -62,8 +94,29 @@ void vertex() {
 void fragment() {
 	float g = smoothstep(gradient_bottom, gradient_top, world_pos.y);
 	vec3 col = mix(base_color.rgb, top_color.rgb, g);
-	float n = vnoise(world_pos * variation_scale) * 0.65 + vnoise(world_pos * variation_scale * 3.1) * 0.35;
+	// variation multi-échelle (grandes plaques, taches moyennes, fin)
+	float n = vnoise(world_pos * variation_scale * 0.31) * 0.4 + vnoise(world_pos * variation_scale) * 0.4 + vnoise(world_pos * variation_scale * 3.1) * 0.2;
 	col *= 1.0 + (n - 0.5) * 2.0 * variation;
+	if (dirt > 0.0) {
+		float dn = vnoise(world_pos * vec3(1.3, 0.8, 1.3) + 7.0) * 0.6 + vnoise(world_pos * 4.7) * 0.4;
+		col *= 1.0 - dirt * smoothstep(0.5, 0.85, dn) * (1.0 - g * 0.5);
+	}
+	if (grain > 0.0) {
+		col *= 1.0 + (vnoise(world_pos * 23.0) - 0.5) * grain * 2.0;
+	}
+	if (foot_dark > 0.0) {
+		col *= 1.0 - foot_dark * (1.0 - smoothstep(0.0, foot_height, world_pos.y - gradient_bottom));
+	}
+	if (wood > 0.0) {
+		vec3 wd = normalize(wood_dir);
+		vec3 pp = world_pos - wd * dot(world_pos, wd);
+		float t = (pp.x + pp.y * 0.93 + pp.z * 1.07) * wood_freq + vnoise(world_pos * 1.9) * 1.6;
+		float band = 0.5 + 0.5 * sin(t) * (0.6 + 0.4 * sin(t * 0.37 + 1.3));
+		float fine = vnoise(pp * 60.0 + dot(world_pos, wd) * 2.0);
+		float w = band * 0.75 + fine * 0.25;
+		col *= 1.0 - wood * 0.26 * smoothstep(0.55, 0.95, w);
+		col *= 1.0 + wood * 0.10 * (1.0 - w);
+	}
 	vec3 emis = emission_color.rgb * emission_energy;
 	if (star_density > 0.0) {
 		// projection triplanaire simple selon la normale dominante
@@ -83,6 +136,19 @@ void fragment() {
 	ROUGHNESS = roughness;
 	METALLIC = metallic;
 	SPECULAR = specular;
-	float fres = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 3.0);
-	EMISSION = emis + rim_color.rgb * fres * rim_strength;
+	float fres = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), rim_power);
+	emis += rim_color.rgb * fres * rim_strength;
+	if (fake_reflect > 0.0) {
+		vec3 rw = (INV_VIEW_MATRIX * vec4(reflect(-VIEW, NORMAL), 0.0)).xyz;
+		// environnement stylisé : plafond sombre, bande claire (fenêtres) à l'horizon, sol chaud faible
+		float horizon = exp(-pow((rw.y - 0.12) * 5.0, 2.0));
+		float up = smoothstep(0.35, 0.95, rw.y) * 0.25;
+		float lamp = pow(max(dot(normalize(rw.xz + 0.001), vec2(0.6, 0.8)), 0.0), 6.0) * horizon;
+		vec3 env = reflect_color.rgb * (horizon * 0.35 + lamp * 0.9 + up);
+		emis += col * env * fake_reflect;
+	}
+	if (pool_strength > 0.0 && world_nrm.y > 0.7) {
+		emis += moon_color.rgb * (col * 3.0 + 0.04) * moon_pool(world_pos.xz, pool.xy, pool_rot, pool.zw) * pool_strength;
+	}
+	EMISSION = emis;
 }

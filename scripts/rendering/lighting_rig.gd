@@ -167,6 +167,9 @@ func apply_preset_dict(p: Dictionary) -> void:
 	env.fog_density = float(p["fog_density"])
 	env.fog_enabled = env.fog_density > 0.0
 	env.glow_intensity = float(p["glow"])
+	env.glow_hdr_threshold = float(p.get("glow_threshold", 1.0))
+	env.adjustment_saturation = float(p.get("saturation", 1.0))
+	env.adjustment_contrast = float(p.get("contrast", 1.02))
 	env.ssr_enabled = bool(p.get("ssr", false))           # reflets en espace écran (Forward+ seulement) : sols polis
 	if env.ssr_enabled:
 		env.ssr_max_steps = 48
