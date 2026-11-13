@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_double_entree.res" id="1_vixe3"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/porte_double_entree.res" id="1_kpg84"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qcjwc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_614pq"]
 size = Vector3(4.2, 5.2, 0.5)
 
 [node name="PorteDoubleEntree" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_vixe3")
+mesh = ExtResource("1_kpg84")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0.1)
-shape = SubResource("BoxShape3D_qcjwc")
+shape = SubResource("BoxShape3D_614pq")

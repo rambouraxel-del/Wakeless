@@ -1,19 +1,19 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/stylized/celestial_clock.gd" id="1_jgs2o"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste.res" id="2_dft3q"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_anneau.res" id="3_mcxp4"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_heures.res" id="4_gn08p"]
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_minutes.res" id="5_xp76g"]
+[ext_resource type="Script" path="res://scripts/stylized/celestial_clock.gd" id="1_u5usl"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste.res" id="2_yvpck"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_anneau.res" id="3_66as8"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_heures.res" id="4_ja5rf"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/horloge_celeste_maillage_minutes.res" id="5_aseqv"]
 
 [node name="HorlogeCeleste" type="Node3D"]
-script = ExtResource("1_jgs2o")
+script = ExtResource("1_u5usl")
 hour_hand = NodePath("Heures")
 minute_hand = NodePath("Minutes")
 ring = NodePath("Anneau")
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_dft3q")
+mesh = ExtResource("2_yvpck")
 
 [node name="Eclairage" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 2.5)
@@ -26,7 +26,7 @@ omni_range = 7.0
 omni_attenuation = 1.4
 
 [node name="Texte_0" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34711e-16, 2.2, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34711e-16, 2.2, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -36,7 +36,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_1" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.90526, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.90526, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -46,7 +46,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_2" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90526, 1.1, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90526, 1.1, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -56,7 +56,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_3" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -66,7 +66,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_4" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90526, -1.1, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90526, -1.1, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -76,7 +76,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_5" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, -1.90526, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, -1.90526, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -86,7 +86,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_6" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34711e-16, -2.2, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34711e-16, -2.2, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -96,7 +96,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_7" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -1.90526, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -1.90526, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -106,7 +106,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_8" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90526, -1.1, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90526, -1.1, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -116,7 +116,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_9" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, -2.69422e-16, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, -2.69422e-16, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -126,7 +126,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_10" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90526, 1.1, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90526, 1.1, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -136,7 +136,7 @@ font_size = 120
 outline_size = 8
 
 [node name="Texte_11" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.90526, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.90526, 0.34)
 pixel_size = 0.004
 double_sided = false
 modulate = Color(1, 0.823529, 0.478431, 1)
@@ -146,19 +146,19 @@ font_size = 120
 outline_size = 8
 
 [node name="Anneau" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.29)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.35)
 
 [node name="MaillageAnneau" type="MeshInstance3D" parent="Anneau"]
-mesh = ExtResource("3_mcxp4")
+mesh = ExtResource("3_66as8")
 
 [node name="Heures" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.33)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41)
 
 [node name="MaillageHeures" type="MeshInstance3D" parent="Heures"]
-mesh = ExtResource("4_gn08p")
+mesh = ExtResource("4_ja5rf")
 
 [node name="Minutes" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45)
 
 [node name="MaillageMinutes" type="MeshInstance3D" parent="Minutes"]
-mesh = ExtResource("5_xp76g")
+mesh = ExtResource("5_aseqv")

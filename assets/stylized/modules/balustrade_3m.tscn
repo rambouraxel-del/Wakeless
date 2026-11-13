@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/balustrade_3m.res" id="1_n3iuo"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/balustrade_3m.res" id="1_ujk10"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_v3ykg"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2tm6"]
 size = Vector3(3, 1.1, 0.3)
 
 [node name="Balustrade3m" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_n3iuo")
+mesh = ExtResource("1_ujk10")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-shape = SubResource("BoxShape3D_v3ykg")
+shape = SubResource("BoxShape3D_h2tm6")
