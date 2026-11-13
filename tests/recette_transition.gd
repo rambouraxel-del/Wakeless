@@ -79,7 +79,7 @@ func _run() -> void:
 	await _frames(30)
 	check("rêve : arrivée « clairiere » au sol", fo.player.is_on_floor(), str(fo.player.global_position))
 	var porte := fo.get_node("Gameplay/Portes/Porte_du_reve") as Node3D
-	var from := porte.global_position + Vector3(0, 0.0, 0) + Vector3(-2.9, 0.6, 0.0)
+	var from := porte.global_position + Vector3(-2.9, -1.1, 0.0)           # au sol, à 2,9 m devant la porte (face à l'est)
 	await _aim(fo, from, -90.0)
 	check("réveil : porte de la clairière visée", fo.focused != null and fo.focused.name == "Porte_du_reve", str(fo.focused))
 	check("réveil : invite « Se réveiller »", fo._prompt.text.contains("réveiller"), fo._prompt.text)

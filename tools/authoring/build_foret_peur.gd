@@ -5,8 +5,14 @@ extends SceneTree
 ## Écrit scenes/levels/foret_de_la_peur.tscn et ses données cuites (scenes/levels/data/foret_peur/*.res).
 ## Une fois la scène enregistrée, elle se modifie à la main dans l'éditeur Godot.
 ##
+## Contrat de dimensions des substituts (à respecter par les modules de B pour un remplacement transparent) : origine au sol,
+## centré ; arbres 9/11/13,5 m (collision cylindre r 0,55) ; arbre_echasses 8 m (r 1,0) ; arbre_ancien 18 m (r 1,9) ; tronc_couche
+## 6 m d'axe Z, r 0,38 ; souche r 0,6 h 0,55 ; racines_arche 3 m de large (pieds à x ±1,3) ; ruine_porte_lune 5 m de large, pieds
+## à x ±2,1, ouverture 3,4 m, pivots VantailG (x −1,5) / VantailD (x +1,5) ; cadre_porte_reve ouverture 1,6 × 2,5, face avant +Z ;
+## fleur_lanterne : nœud « Corolle » (+ lumière enfant) à 1 m ; piedestal_lune : nœud « Pierre » à 1,35 m.
+##
 ## Repère : x vers l'est, z vers le sud (le parcours va vers −Z, le nord), y vers le haut. Sol d'arrivée = 0.
-##   Zone 1 lisière          z +12 → −22   point d'arrivée `depart` (0, 2.8), cadre de porte à (0, 5.2)
+##   Zone 1 lisière          z +12 → −22   point d'arrivée `depart` (0, 3.6), cadre de porte à (0, 8.6)
 ##   Zone 2 jeune fille      z −18 → −30   souche (−6.2, −23.6)
 ##   Zone 3 marais           z −30 → −64   étang (eau à y = −0,05) : passerelle de troncs (z −34,4 → −43,1) vers l'îlot
 ##                                          (0, −45,4) ; fleurs W (−13,5, −40,5), E (13,5, −41,5), îlot (−2,2, −46) ;
@@ -276,8 +282,8 @@ func _dplay(x: float, z: float) -> float:
 
 ## Distance signée à l'eau (négative dans l'eau) : rectangle de l'étang moins les rives W/E et l'îlot.
 func _water_sd(x: float, z: float) -> float:
-	var r := _box_sd(x, z, 0.0, -47.0, 30.0, 11.5, 0.0)
-	if r > 2.0:
+	var r := _box_sd(x, z, 0.0, -47.0, 30.0, 11.5, 0.0) + 0.6 + 0.6 * sin(x * 0.5 + 1.0) + 0.4 * sin(x * 1.1 + 2.0)   # rives sinueuses (l'eau recule de 0,6 m en moyenne)
+	if r > 3.5:
 		return r
 	var w := _box_sd(x, z, -19.25, -42.0, 10.75, 6.0, 0.5)
 	var e := _box_sd(x, z, 19.25, -42.0, 10.75, 6.0, 0.5)
@@ -939,9 +945,9 @@ func _small_props(g: Node3D) -> void:
 	for r in [[0.0, -20.0], [-3.0, -33.0], [0.4, -64.0], [1.2, -69.0]]:
 		_prop_g(g, "pierres_plates", r[0], r[1], 20.0, 1.0, "Pierres_%d" % int(-r[1]))
 	# le cadre de porte d'arrivée, envahi de racines
-	_prop_g(g, "racines_basses", -1.5, 5.4, 20.0, 1.2, "Cadre_racines_1")
-	_prop_g(g, "racines_basses", 1.6, 5.6, 200.0, 1.2, "Cadre_racines_2")
-	_prop_g(g, "racines_basses", 0.4, 6.4, 100.0, 1.0, "Cadre_racines_3")
+	_prop_g(g, "racines_basses", -1.5, 9.0, 20.0, 1.2, "Cadre_racines_1")
+	_prop_g(g, "racines_basses", 1.6, 9.2, 200.0, 1.2, "Cadre_racines_2")
+	_prop_g(g, "racines_basses", 0.4, 7.4, 100.0, 1.0, "Cadre_racines_3")
 	# autour de la jeune fille : souche, lanterne éteinte, fougères
 	_prop_g(g, "lanterne_eteinte", -7.4, -22.4, 0.0, 1.0, "Lanterne_eteinte")
 	for r in [[-8.0, -24.6], [-7.0, -26.2], [-5.8, -21.8], [-9.0, -22.8]]:
@@ -1029,7 +1035,7 @@ func _limits(g: Node3D) -> void:
 # ================================================================== repères d'arrivée
 
 func _spawns(g: Node3D) -> void:
-	_marker(g, "depart", _at(0.0, 2.8, 0.05), 0.0)               # devant le cadre de porte, regard vers le nord
+	_marker(g, "depart", _at(0.0, 3.6, 0.05), 0.0)               # devant le cadre de porte, regard vers le nord
 	_marker(g, "marais", _at(0.0, -33.2, 0.05), 0.0)             # rive sud de l'étang
 	_marker(g, "bois_noir", _at(0.0, -64.5, 0.05), 0.0)          # rive nord, entrée du bois noir
 	_marker(g, "clairiere", _at(0.0, -114.0, 0.05), 0.0)         # entrée de la clairière, après la porte de lune
@@ -1043,7 +1049,7 @@ func _gameplay(g: Node3D) -> void:
 
 	# cadre de porte isolé (arrivée) : on vient de l'hôtel
 	var port := _group(g, "Portes")
-	var cadre := _prop_g(port, "cadre_porte_reve", 0.0, 5.2, 0.0, 1.0, "Cadre_porte_reve")
+	var cadre := _prop_g(port, "cadre_porte_reve", 0.0, 8.6, 0.0, 1.0, "Cadre_porte_reve")
 	# porte « Se réveiller » dans la clairière
 	var pr_pos := _at(8.5, -127.5)
 	var pr := _prop(port, "cadre_porte_reve", pr_pos, -90.0, 1.0, "Cadre_reveil")
@@ -1198,7 +1204,7 @@ func _ombres_et_feux(g: Node3D) -> void:
 
 func _lights(g: Node3D) -> void:
 	var dream := Color(0.55, 1.0, 0.9)
-	AuthorKit.omni(g, "cadre_arrivee", _at(0.0, 5.0, 1.5), dream, 2.2, 8.0)
+	AuthorKit.omni(g, "cadre_arrivee", _at(0.0, 8.0, 1.5), dream, 2.2, 8.0)
 	AuthorKit.omni(g, "jeune_fille", _at(-6.6, -23.6, 1.3), Color(1.0, 0.7, 0.4), 0.9, 4.5)
 	AuthorKit.omni(g, "reveil", _at(7.6, -127.5, 1.4), Color(0.7, 1.0, 0.95), 2.4, 7.0)
 	AuthorKit.omni(g, "ruine_ouest", _at(-17.0, -87.5, 2.2), Color(0.45, 0.7, 1.0), 1.0, 6.0)
