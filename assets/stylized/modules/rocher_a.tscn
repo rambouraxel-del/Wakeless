@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/rocher_a.res" id="1_nl4de"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nf5hw"]
+size = Vector3(1, 0.65, 0.9)
+
+[node name="RocherA" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_nl4de")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 0.1, 0.33, 0.05)
+shape = SubResource("BoxShape3D_nf5hw")

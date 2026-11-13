@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne.res" id="1_1p30k"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fleur_lanterne_corolle.res" id="2_34m5o"]
+
+[node name="FleurLanterne" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_1p30k")
+
+[node name="Lumiere" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+visible = false
+light_color = Color(0.435294, 0.909804, 1, 1)
+light_energy = 1.6
+distance_fade_enabled = true
+distance_fade_begin = 32.0
+distance_fade_shadow = 18.0
+omni_range = 7.0
+omni_attenuation = 1.4
+
+[node name="Corolle" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_34m5o")
