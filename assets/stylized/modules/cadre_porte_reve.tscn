@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/cadre_porte_reve.res" id="1_xlvjg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3wu2"]
+size = Vector3(0.16, 2.2, 0.24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hvolw"]
+size = Vector3(0.16, 2.2, 0.24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0cw3s"]
+size = Vector3(1.42, 0.3, 0.24)
+
+[node name="CadrePorteReve" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_xlvjg")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63, 1.1, 0)
+shape = SubResource("BoxShape3D_t3wu2")
+
+[node name="Boite2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63, 1.1, 0)
+shape = SubResource("BoxShape3D_hvolw")
+
+[node name="Boite3" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+shape = SubResource("BoxShape3D_0cw3s")

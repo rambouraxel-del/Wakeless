@@ -1,0 +1,174 @@
+[gd_scene load_steps=38 format=3]
+
+[ext_resource type="Script" path="res://scripts/level/level.gd" id="1_32w3t"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_tordu_a.tscn" id="2_gyrrk"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_tordu_b.tscn" id="3_tpbjj"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_tordu_c.tscn" id="4_etby0"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_echasses.tscn" id="5_jntwd"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_mort.tscn" id="6_htl6a"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbre_ancien.tscn" id="7_cgmhj"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/tronc_couche.tscn" id="8_7edkt"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/souche.tscn" id="9_lboee"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/racines_arche.tscn" id="10_dga6h"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/racines_basses.tscn" id="11_ub7cl"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/rocher_a.tscn" id="12_f4bbc"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/rocher_b.tscn" id="13_rkoxa"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/rocher_c.tscn" id="14_jtxo4"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/pierres_plates.tscn" id="15_jb0eb"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/cercle_pierres.tscn" id="16_j6wp4"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbuste_a.tscn" id="17_a3ttp"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/arbuste_b.tscn" id="18_o8bko"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/fougere.tscn" id="19_j543w"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/herbes_touffe.tscn" id="20_o3aka"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/roseaux.tscn" id="21_nrxxn"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/champignons_lumineux.tscn" id="22_cao6r"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/nenuphars.tscn" id="23_8mn1m"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/fleurs_blanches.tscn" id="24_m2rk4"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/fleur_lanterne.tscn" id="25_x5wfj"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/ruine_arche.tscn" id="26_tju5a"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/ruine_colonne.tscn" id="27_13va8"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/ruine_mur.tscn" id="28_scnlx"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/ruine_porte_lune.tscn" id="29_pargn"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/piedestal_lune.tscn" id="30_kie2c"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/cadre_porte_reve.tscn" id="31_bpksu"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/pont_racines.tscn" id="32_c2ef6"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/silhouette_ombre.tscn" id="33_dmsde"]
+[ext_resource type="PackedScene" path="res://assets/stylized/modules/jeune_fille_provisoire.tscn" id="34_foc27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1rv3"]
+albedo_color = Color(0.0862745, 0.117647, 0.168627, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hca0e"]
+material = SubResource("StandardMaterial3D_l1rv3")
+size = Vector2(240, 140)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nj5fh"]
+size = Vector3(240, 1, 140)
+
+[node name="ForetKitGalerie" type="Node3D"]
+script = ExtResource("1_32w3t")
+level_id = "foret-kit-galerie"
+level_title = ""
+level_subtitle = ""
+lighting_preset = "foret_nuit"
+default_spawn = "depart"
+interior = false
+first_person = true
+show_controls_hint = false
+kill_y = -50.0
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="depart" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 60)
+
+[node name="Sol" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -10)
+mesh = SubResource("PlaneMesh_hca0e")
+
+[node name="SolCollision" type="StaticBody3D" parent="."]
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="SolCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.5, -10)
+shape = SubResource("BoxShape3D_nj5fh")
+
+[node name="Modules" type="Node3D" parent="."]
+
+[node name="ArbreTorduA" type="Node3D" parent="Modules" instance=ExtResource("2_gyrrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -30)
+
+[node name="ArbreTorduB" type="Node3D" parent="Modules" instance=ExtResource("3_tpbjj")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, -8, 0, -30)
+
+[node name="ArbreTorduC" type="Node3D" parent="Modules" instance=ExtResource("4_etby0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0, -30)
+
+[node name="ArbreEchasses" type="Node3D" parent="Modules" instance=ExtResource("5_jntwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -30)
+
+[node name="ArbreMort" type="Node3D" parent="Modules" instance=ExtResource("6_htl6a")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 38, 0, -30)
+
+[node name="ArbreAncien" type="Node3D" parent="Modules" instance=ExtResource("7_cgmhj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, -34)
+
+[node name="TroncCouche" type="Node3D" parent="Modules" instance=ExtResource("8_7edkt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -14)
+
+[node name="Souche" type="Node3D" parent="Modules" instance=ExtResource("9_lboee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -14)
+
+[node name="RacinesArche" type="Node3D" parent="Modules" instance=ExtResource("10_dga6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14)
+
+[node name="RacinesBasses" type="Node3D" parent="Modules" instance=ExtResource("11_ub7cl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -14)
+
+[node name="RocherA" type="Node3D" parent="Modules" instance=ExtResource("12_f4bbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -14)
+
+[node name="RocherB" type="Node3D" parent="Modules" instance=ExtResource("13_rkoxa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -14)
+
+[node name="RocherC" type="Node3D" parent="Modules" instance=ExtResource("14_jtxo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -14)
+
+[node name="PierresPlates" type="Node3D" parent="Modules" instance=ExtResource("15_jb0eb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -14)
+
+[node name="CerclePierres" type="Node3D" parent="Modules" instance=ExtResource("16_j6wp4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -14)
+
+[node name="ArbusteA" type="Node3D" parent="Modules" instance=ExtResource("17_a3ttp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 0)
+
+[node name="ArbusteB" type="Node3D" parent="Modules" instance=ExtResource("18_o8bko")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0)
+
+[node name="Fougere" type="Node3D" parent="Modules" instance=ExtResource("19_j543w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
+
+[node name="HerbesTouffe" type="Node3D" parent="Modules" instance=ExtResource("20_o3aka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+
+[node name="Roseaux" type="Node3D" parent="Modules" instance=ExtResource("21_nrxxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="ChampignonsLumineux" type="Node3D" parent="Modules" instance=ExtResource("22_cao6r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Nenuphars" type="Node3D" parent="Modules" instance=ExtResource("23_8mn1m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="FleursBlanches" type="Node3D" parent="Modules" instance=ExtResource("24_m2rk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="FleurLanterne" type="Node3D" parent="Modules" instance=ExtResource("25_x5wfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="RuineArche" type="Node3D" parent="Modules" instance=ExtResource("26_tju5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
+
+[node name="RuineColonne" type="Node3D" parent="Modules" instance=ExtResource("27_13va8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 0)
+
+[node name="RuineMur" type="Node3D" parent="Modules" instance=ExtResource("28_scnlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 0)
+
+[node name="RuinePorteLune" type="Node3D" parent="Modules" instance=ExtResource("29_pargn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 0)
+
+[node name="PiedestalLune" type="Node3D" parent="Modules" instance=ExtResource("30_kie2c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 0, 0)
+
+[node name="CadrePorteReve" type="Node3D" parent="Modules" instance=ExtResource("31_bpksu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 14)
+
+[node name="PontRacines" type="Node3D" parent="Modules" instance=ExtResource("32_c2ef6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 0, 14)
+
+[node name="SilhouetteOmbre" type="Node3D" parent="Modules" instance=ExtResource("33_dmsde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 14)
+
+[node name="JeuneFilleProvisoire" type="Node3D" parent="Modules" instance=ExtResource("34_foc27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)

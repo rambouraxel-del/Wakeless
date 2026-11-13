@@ -24,6 +24,7 @@ run "Compilation des scripts" 300 "$GODOT_BIN" --headless -s tools/check_scripts
 run "Contrôles (cœur, assets, références, niveaux, physique)" 600 "$GODOT_BIN" --headless -s tests/run_checks.gd
 run "Bureau des rêves (modules, structure, parcours joué)" 600 "$GODOT_BIN" --headless -s tests/run_checks_bureau.gd
 run "Finition : chambre 107 et couloir (objets, lit, portes)" 300 "$GODOT_BIN" --headless -s tests/run_checks_finition_b.gd
+run "Forêt de la peur : kit organique provisoire (modules, budgets, collisions, nœuds nommés)" 300 "$GODOT_BIN" --headless -s tests/run_checks_foret_kit.gd
 run "Recette jouée : chambre, lit, rêve, réveil" 300 "$GODOT_BIN" --headless --path . -- --recette=res://tests/recette_transition.gd
 if [ $fail -ne 0 ]; then echo "ÉCHEC : voir ci-dessus"; exit 1; fi
 echo "OK : toutes les vérifications passent."

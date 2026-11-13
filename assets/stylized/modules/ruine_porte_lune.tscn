@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune.res" id="1_vaqb1"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_g.res" id="2_l12ii"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/ruine_porte_lune_maillage_vantail_d.res" id="3_moqr6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mmqy2"]
+size = Vector3(0.65, 3.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iqbqw"]
+size = Vector3(0.65, 3.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v2752"]
+size = Vector3(3.7, 0.75, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yc7g7"]
+size = Vector3(1.4, 2.1, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trnv1"]
+size = Vector3(1.4, 1.6, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_up844"]
+size = Vector3(1.16, 3.1, 0.22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bsnly"]
+size = Vector3(1.16, 3.1, 0.22)
+
+[node name="RuinePorteLune" type="Node3D"]
+
+[node name="Maillage" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_vaqb1")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Boite1" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.525, 1.65, 0)
+shape = SubResource("BoxShape3D_mmqy2")
+
+[node name="Boite2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.525, 1.65, 0)
+shape = SubResource("BoxShape3D_iqbqw")
+
+[node name="Boite3" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+shape = SubResource("BoxShape3D_v2752")
+
+[node name="Boite4" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.55, 1.05, 0)
+shape = SubResource("BoxShape3D_yc7g7")
+
+[node name="Boite5" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55, 0.8, 0)
+shape = SubResource("BoxShape3D_trnv1")
+
+[node name="VantailG" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
+
+[node name="MaillageVantailG" type="MeshInstance3D" parent="VantailG"]
+mesh = ExtResource("2_l12ii")
+
+[node name="Collision" type="StaticBody3D" parent="VantailG"]
+
+[node name="Boite" type="CollisionShape3D" parent="VantailG/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.55, 0)
+shape = SubResource("BoxShape3D_up844")
+
+[node name="VantailD" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
+
+[node name="MaillageVantailD" type="MeshInstance3D" parent="VantailD"]
+mesh = ExtResource("3_moqr6")
+
+[node name="Collision" type="StaticBody3D" parent="VantailD"]
+
+[node name="Boite" type="CollisionShape3D" parent="VantailD/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.55, 0)
+shape = SubResource("BoxShape3D_bsnly")
