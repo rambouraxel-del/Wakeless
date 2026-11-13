@@ -3,7 +3,7 @@ class_name StyleMaterialsChambre
 extends RefCounted
 ## Matériaux partagés supplémentaires de la chambre 107 et du couloir (finition esthétique). Utilise StyleMaterials._surface / _glow.
 ## Les 32 matériaux d'origine restent définis dans style_materials.gd. Palette désaturée (règle 60 / 30 / 10).
-## Matériaux « de coque » (papier_peint, parquet_lames, moulure_lilas, flaque_lune) : utilisés par la coque de la chambre,
+## Matériaux « de coque » (papier_peint, parquet_lames, flaque_lune ; moulures : moulure_pierre) : utilisés par la coque de la chambre,
 ## pas par les modules ; les autres sont partagés par les modules (le test plafonne à 40 matériaux de modules).
 
 static func add(d: Dictionary) -> void:
@@ -14,7 +14,6 @@ static func add(d: Dictionary) -> void:
 	var pq := ShaderMaterial.new()
 	pq.shader = load(StyleMaterials.DIR + "parquet_lames.gdshader")
 	d["parquet_lames"] = pq
-	d["moulure_lilas"] = StyleMaterials._surface("#7d7499", "#6f6790", 0.55, {"variation": 0.04, "rim_strength": 0.1, "rim_color": "#c9bfe8"})
 	var fl := StandardMaterial3D.new()                      # flaque de clair de lune au sol (additive, très douce)
 	fl.albedo_color = Color(0.45, 0.5, 0.9, 1.0)
 	fl.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -28,7 +27,6 @@ static func add(d: Dictionary) -> void:
 	d["rideau_velours"] = StyleMaterials._surface("#4a3068", "#3d2858", 0.95, {"variation": 0.05, "rim_color": "#a58bd8", "rim_strength": 0.3})
 	d["lin_lavande"] = StyleMaterials._surface("#8c82b4", "#8379ab", 0.92, {"variation": 0.06, "variation_scale": 1.6, "rim_color": "#cfc6f0", "rim_strength": 0.22})
 	d["lin_creme"] = StyleMaterials._surface("#e6d9c0", "#d8cbb4", 0.92, {"variation": 0.04, "rim_color": "#fff0d8", "rim_strength": 0.15})
-	d["rose_lune"] = StyleMaterials._surface("#c597aa", "#b78a9d", 0.9, {"variation": 0.04, "rim_color": "#f0c8d6", "rim_strength": 0.25})
 	d["abat_jour"] = StyleMaterials._glow("#d9954a", "#ff8a2e", 0.9)
 	var vo := StandardMaterial3D.new()                      # voilage : toile translucide
 	vo.albedo_color = Color(0.82, 0.8, 0.95, 0.33)

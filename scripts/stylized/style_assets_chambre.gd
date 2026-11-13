@@ -104,7 +104,7 @@ static func banquette_fenetre() -> ModuleBuilder:
 		b.add(StyleKit.sphere(0.04, M(GOLD), 8, 4), ModuleBuilder.at(Vector3(x, 0.04, 0.26), Vector3.ZERO, Vector3(1, 0.7, 1)))
 	StyleAssets._pillow(b, Vector3(0.42, 0.3, 0.12), "lin_creme", Vector3(-0.8, 0.74, 0.12), Vector3(-12, 8, 0))
 	StyleAssets._pillow(b, Vector3(0.36, 0.3, 0.12), "lin_lavande", Vector3(-0.48, 0.72, 0.1), Vector3(-10, -6, 4))
-	StyleAssets._pillow(b, Vector3(0.38, 0.28, 0.12), "rose_lune", Vector3(0.82, 0.72, 0.11), Vector3(-12, -10, -3))
+	StyleAssets._pillow(b, Vector3(0.38, 0.28, 0.12), "fleur_rose", Vector3(0.82, 0.72, 0.11), Vector3(-12, -10, -3))
 	b.collide(Vector3(2.5, 0.6, 0.55), Vector3(0, 0.3, 0.27))
 	return b
 
@@ -171,7 +171,7 @@ static func pantoufles() -> ModuleBuilder:
 		if spec[2]:
 			T = T * Transform3D(Basis(Vector3.BACK, PI * 0.5 * 0.75), Vector3(0, 0.05, 0))
 		b.add(StyleKit.rounded_box(Vector3(0.1, 0.022, 0.27), 0.01, M("bois_porte"), 1), T * Transform3D(Basis.IDENTITY, Vector3(0, 0.011, 0)))
-		b.add(StyleKit.rounded_box(Vector3(0.095, 0.055, 0.15), 0.025, M("rose_lune"), 2), T * Transform3D(Basis.IDENTITY, Vector3(0, 0.045, 0.045)))
+		b.add(StyleKit.rounded_box(Vector3(0.095, 0.055, 0.15), 0.025, M("fleur_rose"), 2), T * Transform3D(Basis.IDENTITY, Vector3(0, 0.045, 0.045)))
 		b.add(StyleKit.rounded_box(Vector3(0.09, 0.05, 0.1), 0.02, M("lin_creme"), 1), T * Transform3D(Basis.IDENTITY, Vector3(0, 0.05, -0.06)))
 	b.cast_shadows = false
 	return b
@@ -254,10 +254,10 @@ static func plateau() -> ModuleBuilder:
 	StyleAssets._turn(b, [[0.05, 0.0], [0.03, 0.01], [0.027, 0.012]], "lin_creme", Vector3(0.12, 0.031, 0.1), 14)
 	StyleAssets._turn(b, [[0.03, 0.01], [0.034, 0.05], [0.036, 0.062]], "lin_creme", Vector3(0.12, 0.031, 0.1), 14, Vector3.ZERO, Vector3.ONE, false, false)
 	b.add(StyleKit.torus(0.016, 0.004, M("lin_creme"), 8, 4), ModuleBuilder.at(Vector3(0.162, 0.06, 0.1), Vector3(90, 0, 0)))
-	StyleAssets._cb(b, Vector3(0.12, 0.012, 0.09), "rose_lune", Vector3(0.12, 0.034, -0.12), Vector3(0, 18, 0))
-	StyleAssets._cb(b, Vector3(0.12, 0.012, 0.045), "rose_lune", Vector3(0.12, 0.046, -0.13), Vector3(0, 18, 0))
+	StyleAssets._cb(b, Vector3(0.12, 0.012, 0.09), "fleur_rose", Vector3(0.12, 0.034, -0.12), Vector3(0, 18, 0))
+	StyleAssets._cb(b, Vector3(0.12, 0.012, 0.045), "fleur_rose", Vector3(0.12, 0.046, -0.13), Vector3(0, 18, 0))
 	StyleAssets._turn(b, [[0.02, 0.0], [0.016, 0.05], [0.026, 0.1]], "voilage", Vector3(-0.1, 0.031, -0.14), 8, Vector3.ZERO, Vector3.ONE, true, false)
-	b.add(StyleKit.sphere(0.03, M("rose_lune"), 8, 4), ModuleBuilder.at(Vector3(-0.1, 0.15, -0.14), Vector3.ZERO, Vector3(1, 0.8, 1)))
+	b.add(StyleKit.sphere(0.03, M("fleur_rose"), 8, 4), ModuleBuilder.at(Vector3(-0.1, 0.15, -0.14), Vector3.ZERO, Vector3(1, 0.8, 1)))
 	b.add(StyleKit.cylinder(0.003, 0.1, M("feuillage"), 4), ModuleBuilder.at(Vector3(-0.1, 0.06, -0.14)))
 	b.collide(Vector3(0.56, 0.12, 0.56), Vector3(0, 0.06, 0))
 	b.cast_shadows = false
@@ -302,7 +302,7 @@ static func carton() -> ModuleBuilder:
 	var b := ModuleBuilder.new("carton_nd")
 	b.add(StyleKit.torus(0.03, 0.004, M(GOLD), 14, 4), ModuleBuilder.at(Vector3(0, -0.03, 0), Vector3(0, 0, 90)))
 	var poly := StyleKit.arch_outline(0.11, 0.28, 10)
-	b.add(StyleKit.extrude(poly, 0.008, M("rose_lune"), 0.002), ModuleBuilder.at(Vector3(0, -0.29, 0.0)))
+	b.add(StyleKit.extrude(poly, 0.008, M("fleur_rose"), 0.002), ModuleBuilder.at(Vector3(0, -0.29, 0.0)))
 	b.add(StyleKit.extrude(_circle(0.014, 10), 0.01, M("pierre_sombre"), 0.0), ModuleBuilder.at(Vector3(0, -0.04, 0.0)))
 	b.add(StyleKit.extrude(StyleKit.crescent_outline(0.028, 0.55), 0.004, M("etoile_or"), 0.0), ModuleBuilder.at(Vector3(0, -0.17, 0.006), Vector3(0, 0, 90)))
 	b.cast_shadows = false
@@ -361,8 +361,8 @@ static func _wainscot(parts: Array, axis: int, pos: float, inward: float, a0: fl
 			continue
 		_c(parts, _ws(axis, lr, 1.0, 0.08), "bois_sombre", _wm(axis, pos, inward, mid, 0.5, 0.04))
 		_c(parts, _ws(axis, lr, 0.17, 0.09), "bois_sombre", _wm(axis, pos, inward, mid, 0.085, 0.085 * 0.5 + 0.04))
-		_c(parts, _ws(axis, lr, 0.028, 0.108), "moulure_lilas", _wm(axis, pos, inward, mid, 0.184, 0.054))
-		_r(parts, _ws(axis, lr, 0.07, 0.11), 0.03, "moulure_lilas", _wm(axis, pos, inward, mid, 1.035, 0.055))
+		_c(parts, _ws(axis, lr, 0.028, 0.108), "moulure_pierre", _wm(axis, pos, inward, mid, 0.184, 0.054))
+		_r(parts, _ws(axis, lr, 0.07, 0.11), 0.03, "moulure_pierre", _wm(axis, pos, inward, mid, 1.035, 0.055))
 		_c(parts, _ws(axis, lr, 0.022, 0.126), "or", _wm(axis, pos, inward, mid, 1.078, 0.063))
 		var n := maxi(1, int(round((lr - 0.12) / 1.0)))
 		var st := 0.12
@@ -372,9 +372,9 @@ static func _wainscot(parts: Array, axis: int, pos: float, inward: float, a0: fl
 			var ph := 0.6
 			parts.append([StyleKit.rounded_box(_ws(axis, pw, ph, 0.04), 0.02, M("bois_porte"), 1), ModuleBuilder.at(_wm(axis, pos, inward, ac, 0.6, 0.1))])
 			for dy in [-1.0, 1.0]:
-				_c(parts, _ws(axis, pw + 0.07, 0.034, 0.026), "moulure_lilas", _wm(axis, pos, inward, ac, 0.6 + dy * (ph * 0.5 + 0.017), 0.093))
+				_c(parts, _ws(axis, pw + 0.07, 0.034, 0.026), "moulure_pierre", _wm(axis, pos, inward, ac, 0.6 + dy * (ph * 0.5 + 0.017), 0.093))
 			for da in [-1.0, 1.0]:
-				_c(parts, _ws(axis, 0.034, ph, 0.026), "moulure_lilas", _wm(axis, pos, inward, ac + da * (pw * 0.5 + 0.017), 0.6, 0.093))
+				_c(parts, _ws(axis, 0.034, ph, 0.026), "moulure_pierre", _wm(axis, pos, inward, ac + da * (pw * 0.5 + 0.017), 0.6, 0.093))
 			if k % 2 == 0:
 				parts.append([StyleKit.extrude(StyleKit.star_outline(0.035, 0.014, 4), 0.012, M("or"), 0.0), ModuleBuilder.at(_wm(axis, pos, inward, ac, 0.6, 0.123), Vector3(0, 90.0 if axis == 0 else 0.0, 0) if inward > 0.0 else Vector3(0, -90.0 if axis == 0 else 180.0, 0))])
 
@@ -383,10 +383,10 @@ static func _wall_frame(parts: Array, axis: int, pos: float, inward: float, a: f
 	var h := y1 - y0
 	var yc := (y0 + y1) * 0.5
 	for dy in [-1.0, 1.0]:
-		_c(parts, _ws(axis, w, 0.06, 0.03), "moulure_lilas", _wm(axis, pos, inward, a, yc + dy * (h * 0.5 - 0.03), 0.015))
+		_c(parts, _ws(axis, w, 0.06, 0.03), "moulure_pierre", _wm(axis, pos, inward, a, yc + dy * (h * 0.5 - 0.03), 0.015))
 		_c(parts, _ws(axis, w - 0.16, 0.014, 0.036), "or", _wm(axis, pos, inward, a, yc + dy * (h * 0.5 - 0.1), 0.018))
 	for da in [-1.0, 1.0]:
-		_c(parts, _ws(axis, 0.06, h - 0.12, 0.03), "moulure_lilas", _wm(axis, pos, inward, a + da * (w * 0.5 - 0.03), yc, 0.015))
+		_c(parts, _ws(axis, 0.06, h - 0.12, 0.03), "moulure_pierre", _wm(axis, pos, inward, a + da * (w * 0.5 - 0.03), yc, 0.015))
 		_c(parts, _ws(axis, 0.014, h - 0.2, 0.036), "or", _wm(axis, pos, inward, a + da * (w * 0.5 - 0.1), yc, 0.018))
 		for dy in [-1.0, 1.0]:
 			parts.append([StyleKit.sphere(0.035, M("or"), 8, 4), Transform3D(Basis.IDENTITY, _wm(axis, pos, inward, a + da * (w * 0.5 - 0.1), yc + dy * (h * 0.5 - 0.1), 0.03))])
@@ -403,13 +403,13 @@ static func _wall_frame(parts: Array, axis: int, pos: float, inward: float, a: f
 static func _cornice(parts: Array, axis: int, pos: float, inward: float, a0: float, a1: float) -> void:
 	var l := a1 - a0
 	var mid := (a0 + a1) * 0.5
-	_r(parts, _ws(axis, l, 0.2, 0.3), 0.05, "moulure_lilas", _wm(axis, pos, inward, mid, 4.9, 0.15))
+	_r(parts, _ws(axis, l, 0.2, 0.3), 0.05, "moulure_pierre", _wm(axis, pos, inward, mid, 4.9, 0.15))
 	_c(parts, _ws(axis, l, 0.028, 0.33), "or", _wm(axis, pos, inward, mid, 4.785, 0.165))
 	_r(parts, _ws(axis, l, 0.06, 0.22), 0.025, "bois_sombre", _wm(axis, pos, inward, mid, 4.74, 0.11))
 	var n := int(l / 0.2)
 	for i in n:
 		var a := a0 + 0.1 + i * (l - 0.2) / maxf(n - 1, 1)
-		_c(parts, _ws(axis, 0.07, 0.07, 0.07), "moulure_lilas", _wm(axis, pos, inward, a, 4.69, 0.095))
+		_c(parts, _ws(axis, 0.07, 0.07, 0.07), "moulure_pierre", _wm(axis, pos, inward, a, 4.69, 0.095))
 
 ## Coque de la chambre : parquet à lames, papier peint damassé, lambris à panneaux, cimaise, corniche à denticules, plafond
 ## à poutres et médaillon de lune, habillage du mur de la porte (fenêtre au nord), moulures murales, flaque de clair de lune.
@@ -425,7 +425,7 @@ static func room_shell(x0: float, x1: float, z0: float, z1: float) -> Array:
 	# mur sud (celui de la porte, côté chambre) : papier peint percé de l'arche, architrave
 	for half in [false, true]:
 		parts.append([StyleKit.extrude(StyleKit.arch_wall_half(x1 - x0, 5.0, 1.62, 3.08, half, 12), 0.06, M("papier_peint"), 0.0), Transform3D(Basis.IDENTITY, Vector3(cx, 0, z1 - 0.03))])
-	parts.append([StyleKit.extrude(StyleKit.arch_frame_outline(1.62, 3.08, 0.17, 18), 0.09, M("moulure_lilas"), 0.02), Transform3D(Basis.IDENTITY, Vector3(cx, 0, z1 - 0.105))])
+	parts.append([StyleKit.extrude(StyleKit.arch_frame_outline(1.62, 3.08, 0.17, 18), 0.09, M("moulure_pierre"), 0.02), Transform3D(Basis.IDENTITY, Vector3(cx, 0, z1 - 0.105))])
 	parts.append([StyleKit.extrude(StyleKit.arch_frame_outline(1.66, 3.1, 0.026, 18), 0.1, M("or"), 0.0), Transform3D(Basis.IDENTITY, Vector3(cx, 0, z1 - 0.105))])
 	# lambris sur les quatre murs (le mur sud évite l'arche), cimaise, plinthe
 	_wainscot(parts, 0, x0, 1.0, z0, z1 - 0.06)

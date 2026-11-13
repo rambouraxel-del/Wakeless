@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/plateau_service.res" id="1_ta5s5"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/plateau_service.res" id="1_y18re"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_c80x4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_h267n"]
 size = Vector3(0.56, 0.12, 0.56)
 
 [node name="PlateauService" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_ta5s5")
+mesh = ExtResource("1_y18re")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
-shape = SubResource("BoxShape3D_c80x4")
+shape = SubResource("BoxShape3D_h267n")

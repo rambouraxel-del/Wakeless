@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/chariot_bagages.res" id="1_54unt"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/chariot_bagages.res" id="1_u6qq0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g1x3m"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_665rv"]
 size = Vector3(1.4, 1.95, 0.9)
 
 [node name="ChariotBagages" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_54unt")
+mesh = ExtResource("1_u6qq0")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
-shape = SubResource("BoxShape3D_g1x3m")
+shape = SubResource("BoxShape3D_665rv")

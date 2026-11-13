@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_i4b24"]
+[ext_resource type="Shader" path="res://materials/stylized/stylized_surface.gdshader" id="1_75ehf"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_i4b24")
+shader = ExtResource("1_75ehf")
 shader_parameter/base_color = Color(0.290196, 0.188235, 0.407843, 1)
 shader_parameter/top_color = Color(0.239216, 0.156863, 0.345098, 1)
 shader_parameter/gradient_bottom = null
@@ -22,3 +22,18 @@ shader_parameter/star_density = null
 shader_parameter/star_scale = null
 shader_parameter/star_color = null
 shader_parameter/star_glow = null
+shader_parameter/rim_power = 4.5
+shader_parameter/foot_dark = null
+shader_parameter/foot_height = null
+shader_parameter/dirt = null
+shader_parameter/grain = null
+shader_parameter/wood = null
+shader_parameter/wood_dir = null
+shader_parameter/wood_freq = null
+shader_parameter/core_boost = null
+shader_parameter/fake_reflect = null
+shader_parameter/reflect_color = null
+shader_parameter/pool = null
+shader_parameter/pool_rot = null
+shader_parameter/pool_strength = null
+shader_parameter/moon_color = null

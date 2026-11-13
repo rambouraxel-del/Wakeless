@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fenetre_haute.res" id="1_is3mc"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/fenetre_haute.res" id="1_p6omv"]
 
 [node name="FenetreHaute" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_is3mc")
+mesh = ExtResource("1_p6omv")

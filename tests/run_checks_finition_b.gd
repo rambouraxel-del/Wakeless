@@ -21,11 +21,11 @@ func _initialize() -> void:
 		tris += StyleKit.triangles((mi as MeshInstance3D).mesh)
 	var lights := lv.find_children("*", "Light3D", true, false).size()
 	print("finition B : %d triangles (avant %d), %d lumières (avant %d)" % [tris, TRIS_AVANT, lights, LUMIERES_AVANT])
-	check("budget finition : ≤ +120 000 triangles (%d)" % (tris - TRIS_AVANT), tris - TRIS_AVANT <= 120000)
+	check("budget finition (atrium + couloir + chambre) : ≤ +300 000 triangles (%d)" % (tris - TRIS_AVANT), tris - TRIS_AVANT <= 300000)
 	check("budget finition : ≤ +14 lumières (%d)" % (lights - LUMIERES_AVANT), lights - LUMIERES_AVANT <= 14)
 	for id in StyleAssetsChambre.ids():
 		check("module %s : scène présente" % id, ResourceLoader.exists("res://assets/stylized/modules/%s.tscn" % id))
-	for m in ["papier_peint", "parquet_lames", "moulure_lilas", "flaque_lune", "rideau_velours", "lin_lavande", "lin_creme", "rose_lune", "abat_jour", "voilage", "tapis_prune", "tableau_nuit", "miroir"]:
+	for m in ["papier_peint", "parquet_lames", "flaque_lune", "rideau_velours", "lin_lavande", "lin_creme", "moulure_pierre", "fleur_rose", "abat_jour", "voilage", "tapis_prune", "tableau_nuit", "miroir"]:
 		check("matériau %s enregistré" % m, ResourceLoader.exists(StyleMaterials.path_of(m)))
 	# lit : collision de couchage inchangée (dessus à 0,72 m), marqueur de coucher, couette à 0,80 m
 	var bed := lv.get_node("Chambre/Lit")

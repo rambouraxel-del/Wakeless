@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://materials/stylized/parquet_lames.gdshader" id="1_kqw3t"]
+[ext_resource type="Shader" path="res://materials/stylized/parquet_lames.gdshader" id="1_ur2am"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_kqw3t")
+shader = ExtResource("1_ur2am")
 shader_parameter/colour_a = null
 shader_parameter/colour_b = null
 shader_parameter/plank_w = null

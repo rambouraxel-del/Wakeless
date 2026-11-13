@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/carton_nd.res" id="1_7gewm"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/carton_nd.res" id="1_pxnju"]
 
 [node name="CartonNd" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
 cast_shadow = 0
-mesh = ExtResource("1_7gewm")
+mesh = ExtResource("1_pxnju")

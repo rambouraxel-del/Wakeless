@@ -684,7 +684,7 @@ static func casier_cles() -> ModuleBuilder:
 		var x := (i - 1.5) * 0.66
 		b.add(frame_sweep(0.24, 0.17, PROF_PANEL, M("boiserie_prune")), ModuleBuilder.at(Vector3(x, 0.26, 0.46)))
 		b.add(StyleKit.sphere(0.025, M("or_vieilli"), 6, 3), ModuleBuilder.at(Vector3(x + (0.17 if i % 2 == 0 else -0.17), 0.3, 0.5)))
-	b.add(fbox(Vector3(W, H - 0.57, 0.1), M("tapis")), ModuleBuilder.at(Vector3(0, (0.57 + H) * 0.5, 0.05)))
+	b.add(fbox(Vector3(W, H - 0.57, 0.1), M("tapis_prune")), ModuleBuilder.at(Vector3(0, (0.57 + H) * 0.5, 0.05)))
 	for sx in [-1.0, 1.0]:
 		b.box(Vector3(0.1, H - 0.5, 0.18), 0.03, "boiserie_prune", Vector3(sx * (W * 0.5), (0.5 + H) * 0.5, 0.09))
 	b.box(Vector3(W + 0.2, 0.1, 0.3), 0.04, "boiserie_prune", Vector3(0, H + 0.03, 0.14))
@@ -767,7 +767,7 @@ static func tapis_hall() -> ModuleBuilder:
 	var b := ModuleBuilder.new("tapis_hall")
 	var r0 := 3.05
 	var r1 := 4.35
-	b.add(StyleAssets._arc_slab(r0, r1, 22.0, 158.0, 0.025, M("velours_escalier")), ModuleBuilder.at(Vector3(0, 0.002, 0)))
+	b.add(StyleAssets._arc_slab(r0, r1, 22.0, 158.0, 0.025, M("rideau_velours")), ModuleBuilder.at(Vector3(0, 0.002, 0)))
 	b.add(StyleAssets._arc_slab(r0, r0 + 0.07, 22.0, 158.0, 0.03, M("or_vieilli")), ModuleBuilder.at(Vector3(0, 0.002, 0)))
 	b.add(StyleAssets._arc_slab(r1 - 0.07, r1, 22.0, 158.0, 0.03, M("or_vieilli")), ModuleBuilder.at(Vector3(0, 0.002, 0)))
 	b.add(StyleAssets._arc_slab(r0 + 0.16, r0 + 0.19, 24.0, 156.0, 0.03, M("or_vieilli")), ModuleBuilder.at(Vector3(0, 0.002, 0)))
@@ -959,7 +959,7 @@ static func lustre() -> ModuleBuilder:
 		var p := Vector3(cos(a) * 2.8, cy + 0.2, sin(a) * 2.8)
 		b.add(StyleKit.lathe(P([[0.0, 0.0], [0.06, 0.0], [0.09, 0.05], [0.12, 0.1], [0.06, 0.11]]), 6, gold, false, false), Transform3D(Basis.IDENTITY, p + Vector3(0, 0.06, 0)))
 		b.add(StyleKit.cylinder(0.026, 0.14, M("draps"), 5), Transform3D(Basis.IDENTITY, p + Vector3(0, 0.17, 0)))
-		b.add(StyleKit.sphere(0.034, M("lueur_douce"), 5, 3), Transform3D(Basis.IDENTITY.scaled(Vector3(1, 1.5, 1)), p + Vector3(0, 0.36, 0)))
+		b.add(StyleKit.sphere(0.034, M("abat_jour"), 5, 3), Transform3D(Basis.IDENTITY.scaled(Vector3(1, 1.5, 1)), p + Vector3(0, 0.36, 0)))
 	# bras galbés : de l'anneau intérieur à l'anneau extérieur (polylignes)
 	for i in 6:
 		var a := TAU * i / 6.0
@@ -1131,7 +1131,7 @@ static func reception() -> ModuleBuilder:
 		var p := Vector3(cos(a) * 2.42, 1.22, sin(a) * 2.42)
 		b.add(StyleKit.lathe(P([[0.12, 0.0], [0.1, 0.04], [0.025, 0.1], [0.025, 0.45], [0.05, 0.48]]), 12, M(GOLD), true, true), ModuleBuilder.at(p))
 		b.add(StyleKit.torus(0.07, 0.015, M("or_vieilli"), 12, 4), ModuleBuilder.at(p + Vector3(0, 0.2, 0)))
-		b.add(StyleKit.lathe(P([[0.24, 0.42], [0.16, 0.66], [0.15, 0.68]]), 18, M("lueur_douce"), true, true), ModuleBuilder.at(p))
+		b.add(StyleKit.lathe(P([[0.24, 0.42], [0.16, 0.66], [0.15, 0.68]]), 18, M("abat_jour"), true, true), ModuleBuilder.at(p))
 		b.add(StyleKit.torus(0.24, 0.012, M("or_vieilli"), 18, 4), ModuleBuilder.at(p + Vector3(0, 0.42, 0)))
 		b.omni(p + Vector3(0, 0.5, 0), Color("#ffbf7a"), 1.3, 5.0, false)
 	# sphère armillaire au centre
@@ -1139,7 +1139,7 @@ static func reception() -> ModuleBuilder:
 	b.add(StyleKit.lathe(P([[0.16, 0.0], [0.12, 0.05], [0.04, 0.12], [0.03, 0.3]]), 12, M(GOLD)), ModuleBuilder.at(c))
 	for rot in [Vector3(0, 0, 0), Vector3(90, 0, 0), Vector3(90, 60, 0), Vector3(23, 0, 0)]:
 		b.add(StyleKit.torus(0.26, 0.012, M(GOLD), 28, 4), ModuleBuilder.at(c + Vector3(0, 0.56, 0), rot))
-	b.add(StyleKit.sphere(0.06, M("lueur_douce"), 12, 6), ModuleBuilder.at(c + Vector3(0, 0.56, 0)))
+	b.add(StyleKit.sphere(0.06, M("abat_jour"), 12, 6), ModuleBuilder.at(c + Vector3(0, 0.56, 0)))
 	# cloche
 	var bp := Vector3(cos(deg_to_rad(65)) * 2.42, 1.22, sin(deg_to_rad(65)) * 2.42)
 	b.add(StyleKit.cylinder(0.1, 0.02, M("or_vieilli"), 14), ModuleBuilder.at(bp))
@@ -1194,8 +1194,8 @@ static func escalier() -> ModuleBuilder:
 		b.add(frame_sweep(1.15, hh, [[0.035, 0.07], [0.035, 0.095], [0.0, 0.095]], M("or_vieilli")), Transform3D(ub, uc))
 	# contremarches sombres, tapis (marche et contremarche) et tringles d'or
 	var riser := fbox(Vector3(w - 0.08, rise - 0.045, 0.03), M("pierre_sombre"))
-	var c_tread := fbox(Vector3(1.7, 0.022, run + 0.03), M("velours_escalier"))
-	var c_riser := fbox(Vector3(1.7, rise + 0.012, 0.022), M("velours_escalier"))
+	var c_tread := fbox(Vector3(1.7, 0.022, run + 0.03), M("rideau_velours"))
+	var c_riser := fbox(Vector3(1.7, rise + 0.012, 0.022), M("rideau_velours"))
 	var rod := StyleKit.cylinder(0.014, 1.82, M("or_vieilli"), 6)
 	for i in steps:
 		b.add(riser, Transform3D(Basis.IDENTITY, Vector3(0, rise * (i + 0.5), -run * i + 0.03)))
@@ -1231,7 +1231,7 @@ static func escalier() -> ModuleBuilder:
 			var p := Vector3(x, rise * steps * end + 0.0, -Lz * end)
 			b.add(post, ModuleBuilder.at(p))
 			b.add(StyleKit.torus(0.13, 0.025, M(GOLD), 16, 4), ModuleBuilder.at(p + Vector3(0, 1.17, 0)))
-			b.add(StyleKit.sphere(0.08, M("lueur_douce"), 12, 6), ModuleBuilder.at(p + Vector3(0, 1.27, 0)))
+			b.add(StyleKit.sphere(0.08, M("abat_jour"), 12, 6), ModuleBuilder.at(p + Vector3(0, 1.27, 0)))
 			b.add(StyleKit.sphere(0.03, M(GOLD), 6, 3), ModuleBuilder.at(p + Vector3(0, 1.45, 0)))
 		b.collide(Vector3(0.3, 1.3, slope), Vector3(x, H * 0.5 + 0.6, -Lz * 0.5), Vector3(ang, 0, 0))
 	var thick := 0.4
@@ -1359,7 +1359,7 @@ static func arbre() -> ModuleBuilder:
 
 ## Grappe étagée de petites fleurs : trois étages de sphères en couronne, de plus en plus petits vers le bas.
 static func _bloom_cluster(b: ModuleBuilder, c: Vector3, scale: float, k: int) -> void:
-	var mats := [M("fleur_lavande"), M("fleur_rose"), M("fleur_arbre")]
+	var mats := [M("fleur_lavande"), M("fleur_rose"), M("glycine")]
 	for tier in 3:
 		var y := c.y - tier * 0.24 * scale
 		var R := (0.46 - 0.13 * tier) * scale
@@ -1378,7 +1378,7 @@ static func _bloom_cluster(b: ModuleBuilder, c: Vector3, scale: float, k: int) -
 static func _bloom_mass(b: ModuleBuilder, c: Vector3, R: float, k: int) -> void:
 	var lav := M("fleur_lavande")
 	var ros := M("fleur_rose")
-	var arb := M("fleur_arbre")
+	var arb := M("glycine")
 	# trois lobes lisses qui se chevauchent
 	b.add(_unit_sphere(lav, 16, 8), Transform3D(Basis(Vector3.UP, k * 0.5).scaled(Vector3(R * 0.95, R * 0.74, R * 0.95)), c + Vector3(0, 0.08 * R, 0)))
 	b.add(_unit_sphere(arb, 12, 6), Transform3D(Basis(Vector3.UP, k).scaled(Vector3(R * 0.62, R * 0.5, R * 0.62)), c + Vector3(cos(k * 2.0) * R * 0.55, -0.12 * R, sin(k * 2.0) * R * 0.55)))
