@@ -120,7 +120,7 @@ func _initialize() -> void:
 		check("%s : origine au sol (y min %.2f)" % [id, bb.position.y], bb.position.y > -0.85 and bb.position.y < 0.15)   # bouts de racines enterrés
 		node.free()
 	# --- gabarits
-	var gab := {"arbre_tordu_a": [11.0, 17.0], "arbre_tordu_b": [11.0, 17.0], "arbre_tordu_c": [12.0, 17.0], "arbre_ancien": [13.0, 20.0], "arbre_lointain_a": [12.0, 15.5], "arbre_lointain_b": [12.0, 15.5],
+	var gab := {"arbre_tordu_a": [11.0, 17.0], "arbre_tordu_b": [11.0, 17.0], "arbre_tordu_c": [12.0, 17.0], "arbre_ancien": [13.0, 20.0], "arbre_lointain_a": [10.5, 15.5], "arbre_lointain_b": [10.5, 15.5],
 		"tronc_couche": [0.7, 1.4], "ruine_porte_lune": [3.8, 4.6], "ruine_arche": [3.0, 5.0], "silhouette_ombre": [2.4, 3.2], "fleur_lanterne": [1.2, 2.0]}
 	for id in gab:
 		var n := (load("res://assets/stylized/modules/%s.tscn" % id) as PackedScene).instantiate() as Node3D
