@@ -37,7 +37,7 @@ extends RefCounted
 
 static func ids() -> PackedStringArray:
 	return PackedStringArray([
-		"arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c", "arbre_echasses", "arbre_mort", "arbre_ancien",
+		"arbre_tordu_a", "arbre_tordu_b", "arbre_tordu_c", "arbre_echasses", "arbre_mort", "arbre_ancien", "arbre_lointain_a", "arbre_lointain_b",
 		"tronc_couche", "souche", "racines_arche", "racines_basses",
 		"rocher_a", "rocher_b", "rocher_c", "pierres_plates", "cercle_pierres",
 		"arbuste_a", "arbuste_b", "fougere", "herbes_touffe", "roseaux", "champignons_lumineux", "nenuphars", "fleurs_blanches",
@@ -53,6 +53,8 @@ static func make(id: String) -> ModuleBuilder:
 		"arbre_echasses": return _tree(id, {"seed": 37, "h": 11.5, "br": 0.75, "limbs": 3, "masses": 4, "lean": Vector2(0.06, 0.06), "sway": 0.05, "stilts": 7, "fork": 0.58})
 		"arbre_mort": return _tree(id, {"seed": 53, "h": 10.0, "br": 0.7, "limbs": 3, "masses": 0, "lean": Vector2(-0.14, 0.1), "sway": 0.09, "roots": 4, "fork": 0.5, "dead": true})
 		"arbre_ancien": return _ancien(id)
+		"arbre_lointain_a": return _lointain(id, 5, 13.0, 0.0)
+		"arbre_lointain_b": return _lointain(id, 9, 14.5, 1.0)
 		"tronc_couche": return _tronc_couche(id)
 		"souche": return _souche(id)
 		"racines_arche": return _racines_arche(id)
@@ -424,6 +426,32 @@ static func _tree(id: String, o: Dictionary) -> ModuleBuilder:
 		for i in stilts:
 			var rf: Vector3 = Vector3(base.x, 0.0, base.z) + _dir(ph + TAU * float(i) / stilts + (_h(sd, 40 + i) - 0.5) * 0.6) * (2.5 + 0.5 * _h(sd, 70 + i))
 			_cyl(b, 0.3, 1.2, rf, "CollisionRacine%d" % (i + 1))
+	return b
+
+## Arbre de fond ULTRA LÉGER (≤ 450 triangles) pour murs de forêt et arrière-plans dans la brume : tronc tordu qui s'évase,
+## deux branches, 2 ou 3 masses sombres lourdes. Collision cylindre sur le tronc.
+static func _lointain(id: String, sd: int, h: float, lean: float) -> ModuleBuilder:
+	var b := ModuleBuilder.new(id)
+	var bark := M("ecorce_foret")
+	var leaf := M("feuillage_sombre")
+	var ph := _h(sd, 1) * TAU
+	var pts: Array = []
+	var rad: Array = []
+	for k in 4:
+		var t := float(k) / 3.0
+		pts.append(Vector3(lean * 0.08 * h * t * t + 0.07 * h * sin(t * 4.0 + ph) * t, t * h * 0.55 - (0.2 if k == 0 else 0.0), 0.06 * h * cos(t * 3.0 + ph) * t))
+		rad.append(0.75 * (0.5 + 0.5 * (1.0 - t)) * (1.0 + 0.9 * pow(1.0 - t, 3.0)))
+	_tube(b, pts, rad, bark, {"per": 2, "segs": 6, "capn": 2})
+	var F: Vector3 = pts[3]
+	var nm := 2 + (sd % 2)
+	for i in nm:
+		var d := _dir(ph + 0.6 + TAU * float(i) / nm)
+		var L := h * 0.3
+		var tip := F + d * L + Vector3(0, L * 0.55, 0)
+		_tube(b, [F - Vector3(0, 0.2, 0), F + d * L * 0.5 + Vector3(0, L * 0.25, 0), tip], [0.34, 0.24, 0.12], bark, {"per": 2, "segs": 4, "capn": 2})
+		var R := h * 0.16 * (0.9 + 0.2 * _h(sd, 5 + i))
+		_blob(b, tip + Vector3(0, R * 0.1, 0), Vector3(R * 1.15, R * 0.65, R * 1.15), leaf, sd * 5 + i, 0.14, 8, 5)
+	_cyl(b, 0.7, h * 0.5, Vector3(pts[0].x, 0.0, pts[0].z))
 	return b
 
 ## Arbre ancien de la clairière : le seul arbre bienveillant. Tronc massif à contreforts, ramure très large et basse, masses

@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/rocher_b.res" id="1_wbeo1"]
+[ext_resource type="ArrayMesh" path="res://assets/stylized/meshes/rocher_b.res" id="1_pgrhc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w62wi"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vpjdt"]
 size = Vector3(1.3, 1.2, 1.1)
 
 [node name="RocherB" type="Node3D"]
 
 [node name="Maillage" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_wbeo1")
+mesh = ExtResource("1_pgrhc")
 
 [node name="Collision" type="StaticBody3D" parent="."]
 
 [node name="Boite1" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0.6, 0)
-shape = SubResource("BoxShape3D_w62wi")
+shape = SubResource("BoxShape3D_vpjdt")
